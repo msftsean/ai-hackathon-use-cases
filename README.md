@@ -4,8 +4,8 @@ Welcome to the NYC AI Hackathon! This repository contains three comprehensive us
 
 ## 🎯 Hackathon Overview
 
-**Event:** NYC AI Hackathon  
-**Date:** Wednesday  
+**Event:** 2025 NYC AI Hackathon  
+**Date:** Wednesday October 1st and Thursday October 2nd 2025  
 **Focus:** Building AI solutions for civic services using Microsoft AI tooling
 
 ## 🚀 Use Cases
