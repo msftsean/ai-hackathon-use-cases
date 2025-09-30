@@ -1,0 +1,265 @@
+{
+  "template_id": "public_health_emergency_2024",
+  "template_name": "NYC Public Health Emergency Response Protocol",
+  "template_version": "3.2", 
+  "last_updated": "2024-11-01",
+  "activation_criteria": {
+    "disease_outbreak": "Communicable disease affecting 100+ individuals",
+    "contamination_event": "Food, water, or air contamination affecting public health",
+    "bioterrorism_threat": "Suspected or confirmed biological agent release",
+    "mass_casualty_incident": "Event requiring coordination of multiple hospitals",
+    "environmental_health_hazard": "Chemical spill, radiation, or toxic exposure"
+  },
+  "response_phases": {
+    "phase_1_detection_assessment": {
+      "timing": "0-4 hours from initial report",
+      "alert_level": "Health Alert Level 1 - Assessment",
+      "key_actions": [
+        "Activate Department of Health Emergency Operations Center",
+        "Deploy rapid response epidemiology team",
+        "Establish initial case definition and begin contact tracing",
+        "Coordinate with CDC and state health department",
+        "Issue initial health advisory to healthcare providers",
+        "Begin laboratory testing and sample collection"
+      ],
+      "resource_requirements": {
+        "epidemiologists": 8,
+        "public_health_nurses": 15,
+        "laboratory_technicians": 6,
+        "contact_tracers": 20,
+        "emergency_vehicles": 5,
+        "mobile_testing_units": 2
+      },
+      "decision_points": [
+        "Determine scope and severity of health threat",
+        "Assess need for isolation or quarantine measures",
+        "Evaluate hospital surge capacity requirements",
+        "Consider need for public protective measures"
+      ]
+    },
+    "phase_2_containment_control": {
+      "timing": "4-24 hours from activation",
+      "alert_level": "Health Alert Level 2 - Active Response",
+      "key_actions": [
+        "Implement isolation and quarantine protocols as needed",
+        "Establish points of dispensing (PODs) for prophylaxis if indicated",
+        "Coordinate with hospitals on surge capacity activation",
+        "Issue public health orders and emergency regulations",
+        "Launch public information campaign",
+        "Deploy mobile health units to affected areas"
+      ],
+      "resource_requirements": {
+        "epidemiologists": 25,
+        "public_health_nurses": 60,
+        "contact_tracers": 100,
+        "pod_staff": 200,
+        "mobile_health_units": 8,
+        "emergency_supplies": "Strategic National Stockpile activation",
+        "communication_specialists": 10
+      },
+      "containment_measures": [
+        "Case isolation in appropriate healthcare facilities",
+        "Quarantine of exposed individuals as indicated",
+        "School closure decisions based on transmission risk",
+        "Mass gathering restrictions or cancellations",
+        "Travel advisories or restrictions",
+        "Enhanced infection control in healthcare settings"
+      ]
+    },
+    "phase_3_sustained_operations": {
+      "timing": "1-30 days depending on incident",
+      "alert_level": "Health Alert Level 3 - Sustained Response",
+      "key_actions": [
+        "Maintain surveillance and epidemiological investigation",
+        "Continue mass prophylaxis or vaccination campaigns",
+        "Monitor and support healthcare system capacity",
+        "Enforce public health orders and compliance monitoring",
+        "Provide ongoing public education and risk communication",
+        "Coordinate with federal agencies and neighboring jurisdictions"
+      ],
+      "resource_requirements": {
+        "epidemiologists": 40,
+        "public_health_nurses": 150,
+        "contact_tracers": 300,
+        "pod_operations_staff": 500,
+        "mobile_health_units": 15,
+        "community_health_workers": 75,
+        "data_analysts": 20
+      },
+      "operational_priorities": [
+        "Maintain adequate healthcare system capacity",
+        "Ensure equitable access to preventive measures",
+        "Monitor vulnerable populations closely",
+        "Track effectiveness of control measures",
+        "Adjust response strategies based on data",
+        "Maintain public trust through transparent communication"
+      ]
+    },
+    "phase_4_recovery_evaluation": {
+      "timing": "After immediate threat controlled",
+      "alert_level": "Health Alert Level 4 - Recovery",
+      "key_actions": [
+        "Conduct comprehensive after-action evaluation",
+        "Document lessons learned and best practices",
+        "Restore normal public health operations",
+        "Address long-term health impacts in affected populations",
+        "Replenish emergency supplies and resources",
+        "Update emergency response plans based on experience"
+      ],
+      "resource_requirements": {
+        "evaluation_team": 15,
+        "data_analysts": 10,
+        "program_coordinators": 8,
+        "mental_health_specialists": 12,
+        "community_liaisons": 20
+      },
+      "recovery_activities": [
+        "Long-term health monitoring of affected individuals",
+        "Mental health support services",
+        "Community resilience building",
+        "Healthcare system recovery assessment",
+        "Economic impact analysis",
+        "Preparedness enhancement recommendations"
+      ]
+    }
+  },
+  "special_populations": {
+    "vulnerable_groups": {
+      "elderly_residents": {
+        "enhanced_surveillance": "Priority monitoring in nursing homes and senior centers",
+        "targeted_interventions": "Home-based care and medication delivery",
+        "communication_strategy": "Multi-language, culturally appropriate messaging"
+      },
+      "immunocompromised_individuals": {
+        "priority_services": "First access to prophylaxis and treatment",
+        "isolation_support": "Enhanced isolation protocols and support services",
+        "medical_monitoring": "Intensive health monitoring and follow-up"
+      },
+      "homeless_population": {
+        "outreach_strategy": "Mobile health units and street outreach teams",
+        "shelter_protocols": "Enhanced infection control in shelter facilities",
+        "healthcare_access": "Streamlined access to medical care and services"
+      },
+      "pediatric_populations": {
+        "school_coordination": "Work with DOE on school health measures",
+        "childcare_facilities": "Enhanced protocols for childcare centers",
+        "family_support": "Family-centered care and communication"
+      }
+    }
+  },
+  "healthcare_system_coordination": {
+    "hospital_network": {
+      "surge_capacity_activation": {
+        "tier_1_hospitals": "Immediate 25% capacity increase",
+        "tier_2_hospitals": "50% capacity increase within 24 hours",
+        "specialty_facilities": "Pediatric, psychiatric, rehabilitation coordination"
+      },
+      "resource_allocation": {
+        "medical_supplies": "Centralized distribution system",
+        "pharmaceuticals": "Strategic National Stockpile coordination",
+        "medical_equipment": "Ventilators, monitors, diagnostic equipment",
+        "staffing_support": "Mutual aid agreements and volunteer coordination"
+      },
+      "patient_flow_management": {
+        "transfer_protocols": "Inter-hospital patient transfer procedures",
+        "admission_criteria": "Standardized triage and admission protocols",
+        "discharge_planning": "Expedited discharge for appropriate patients"
+      }
+    }
+  },
+  "laboratory_capacity": {
+    "testing_strategy": {
+      "diagnostic_testing": "Rapid diagnostic test deployment",
+      "confirmatory_testing": "Laboratory confirmation protocols",
+      "surveillance_testing": "Community surveillance programs",
+      "quality_assurance": "Laboratory quality control measures"
+    },
+    "sample_management": {
+      "collection_protocols": "Standardized sample collection procedures",
+      "transport_logistics": "Chain of custody and transport procedures",
+      "processing_capacity": "24/7 processing capability",
+      "results_reporting": "Rapid results reporting systems"
+    }
+  },
+  "communication_protocols": {
+    "risk_communication": {
+      "target_audiences": [
+        "General public",
+        "Healthcare providers",
+        "Community leaders",
+        "Vulnerable populations",
+        "Business community",
+        "Educational institutions"
+      ],
+      "key_messages": [
+        "Clear explanation of health threat and risk level",
+        "Specific protective actions individuals should take",
+        "How to access healthcare and preventive services",
+        "Latest updates on response activities",
+        "Reassurance about response capabilities and coordination"
+      ],
+      "communication_channels": [
+        "NYC Health Department website and social media",
+        "Health Advisory Network (HAN) alerts",
+        "Press conferences and media interviews",
+        "Community partnerships and trusted messengers",
+        "311 system health information",
+        "Multi-language materials and interpretation services"
+      ]
+    }
+  },
+  "resource_management": {
+    "strategic_national_stockpile": {
+      "activation_criteria": "Federal stockpile resources needed",
+      "distribution_sites": "Pre-designated warehouses and PODs",
+      "inventory_management": "Real-time tracking of supplies and equipment",
+      "security_protocols": "24/7 security for high-value medical supplies"
+    },
+    "local_resources": {
+      "medical_supplies": "Local healthcare system coordination",
+      "pharmaceuticals": "Hospital and pharmacy partnerships",
+      "equipment": "Biomedical equipment sharing agreements",
+      "personnel": "Volunteer health professional registry"
+    }
+  },
+  "legal_authorities": {
+    "emergency_powers": [
+      "Isolation and quarantine orders",
+      "Mandatory reporting requirements",
+      "Restriction of movement or activities",
+      "Closure of public facilities",
+      "Mandatory medical examinations",
+      "Control of property and resources"
+    ],
+    "coordination_agreements": [
+      "Mutual aid agreements with neighboring jurisdictions",
+      "Federal assistance requests and coordination",
+      "State health department collaboration",
+      "Healthcare system partnerships",
+      "Community organization partnerships"
+    ]
+  },
+  "performance_metrics": {
+    "response_time_indicators": [
+      "Time from report to initial assessment",
+      "Time to activate emergency operations center",
+      "Time to deploy field teams",
+      "Time to issue public health advisories",
+      "Time to establish points of dispensing"
+    ],
+    "effectiveness_measures": [
+      "Case fatality rate reduction",
+      "Secondary transmission prevention",
+      "Healthcare system capacity maintenance",
+      "Public compliance with recommendations",
+      "Equitable access to services"
+    ],
+    "quality_indicators": [
+      "Accuracy of epidemiological investigation",
+      "Timeliness of laboratory results",
+      "Effectiveness of communication efforts",
+      "Coordination with partner agencies",
+      "Resource utilization efficiency"
+    ]
+  }
+}

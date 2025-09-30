@@ -1,0 +1,184 @@
+U.S. INDIVIDUAL INCOME TAX RETURN
+FORM 1040 - 2023
+
+Taxpayer: MICHAEL TORRES
+SSN: ***-**-5678
+Filing Status: Head of Household
+
+-----------------------------------
+TAXPAYER INFORMATION
+-----------------------------------
+Name: Michael Anthony Torres
+Address: 789 Atlantic Avenue, Apt 4D
+         Brooklyn, NY 11238
+Phone: (718) 555-2109
+Date of Birth: 11/28/1985
+Occupation: Social Worker
+
+-----------------------------------
+FILING INFORMATION
+-----------------------------------
+Filing Status: Head of Household
+Exemptions Claimed: 2 (Self + 1 Dependent)
+Dependent: Sofia Torres (Daughter, Age 8)
+          SSN: ***-**-9012
+
+-----------------------------------
+INCOME
+-----------------------------------
+Wages, Salaries, Tips (W-2):               $42,850.00
+Taxable Interest:                               $45.00
+Unemployment Compensation:                   $1,200.00
+Other Income:                                    $0.00
+
+TOTAL INCOME:                               $44,095.00
+
+-----------------------------------
+ADJUSTMENTS TO INCOME
+-----------------------------------
+Student Loan Interest Deduction:              -$850.00
+Health Savings Account Contribution:           -$500.00
+
+ADJUSTED GROSS INCOME:                      $42,745.00
+
+-----------------------------------
+DEDUCTIONS
+-----------------------------------
+Standard Deduction (Head of Household):    -$20,550.00
+
+TAXABLE INCOME:                             $22,195.00
+
+-----------------------------------
+TAX CALCULATION
+-----------------------------------
+Income Tax (from tax tables):                $2,219.50
+Child Tax Credit:                            -$2,000.00
+Earned Income Tax Credit:                    -$1,456.00
+
+TOTAL TAX LIABILITY:                            $0.00
+(Negative amount indicates refund due)
+
+-----------------------------------
+PAYMENTS
+-----------------------------------
+Federal Income Tax Withheld (W-2):           $3,428.00
+Estimated Tax Payments:                           $0.00
+Amount Applied from Prior Year:                   $0.00
+
+TOTAL PAYMENTS:                              $3,428.00
+
+-----------------------------------
+REFUND CALCULATION
+-----------------------------------
+Total Payments:                              $3,428.00
+Total Tax Liability:                             $0.00
+Child Tax Credit:                           -$2,000.00
+Earned Income Tax Credit:                   -$1,456.00
+
+REFUND DUE:                                 $6,884.00
+
+-----------------------------------
+DIRECT DEPOSIT INFORMATION
+-----------------------------------
+Routing Number: 021000021
+Account Number: ****5432
+Account Type: Checking
+Bank: Chase Bank
+
+-----------------------------------
+FORM W-2 INFORMATION
+-----------------------------------
+Employer: NYC Department of Social Services
+EIN: 13-6789012
+Address: 4 World Trade Center
+         New York, NY 10007
+
+Box 1 - Wages: $42,850.00
+Box 2 - Federal Tax Withheld: $3,428.00
+Box 3 - Social Security Wages: $42,850.00
+Box 4 - Social Security Tax: $2,656.70
+Box 5 - Medicare Wages: $42,850.00
+Box 6 - Medicare Tax: $621.33
+
+-----------------------------------
+FORM 1099-G INFORMATION
+-----------------------------------
+Payer: New York State Department of Labor
+Unemployment Compensation: $1,200.00
+(Received during period of temporary layoff)
+
+-----------------------------------
+DEPENDENT INFORMATION
+-----------------------------------
+Name: Sofia Maria Torres
+Relationship: Daughter
+Date of Birth: 04/15/2015
+SSN: ***-**-9012
+Months Lived in Home: 12
+Qualifying Child: Yes
+
+-----------------------------------
+CHILD CARE EXPENSES
+-----------------------------------
+Provider: Little Stars Daycare
+Address: 567 Flatbush Avenue, Brooklyn, NY
+EIN: 11-2345678
+Amount Paid: $4,800.00
+(Used for Child and Dependent Care Credit calculation)
+
+-----------------------------------
+EDUCATION EXPENSES
+-----------------------------------
+Institution: Brooklyn College (CUNY)
+Student Loan Interest Paid: $850.00
+Educational Credits: Not Applicable (income phase-out)
+
+-----------------------------------
+HEALTH INSURANCE
+-----------------------------------
+Coverage: NYC Employee Health Plan
+Premium Sharing: Employee contributes $120/month
+HSA Contribution: $500.00 (employer + employee)
+Minimum Essential Coverage: Yes, full year
+
+-----------------------------------
+ESTIMATED TAX PAYMENTS REQUIRED
+-----------------------------------
+Based on 2023 return, estimated payments may be required
+for 2024 if income increases significantly.
+
+Next Year Estimated Tax: $0 (due to credits and deductions)
+
+-----------------------------------
+IMPORTANT TAX INFORMATION
+-----------------------------------
+Preparation Method: Self-prepared using tax software
+Electronic Filing: Filed electronically on 03/15/2024
+Refund Method: Direct deposit
+Expected Refund Date: Within 21 days of accepted return
+
+-----------------------------------
+STATE TAX INFORMATION
+-----------------------------------
+New York State Return: Filed separately
+NY AGI: $42,745.00
+NY Tax: $1,247.00
+NY Refund: $156.00
+
+-----------------------------------
+RECORD KEEPING
+-----------------------------------
+Keep this return and supporting documents for at least 3 years.
+Supporting documents include:
+- Form W-2 from employer
+- Form 1099-G for unemployment
+- Receipts for deductible expenses
+- Bank records for direct deposit
+- Child care provider receipts
+
+This return was prepared in accordance with the Internal Revenue Code
+and regulations. All income has been reported and all deductions
+claimed are allowable under current tax law.
+
+Prepared by: Michael A. Torres (Self-prepared)
+Date: March 15, 2024
