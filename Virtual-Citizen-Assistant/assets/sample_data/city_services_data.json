@@ -1,0 +1,98 @@
+[
+  {
+    "id": "1",
+    "service_type": "waste_management",
+    "title": "Manhattan Trash Pickup Schedule",
+    "content": "Trash pickup occurs twice weekly in Manhattan. Monday and Thursday for odd-numbered addresses (1, 3, 5, etc.), Tuesday and Friday for even-numbered addresses (2, 4, 6, etc.). Place bins curbside by 7:00 AM on collection day. Use city-approved containers only. Maximum 4 bags or 1 bulk item per collection. Holiday schedules may vary - service is typically delayed by one day when holidays occur.",
+    "category": "sanitation",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "2",
+    "service_type": "waste_management", 
+    "title": "Brooklyn Trash Collection Guidelines",
+    "content": "Brooklyn residents receive trash pickup twice per week. Collection days depend on your specific address and district. Generally follows the odd/even system: odd-numbered addresses on Monday/Thursday, even-numbered on Tuesday/Friday. Some areas have different schedules due to local routing. Check your building's specific schedule or call 311. Place containers at the curb by 7 AM, retrieve by 9 PM on collection day.",
+    "category": "sanitation",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "3",
+    "service_type": "recycling",
+    "title": "NYC Recycling Guidelines and Schedule",
+    "content": "Recycling collection follows the same schedule as regular trash pickup. Accepted materials include: paper (newspapers, magazines, office paper, cardboard), metal (cans, aluminum foil, small appliances), glass (bottles and jars of any color), and plastic containers with recycling symbols 1-7. Clean containers by rinsing - no need to remove labels. Do NOT bag recyclables. Use clear bags or blue bins only. Plastic bags should be returned to participating stores, not put in recycling bins.",
+    "category": "sanitation", 
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "4",
+    "service_type": "permits",
+    "title": "Business Permit Application Process",
+    "content": "To obtain a business permit in NYC, submit Form BP-101 along with required documentation. Required documents include: completed application, government-issued photo ID, certificate of insurance (if applicable), business registration documents, and zoning compliance verification. Processing typically takes 10-15 business days for standard applications. Expedited processing available for additional fee. Submit applications online at nyc.gov/permits or visit the Business Services office at 253 Broadway, 9th Floor. Contact 311 for assistance.",
+    "category": "licensing",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "5",
+    "service_type": "permits",
+    "title": "Construction Permit Requirements",
+    "content": "Construction permits are required for most building work in NYC. Application requires: detailed construction plans, structural engineering reports (if applicable), environmental impact assessment, proof of licensed contractor, and zoning compliance documentation. Processing time is typically 20-30 business days depending on project scope. Major construction projects may require additional approvals from DOB, DEP, and other agencies. Schedule required inspections through the Department of Buildings portal.",
+    "category": "licensing",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "6",
+    "service_type": "emergency", 
+    "title": "NYC Emergency Alert System - NotifyNYC",
+    "content": "NotifyNYC is the City's official emergency communications program. Residents can receive alerts about weather emergencies, public safety incidents, transportation disruptions, and important city service announcements. Sign up online at nyc.gov/notifynyc, call 311, or text 'NYCEM' to 67283. Alerts are available in multiple languages including English, Spanish, Arabic, Bengali, Chinese, French, Haitian Creole, Korean, Russian, and Urdu. Choose delivery method: text, email, phone call, or mobile app push notifications.",
+    "category": "safety",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "7",
+    "service_type": "parks",
+    "title": "Central Park Hours and Amenities", 
+    "content": "Central Park is open daily from 6:00 AM to 1:00 AM. The park features numerous amenities including multiple playgrounds, basketball and tennis courts, baseball fields, running and walking paths, lakes for boating, and designated dog runs. Popular attractions include Bethesda Fountain, Strawberry Fields, and the Central Park Zoo (separate admission required). Concerts and events are held seasonally at the Great Lawn and other venues. Park rules prohibit bicycles on walking paths during peak hours (10 AM - 3 PM and 7 PM - 10 PM on weekdays).",
+    "category": "recreation",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "8",
+    "service_type": "parks",
+    "title": "Prospect Park Brooklyn Information",
+    "content": "Prospect Park in Brooklyn is open daily from 5:00 AM to 1:00 AM. The 526-acre park features the Prospect Park Zoo, Brooklyn Botanic Garden (adjacent), Prospect Park Lake, multiple sports facilities, and the Celebrate Brooklyn concert series venue. Free amenities include playgrounds, basketball courts, soccer fields, baseball diamonds, and extensive walking/running paths. The park offers ice skating in winter and pedal boat rentals in summer. Dog owners can use the designated off-leash hours: 5 AM - 9 AM and 5 PM - 1 AM daily.",
+    "category": "recreation",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "9",
+    "service_type": "transportation",
+    "title": "MTA Subway Service Information",
+    "content": "The MTA subway system operates 24/7 with reduced service during overnight hours (12 AM - 5 AM). Standard fare is $2.90 per ride with MetroCard or OMNY contactless payment. Unlimited rides available with weekly ($33) or monthly ($127) MetroCards. Real-time service updates available through the MYmta app, at mta.info, or by calling 511. During weekends and late nights, some lines operate with modified schedules. Accessibility features available at many stations - check mta.info for elevator and escalator status.",
+    "category": "transportation",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "10",
+    "service_type": "health",
+    "title": "NYC Health Department Services",
+    "content": "The NYC Department of Health and Mental Hygiene provides various public health services including immunizations, health inspections, vital records, and health education programs. Services available at neighborhood health centers include family planning, STD testing and treatment, immunizations for children and adults, and health screenings. Birth certificates, death certificates, and marriage licenses can be obtained through the Office of Vital Records. Many services are available regardless of immigration status. Call 311 or visit nyc.gov/health for locations and hours.",
+    "category": "health",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "11",
+    "service_type": "housing",
+    "title": "NYC Housing Authority (NYCHA) Services",
+    "content": "NYCHA provides public housing and rental assistance to eligible NYC residents. Services include public housing applications, Section 8 Housing Choice Voucher Program, and housing maintenance requests. Applications can be submitted online at nyc.gov/nycha or at NYCHA customer service centers. Wait times for housing assistance vary significantly based on family size and priority status. Emergency repairs can be reported 24/7 through the MyNYCHA app or by calling the Customer Contact Center. NYCHA also offers resident services including job training, educational programs, and senior services.",
+    "category": "housing",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "12",
+    "service_type": "education",
+    "title": "NYC Department of Education School Enrollment",
+    "content": "NYC public school enrollment is handled through the Department of Education's SchoolSearch website and StudentFirst centers. Elementary and middle school students are typically assigned to their zoned school, while high school requires an application process. Required documents for enrollment include proof of address, immunization records, birth certificate, and previous school records (if applicable). English Language Learners receive additional assessment and support services. Special needs students can access Individualized Education Program (IEP) services. Call 311 or visit schools.nyc.gov for information about school zones, enrollment periods, and required documentation.",
+    "category": "education", 
+    "last_updated": "2024-01-15T10:00:00Z"
+  }
+]
