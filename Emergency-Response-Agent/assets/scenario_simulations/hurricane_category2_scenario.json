@@ -1,0 +1,156 @@
+{
+  "scenario_id": "hurricane_category2_simulation",
+  "scenario_name": "Hurricane Elena - Category 2 Simulation",
+  "scenario_type": "hurricane",
+  "simulation_date": "2024-09-15",
+  "scenario_parameters": {
+    "storm_characteristics": {
+      "category": 2,
+      "max_sustained_winds": 105,
+      "storm_surge_forecast": "8-12 feet",
+      "forward_speed": "12 mph",
+      "landfall_location": "Long Island, NY",
+      "landfall_time": "2024-09-17T02:00:00Z",
+      "affected_area": "NYC Metro Area"
+    },
+    "environmental_conditions": {
+      "tide_levels": "High tide at landfall",
+      "rainfall_forecast": "6-10 inches",
+      "temperature": "75°F",
+      "season": "Peak hurricane season",
+      "moon_phase": "New moon (darker conditions)"
+    }
+  },
+  "timeline": {
+    "t_minus_72_hours": {
+      "time": "2024-09-14T02:00:00Z",
+      "storm_status": "Hurricane watch issued",
+      "key_decisions": [
+        "Activate Emergency Operations Center to Level 2",
+        "Begin evacuation planning for Zone A",
+        "Issue first public advisory",
+        "Alert all emergency response agencies"
+      ],
+      "weather_update": "Storm tracking toward NYC area, intensifying"
+    },
+    "t_minus_48_hours": {
+      "time": "2024-09-15T02:00:00Z", 
+      "storm_status": "Hurricane warning issued",
+      "key_decisions": [
+        "Order mandatory evacuation of Zone A",
+        "Voluntary evacuation advisory for Zone B",
+        "Begin MTA service modifications",
+        "Open evacuation shelters",
+        "Activate additional emergency personnel"
+      ],
+      "weather_update": "Category 2 hurricane, direct hit likely"
+    },
+    "t_minus_24_hours": {
+      "time": "2024-09-16T02:00:00Z",
+      "storm_status": "Imminent impact",
+      "key_decisions": [
+        "Suspend all MTA services",
+        "Close all bridges and tunnels to traffic",
+        "Final evacuation push for coastal areas",
+        "Pre-position emergency resources",
+        "Secure all construction sites and equipment"
+      ],
+      "weather_update": "Storm maintaining Category 2 strength"
+    },
+    "landfall": {
+      "time": "2024-09-17T02:00:00Z",
+      "storm_status": "Landfall occurring",
+      "key_decisions": [
+        "Suspend emergency services in affected areas",
+        "Monitor shelter conditions",
+        "Coordinate with utility companies",
+        "Maintain communication with EOC",
+        "Document damage reports"
+      ],
+      "weather_update": "Eye wall passing over eastern Queens"
+    },
+    "t_plus_6_hours": {
+      "time": "2024-09-17T08:00:00Z",
+      "storm_status": "Storm moving inland, weakening",
+      "key_decisions": [
+        "Begin initial damage assessment",
+        "Resume limited emergency services",
+        "Coordinate search and rescue operations",
+        "Assess infrastructure damage",
+        "Plan restoration priorities"
+      ],
+      "weather_update": "Winds decreasing, storm surge receding"
+    }
+  },
+  "expected_impacts": {
+    "population_affected": {
+      "zone_a_evacuated": 640000,
+      "zone_b_evacuated": 400000,
+      "total_in_shelters": 85000,
+      "stayed_in_place": 750000
+    },
+    "infrastructure": {
+      "power_outages": "2.5M customers",
+      "flooded_subway_lines": ["A", "C", "F", "R", "W"],
+      "closed_highways": ["FDR Drive", "West Side Highway", "Belt Parkway"],
+      "damaged_bridges": "Minor damage to Verrazano, Whitestone",
+      "airport_closures": "JFK, LGA closed 48 hours"
+    },
+    "facilities": {
+      "hospitals_on_backup_power": 15,
+      "schools_damaged": 45,
+      "firehouses_operational": "85%",
+      "police_precincts_operational": "90%"
+    }
+  },
+  "response_metrics": {
+    "evacuation_compliance": {
+      "zone_a": "88%",
+      "zone_b": "65%"
+    },
+    "shelter_utilization": {
+      "capacity": 120000,
+      "occupancy": 85000,
+      "utilization_rate": "71%"
+    },
+    "emergency_services": {
+      "911_call_volume": "300% of normal",
+      "average_response_time": "12 minutes (vs 6 normal)",
+      "calls_answered": "95%"
+    },
+    "resource_deployment": {
+      "personnel_activated": 18000,
+      "vehicles_deployed": 850,
+      "emergency_generators": 180,
+      "shelter_staff": 1200
+    }
+  },
+  "simulation_learning_objectives": [
+    "Test evacuation procedures and compliance rates",
+    "Evaluate shelter capacity and management",
+    "Assess inter-agency coordination effectiveness",
+    "Identify communication system vulnerabilities",
+    "Practice resource allocation under constraints",
+    "Test backup systems and contingency plans"
+  ],
+  "post_simulation_analysis": {
+    "strengths_identified": [
+      "Evacuation orders issued with adequate lead time",
+      "Strong coordination between agencies",
+      "Effective use of social media for public communication",
+      "Shelter operations ran smoothly"
+    ],
+    "areas_for_improvement": [
+      "Backup communication systems need enhancement",
+      "Zone B evacuation compliance lower than desired",
+      "Resource pre-positioning in outer boroughs needs work",
+      "Post-storm damage assessment could be faster"
+    ],
+    "recommended_actions": [
+      "Invest in redundant communication infrastructure",
+      "Improve Zone B evacuation messaging and enforcement",
+      "Establish additional staging areas in Queens and Brooklyn",
+      "Deploy drones for rapid damage assessment"
+    ]
+  }
+}

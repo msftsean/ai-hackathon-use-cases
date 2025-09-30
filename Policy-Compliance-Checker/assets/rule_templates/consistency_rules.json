@@ -1,0 +1,71 @@
+{
+  "name": "Internal Consistency Rules for Policy Documents",
+  "version": "1.0", 
+  "category": "consistency_checking",
+  "description": "Rules to identify contradictions and inconsistencies within policy documents",
+  "rules": [
+    {
+      "rule_id": "CONSISTENCY_001",
+      "category": "conflicting_statements",
+      "description": "Check for contradictory statements about work hours",
+      "pattern": "(?=.*work.*hours)(?=.*flexible|remote)",
+      "severity": "medium",
+      "required": false,
+      "suggestion": "Ensure work hour requirements are consistent throughout the document."
+    },
+    {
+      "rule_id": "CONSISTENCY_002",
+      "category": "terminology_consistency", 
+      "description": "Consistent use of organization terminology",
+      "pattern": "(department|agency|office|bureau)",
+      "severity": "low",
+      "required": false,
+      "suggestion": "Use consistent terminology when referring to organizational units."
+    },
+    {
+      "rule_id": "CONSISTENCY_003",
+      "category": "date_consistency",
+      "description": "Check for consistent date formats",
+      "pattern": "\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4}|\\w+ \\d{1,2}, \\d{4}",
+      "severity": "low",
+      "required": false,
+      "suggestion": "Use consistent date format throughout the document (e.g., MM/DD/YYYY or Month DD, YYYY)."
+    },
+    {
+      "rule_id": "CONSISTENCY_004",
+      "category": "policy_conflicts",
+      "description": "Check for conflicting policy statements",
+      "pattern": "(mandatory|required|must).*(?=.*(optional|may|suggested))",
+      "severity": "high",
+      "required": false,
+      "suggestion": "Resolve conflicts between mandatory and optional requirements."
+    },
+    {
+      "rule_id": "CONSISTENCY_005",
+      "category": "contact_information",
+      "description": "Ensure contact information is consistent",
+      "pattern": "\\(?\\d{3}\\)?[-. ]?\\d{3}[-. ]?\\d{4}|\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b",
+      "severity": "medium",
+      "required": false,
+      "suggestion": "Verify all contact information is current and consistently formatted."
+    },
+    {
+      "rule_id": "CONSISTENCY_006",
+      "category": "approval_authority",
+      "description": "Check for consistent approval authority references",
+      "pattern": "(supervisor|manager|director|administrator)",
+      "severity": "medium",
+      "required": false,
+      "suggestion": "Ensure approval authority levels are consistently defined and referenced."
+    },
+    {
+      "rule_id": "CONSISTENCY_007",
+      "category": "procedure_steps",
+      "description": "Check for logical sequence in procedure steps",
+      "pattern": "(step \\d+|first|second|third|next|then|finally)",
+      "severity": "medium",
+      "required": false,
+      "suggestion": "Ensure procedure steps follow a logical sequence and are clearly numbered."
+    }
+  ]
+}

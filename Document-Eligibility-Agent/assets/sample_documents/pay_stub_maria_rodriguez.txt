@@ -1,0 +1,63 @@
+SAMPLE PAY STUB - CONFIDENTIAL
+
+EMPLOYEE: MARIA RODRIGUEZ
+EMPLOYEE ID: 9873421
+PAY PERIOD: 01/01/2024 - 01/15/2024
+PAY DATE: 01/20/2024
+
+-----------------------------------
+EMPLOYEE INFORMATION
+-----------------------------------
+Name: Maria Elena Rodriguez
+Address: 145-67 Northern Blvd, Apt 2B
+         Flushing, NY 11354
+SSN: ***-**-4567
+Department: Customer Service
+Position: Senior Customer Service Representative
+
+-----------------------------------
+EARNINGS
+-----------------------------------
+Regular Hours (80.00 hrs @ $18.50/hr):    $1,480.00
+Overtime Hours (8.00 hrs @ $27.75/hr):      $222.00
+Holiday Pay (8.00 hrs @ $18.50/hr):         $148.00
+
+GROSS PAY:                                 $1,850.00
+
+-----------------------------------
+DEDUCTIONS
+-----------------------------------
+Federal Income Tax:                         -$185.00
+State Income Tax (NY):                       -$74.00
+Social Security Tax:                        -$114.70
+Medicare Tax:                                -$26.83
+State Disability (SDI):                       -$9.25
+Health Insurance:                            -$85.00
+401(k) Contribution (5%):                    -$92.50
+Union Dues:                                  -$25.00
+
+TOTAL DEDUCTIONS:                          -$612.28
+
+-----------------------------------
+NET PAY:                               $1,237.72
+-----------------------------------
+
+YEAR-TO-DATE TOTALS (as of 01/20/2024):
+Gross Pay YTD:                           $3,700.00
+Federal Tax YTD:                          -$370.00
+Net Pay YTD:                             $2,475.44
+
+-----------------------------------
+EMPLOYER INFORMATION
+-----------------------------------
+NYC Metro Services Corp
+Employee Services Division
+123 Main Street
+Brooklyn, NY 11201
+EIN: 11-3456789
+
+Direct Deposit Account: ****5678
+Bank: Chase Bank
+
+This is not a check. Direct deposit notification only.
+For questions about your pay, contact HR at (718) 555-0123

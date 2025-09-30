@@ -1,0 +1,165 @@
+{
+  "template_id": "hurricane_response_plan",
+  "incident_type": "hurricane",
+  "version": "2.1",
+  "last_updated": "2024-06-01",
+  "activation_triggers": [
+    "Hurricane watch issued for NYC area",
+    "Storm surge forecast >6 feet",
+    "Sustained winds forecast >74 mph",
+    "72 hours before projected landfall"
+  ],
+  "phases": {
+    "preparation": {
+      "timeline": "72-48 hours before landfall",
+      "key_actions": [
+        "Activate Emergency Operations Center (EOC)",
+        "Issue evacuation orders for vulnerable zones",
+        "Pre-position emergency resources in safe locations",
+        "Coordinate with utility companies for service shutdowns",
+        "Activate public messaging and alert systems",
+        "Open evacuation shelters and transportation hubs"
+      ],
+      "decision_points": [
+        "Evacuation zone activation (mandatory vs voluntary)",
+        "Public transportation shutdown timing",
+        "Hospital and nursing home evacuation procedures",
+        "School closure announcements"
+      ]
+    },
+    "response": {
+      "timeline": "48 hours before to 24 hours after landfall",
+      "key_actions": [
+        "Monitor storm progress and adjust plans",
+        "Coordinate evacuation operations",
+        "Maintain emergency services where safe",
+        "Provide shelter operations and security",
+        "Monitor infrastructure and utilities",
+        "Provide regular public updates"
+      ],
+      "decision_points": [
+        "When to suspend emergency services",
+        "Shelter capacity management",
+        "Resource reallocation based on storm track",
+        "Inter-agency coordination protocols"
+      ]
+    },
+    "recovery": {
+      "timeline": "24 hours to 30 days after landfall",
+      "key_actions": [
+        "Conduct damage assessment",
+        "Restore critical infrastructure",
+        "Reopen transportation systems",
+        "Coordinate utility restoration",
+        "Provide humanitarian assistance",
+        "Support business and residential recovery"
+      ],
+      "decision_points": [
+        "When to lift evacuation orders",
+        "Priority for infrastructure restoration",
+        "Federal assistance request timing",
+        "Long-term recovery planning activation"
+      ]
+    }
+  },
+  "resource_requirements": {
+    "personnel": {
+      "emergency_management": 200,
+      "fire_department": 2000,
+      "police_department": 5000,
+      "sanitation": 1000,
+      "transportation": 800,
+      "health_services": 1500,
+      "social_services": 500
+    },
+    "equipment": {
+      "emergency_vehicles": 500,
+      "rescue_boats": 50,
+      "generators": 200,
+      "communication_equipment": 1000,
+      "medical_supplies": "30-day supply",
+      "food_and_water": "72-hour supply for 100K people"
+    },
+    "facilities": {
+      "evacuation_shelters": 100,
+      "emergency_operations_centers": 5,
+      "staging_areas": 20,
+      "medical_facilities": "All hospitals on standby",
+      "fuel_depots": 10
+    }
+  },
+  "evacuation_zones": {
+    "zone_a": {
+      "description": "Coastal areas most vulnerable to storm surge",
+      "population": 640000,
+      "evacuation_routes": ["FDR Drive North", "West Side Highway North", "Brooklyn Bridge"],
+      "shelter_assignments": "Manhattan and Bronx shelters",
+      "transportation": "MTA buses, ferries (weather permitting)"
+    },
+    "zone_b": {
+      "description": "Low-lying areas with moderate storm surge risk",
+      "population": 1200000,
+      "evacuation_routes": ["Major highways to inland areas"],
+      "shelter_assignments": "Regional shelter network",
+      "transportation": "MTA buses, private vehicles"
+    },
+    "zone_c": {
+      "description": "Additional areas at risk from extreme storms",
+      "population": 1800000,
+      "evacuation_routes": ["All major transportation corridors"],
+      "shelter_assignments": "State-wide shelter network",
+      "transportation": "All available transportation modes"
+    }
+  },
+  "communication_strategy": {
+    "public_channels": [
+      "NYC Emergency Management social media",
+      "NotifyNYC alert system",
+      "Local news media partnerships",
+      "311 information line",
+      "Multilingual community outreach"
+    ],
+    "internal_channels": [
+      "WebEOC emergency management system",
+      "NYPD CompStat system",
+      "FDNY dispatch system",
+      "Interagency radio networks",
+      "Video conferencing for coordination"
+    ],
+    "backup_communications": [
+      "Satellite communication systems",
+      "Ham radio networks",
+      "Mobile command units",
+      "Redundant internet connections"
+    ]
+  },
+  "interagency_coordination": {
+    "lead_agency": "NYC Office of Emergency Management",
+    "supporting_agencies": [
+      "FDNY",
+      "NYPD", 
+      "Department of Sanitation",
+      "Department of Transportation",
+      "NYC Health + Hospitals",
+      "Human Resources Administration",
+      "Department of Education",
+      "NYC Housing Authority"
+    ],
+    "external_partners": [
+      "National Weather Service",
+      "NY State Emergency Management",
+      "FEMA Region II",
+      "American Red Cross",
+      "Salvation Army",
+      "Utility companies (Con Ed, National Grid)",
+      "MTA"
+    ]
+  },
+  "lessons_learned_integration": [
+    "Pre-position resources in outer boroughs to reduce response times",
+    "Establish redundant communication systems for prolonged outages",
+    "Improve evacuation messaging with specific geographic references",
+    "Coordinate closely with utility companies for restoration priorities",
+    "Plan for extended shelter operations (7+ days)"
+  ]
+}
