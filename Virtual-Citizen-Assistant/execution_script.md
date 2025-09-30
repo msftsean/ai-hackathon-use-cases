@@ -9,6 +9,7 @@ This execution script provides a streamlined roadmap to build your Virtual Citiz
 ### Phase 1: Infrastructure Setup (1 hour)
 ```bash
 # 1. Create Azure AI Search index with city documents
+az group create --name nyc-hackathon-rg --location eastus
 az search service create --name "nyc-citizen-search" --resource-group "nyc-hackathon-rg"
 az search index create --service-name "nyc-citizen-search" --name "city-services"
 
