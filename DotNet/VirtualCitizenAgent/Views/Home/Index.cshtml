@@ -1,0 +1,741 @@
+@{
+    Layout = "_Layout";
+}
+
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold mb-4">
+                        Welcome to @(ViewData["CityName"] ?? "Your City")'s
+                        <span class="text-accent">Virtual Assistant</span>
+                    </h1>
+                    <p class="lead mb-4">
+                        Get instant answers about city services, permits, transportation, and more. 
+                        Our AI-powered assistant is here to help you navigate city resources quickly and easily.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="@Url.Action("Search", "Home")" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-search me-2"></i>Search Services
+                        </a>
+                        <a href="@Url.Action("Categories", "Home")" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-th-large me-2"></i>Browse Categories
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <div class="feature-card-float">
+                        <div class="card shadow-lg border-0 mb-4">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="feature-icon me-3">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1">AI-Powered Search</h5>
+                                        <p class="mb-0 text-muted">Natural language understanding</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card shadow-lg border-0 mb-4 ms-4">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="feature-icon me-3">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1">24/7 Available</h5>
+                                        <p class="mb-0 text-muted">Get help anytime, anywhere</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card shadow-lg border-0 ms-2">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="feature-icon me-3">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1">Official Information</h5>
+                                        <p class="mb-0 text-muted">Accurate, up-to-date city data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="features-section py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="display-5 fw-bold">How Can We Help You Today?</h2>
+                <p class="lead">Explore the most popular city services and information</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="service-card h-100">
+                    <div class="service-icon">
+                        <i class="fas fa-trash-alt"></i>
+                    </div>
+                    <h5>Waste & Recycling</h5>
+                    <p>Collection schedules, recycling guidelines, and bulk item pickup</p>
+                    <a href="#" class="service-link" onclick="searchCategory('sanitation')">Learn More <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="service-card h-100">
+                    <div class="service-icon">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h5>Transportation</h5>
+                    <p>Public transit, parking permits, and traffic information</p>
+                    <a href="#" class="service-link" onclick="searchCategory('transportation')">Learn More <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="service-card h-100">
+                    <div class="service-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h5>Permits & Licenses</h5>
+                    <p>Business licenses, building permits, and applications</p>
+                    <a href="#" class="service-link" onclick="searchCategory('permits')">Learn More <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="service-card h-100">
+                    <div class="service-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h5>Report Issues</h5>
+                    <p>Street problems, noise complaints, and service requests</p>
+                    <a href="#" class="service-link" onclick="searchCategory('complaints')">Learn More <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="quick-search-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Chat Toggle Tabs -->
+                <div class="text-center mb-4">
+                    <div class="btn-group" role="group" aria-label="Search mode selection">
+                        <input type="radio" class="btn-check" name="searchMode" id="searchModeBtn" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="searchModeBtn">
+                            <i class="fas fa-search me-2"></i>Quick Search
+                        </label>
+                        
+                        <input type="radio" class="btn-check" name="searchMode" id="chatModeBtn" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="chatModeBtn">
+                            <i class="fas fa-comments me-2"></i>AI Chat Assistant
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Search Widget -->
+                <div class="search-widget" id="searchWidget">
+                    <h3 class="text-center mb-4">Ask Me Anything About City Services</h3>
+                    <div class="search-form">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-lg" 
+                                   placeholder="Try: 'When is my trash picked up?' or 'How do I get a parking permit?'"
+                                   id="mainSearchInput">
+                            <button class="btn btn-primary btn-lg" type="button" onclick="performMainSearch()">
+                                <i class="fas fa-search me-2"></i>Search
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="search-suggestions mt-3">
+                        <small class="text-muted">Popular searches:</small>
+                        <div class="mt-2">
+                            <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchQuery('trash pickup schedule')">Trash pickup schedule</button>
+                            <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchQuery('parking permit')">Parking permit</button>
+                            <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchQuery('business license')">Business license</button>
+                            <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchQuery('public transportation')">Public transportation</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Widget -->
+                <div class="chat-widget" id="chatWidget" style="display: none;">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-header bg-primary text-white">
+                            <div class="d-flex align-items-center">
+                                <div class="chat-avatar me-3">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">NYC Virtual Assistant</h5>
+                                    <small class="opacity-75">
+                                        <span class="status-indicator"></span>
+                                        Ready to help with city services
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <!-- Chat Messages -->
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="chat-message bot-message">
+                                    <div class="message-avatar">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div class="message-content">
+                                        <div class="message-bubble">
+                                            <p>Hello! I'm your NYC Virtual Assistant. I can help you find information about city services, permits, transportation, and more. What would you like to know?</p>
+                                        </div>
+                                        <div class="message-time">
+                                            <small class="text-muted">Just now</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Chat Input -->
+                            <div class="chat-input-area">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" 
+                                           placeholder="Ask about NYC services, permits, transportation..."
+                                           id="chatInput" disabled>
+                                    <button class="btn btn-primary" type="button" onclick="sendChatMessage()" id="sendButton" disabled>
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                                <div class="chat-suggestions mt-2" id="chatSuggestions">
+                                    <small class="text-muted">Try asking:</small>
+                                    <div class="mt-1">
+                                        <button class="btn btn-sm btn-outline-primary me-2 mb-1" onclick="askQuestion('How do I apply for a parking permit?')">Parking permit</button>
+                                        <button class="btn btn-sm btn-outline-primary me-2 mb-1" onclick="askQuestion('When is my trash collected?')">Trash pickup</button>
+                                        <button class="btn btn-sm btn-outline-primary me-2 mb-1" onclick="askQuestion('How do I report a street problem?')">Report issue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="searchResults" class="container my-4" style="display: none;">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-search me-2"></i>Search Results</h5>
+                </div>
+                <div class="card-body" id="searchResultsContent">
+                    <!-- Search results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        /* Chat Widget Styles */
+        .chat-widget .card {
+            max-height: 600px;
+            border-radius: 15px;
+        }
+        
+        .chat-widget .card-header {
+            border-radius: 15px 15px 0 0 !important;
+            padding: 1rem 1.5rem;
+        }
+        
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @@keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #f8f9fa;
+        }
+        
+        .chat-message {
+            display: flex;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .chat-message.user-message {
+            flex-direction: row-reverse;
+        }
+        
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .bot-message .message-avatar {
+            background: #007bff;
+            color: white;
+            margin-right: 10px;
+        }
+        
+        .user-message .message-avatar {
+            background: #28a745;
+            color: white;
+            margin-left: 10px;
+        }
+        
+        .message-content {
+            flex: 1;
+            max-width: 80%;
+        }
+        
+        .message-bubble {
+            padding: 0.75rem 1rem;
+            border-radius: 18px;
+            margin-bottom: 0.25rem;
+            word-wrap: break-word;
+        }
+        
+        .bot-message .message-bubble {
+            background: white;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .user-message .message-bubble {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+        }
+        
+        .message-time {
+            text-align: right;
+        }
+        
+        .user-message .message-time {
+            text-align: left;
+        }
+        
+        .message-sources {
+            margin-top: 0.5rem;
+        }
+        
+        .source-item {
+            background: #e9ecef;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.25rem;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .source-item:hover {
+            background: #dee2e6;
+        }
+        
+        .chat-input-area {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e9ecef;
+            background: white;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .chat-input-area .form-control {
+            border-radius: 25px;
+            border-right: none;
+            padding: 0.75rem 1rem;
+        }
+        
+        .chat-input-area .btn {
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            padding: 0;
+            margin-left: 0.5rem;
+        }
+        
+        .chat-suggestions {
+            padding-top: 0.5rem;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .typing-dots {
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+        
+        .typing-dots span {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #6c757d;
+            margin: 0 1px;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @@keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+    
+    <script>
+        // Mode switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchModeBtn = document.getElementById('searchModeBtn');
+            const chatModeBtn = document.getElementById('chatModeBtn');
+            const searchWidget = document.getElementById('searchWidget');
+            const chatWidget = document.getElementById('chatWidget');
+            
+            searchModeBtn.addEventListener('change', function() {
+                if (this.checked) {
+                    searchWidget.style.display = 'block';
+                    chatWidget.style.display = 'none';
+                }
+            });
+            
+            chatModeBtn.addEventListener('change', function() {
+                if (this.checked) {
+                    searchWidget.style.display = 'none';
+                    chatWidget.style.display = 'block';
+                    initializeChat();
+                }
+            });
+        });
+        
+        // Chat functionality
+        let isInitialized = false;
+        
+        function initializeChat() {
+            if (!isInitialized) {
+                document.getElementById('chatInput').disabled = false;
+                document.getElementById('sendButton').disabled = false;
+                
+                // Add enter key support for chat
+                document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendChatMessage();
+                    }
+                });
+                
+                isInitialized = true;
+            }
+        }
+        
+        function askQuestion(question) {
+            document.getElementById('chatInput').value = question;
+            sendChatMessage();
+        }
+        
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessage(message, 'user');
+            
+            // Clear input and show typing indicator
+            input.value = '';
+            showTypingIndicator();
+            
+            // Send to API
+            fetch('/api/chat/message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideTypingIndicator();
+                addMessage(data.message, 'bot', data.sources);
+            })
+            .catch(error => {
+                console.error('Chat error:', error);
+                hideTypingIndicator();
+                addMessage('I apologize, but I\'m having trouble connecting right now. Please try again in a moment.', 'bot');
+            });
+        }
+        
+        function addMessage(text, sender, sources = []) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            const isBot = sender === 'bot';
+            
+            messageDiv.className = `chat-message ${isBot ? 'bot-message' : 'user-message'}`;
+            
+            const avatarIcon = isBot ? 'fas fa-robot' : 'fas fa-user';
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            let sourcesHtml = '';
+            if (sources && sources.length > 0) {
+                sourcesHtml = '<div class="message-sources">';
+                sources.forEach(source => {
+                    sourcesHtml += `<span class="source-item" onclick="viewDocumentSource('${source.id}')" title="${source.title}">${source.category}: ${source.serviceType}</span>`;
+                });
+                sourcesHtml += '</div>';
+            }
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="${avatarIcon}"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <p class="mb-0">${escapeHtml(text)}</p>
+                        ${sourcesHtml}
+                    </div>
+                    <div class="message-time">
+                        <small class="text-muted">${timestamp}</small>
+                    </div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.className = 'chat-message bot-message';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <div class="typing-indicator">
+                            Assistant is typing
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+        
+        function viewDocumentSource(documentId) {
+            // Open document details modal or navigate to document
+            window.open(`/Home/Search?doc=${encodeURIComponent(documentId)}`, '_blank');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Original search functionality
+        function performQuickSearch() {
+            const query = document.getElementById('headerSearch').value;
+            if (query.trim()) {
+                window.location.href = '@Url.Action("Search", "Home")' + '?q=' + encodeURIComponent(query);
+            }
+        }
+        
+        function performMainSearch() {
+            const query = document.getElementById('mainSearchInput').value;
+            if (query.trim()) {
+                searchQuery(query);
+            }
+        }
+        
+        function searchQuery(query) {
+            document.getElementById('mainSearchInput').value = query;
+            showLoadingState();
+            
+            fetch('/api/search/documents?query=' + encodeURIComponent(query) + '&maxResults=5')
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data, query);
+                })
+                .catch(error => {
+                    console.error('Search error:', error);
+                    showErrorState();
+                });
+        }
+        
+        function searchCategory(category) {
+            window.location.href = '@Url.Action("Categories", "Home")' + '?category=' + encodeURIComponent(category);
+        }
+        
+        function showLoadingState() {
+            const resultsDiv = document.getElementById('searchResults');
+            const contentDiv = document.getElementById('searchResultsContent');
+            
+            contentDiv.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Searching...</span>
+                    </div>
+                    <p class="mt-2">Searching city services...</p>
+                </div>
+            `;
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function displaySearchResults(data, query) {
+            const contentDiv = document.getElementById('searchResultsContent');
+            
+            if (data.documents && data.documents.length > 0) {
+                let html = `<p class="text-muted mb-3">Found ${data.total_results} results for "${query}"</p>`;
+                
+                data.documents.forEach(doc => {
+                    html += `
+                        <div class="search-result-item mb-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-1">${doc.title}</h6>
+                                <span class="badge bg-secondary">${doc.category}</span>
+                            </div>
+                            <p class="mb-2">${doc.content.substring(0, 200)}...</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-tag me-1"></i>${doc.service_type} • 
+                                    <i class="fas fa-clock me-1"></i>Updated ${doc.last_updated}
+                                </small>
+                                <span class="badge bg-success">Relevance: ${(doc.relevance_score * 100).toFixed(0)}%</span>
+                            </div>
+                        </div>
+                        <hr>
+                    `;
+                });
+                
+                contentDiv.innerHTML = html;
+            } else {
+                contentDiv.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h5>No results found</h5>
+                        <p class="text-muted">Try rephrasing your search or browse our categories.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function showErrorState() {
+            const contentDiv = document.getElementById('searchResultsContent');
+            contentDiv.innerHTML = `
+                <div class="text-center py-4">
+                    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                    <h5>Search Error</h5>
+                    <p class="text-muted">Something went wrong. Please try again later.</p>
+                </div>
+            `;
+        }
+        
+        // Enter key support for search inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerSearch = document.getElementById('headerSearch');
+            const mainSearch = document.getElementById('mainSearchInput');
+            
+            if (headerSearch) {
+                headerSearch.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performQuickSearch();
+                    }
+                });
+            }
+            
+            if (mainSearch) {
+                mainSearch.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performMainSearch();
+                    }
+                });
+            }
+        });
+    </script>
+}

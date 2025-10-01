@@ -1,0 +1,766 @@
+@{
+    ViewData["Title"] = "Service Categories";
+    Layout = "_Layout";
+    string selectedCategory = ViewContext.HttpContext.Request.Query["category"].ToString();
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="categories-header text-center mb-5">
+                <h1 class="display-5 fw-bold">@(ViewData["CityName"]) Service Categories</h1>
+                <p class="lead">Browse services and information organized by department and topic</p>
+            </div>
+            
+            <!-- Category Filter Bar -->
+            <div class="category-filter mb-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                            <select class="form-select" id="categoryFilter" onchange="filterByCategory()">
+                                <option value="">All Categories</option>
+                                <!-- Options will be populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-secondary" id="gridView" onclick="switchView('grid')" aria-pressed="true">
+                                <i class="fas fa-th"></i> Grid
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="listView" onclick="switchView('list')">
+                                <i class="fas fa-list"></i> List
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search within Categories -->
+            <div class="category-search mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search within categories..." id="categorySearchInput">
+                    <button class="btn btn-primary" type="button" onclick="searchWithinCategories()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Categories Grid/List -->
+    <div class="row" id="categoriesContainer">
+        <div class="col-12">
+            <div class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading categories...</span>
+                </div>
+                <p class="mt-2">Loading service categories...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Selected Category Details -->
+    <div class="row mt-5" id="categoryDetailsSection" style="display: none;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0" id="categoryDetailsTitle"></h5>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="clearCategorySelection()">
+                        <i class="fas fa-times me-1"></i>Clear Selection
+                    </button>
+                </div>
+                <div class="card-body" id="categoryDetailsContent">
+                    <!-- Category details will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Document Details Modal -->
+<div class="modal fade" id="documentDetailsModal" tabindex="-1" aria-labelledby="documentDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="documentDetailsModalLabel">
+                    <i class="fas fa-file-alt me-2"></i>Document Details
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="documentDetailsContent">
+                <div class="text-center py-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading document details...</span>
+                    </div>
+                    <p class="mt-2">Loading document details...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="printDocumentBtn" onclick="printDocument()">
+                    <i class="fas fa-print me-1"></i>Print
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentView = 'grid';
+        let allCategories = [];
+        let filteredCategories = [];
+        
+        // Main category data structure
+        const categoryIcons = {
+            'Transportation': 'fas fa-bus',
+            'Parks & Recreation': 'fas fa-tree',
+            'Public Safety': 'fas fa-shield-alt',
+            'Business Services': 'fas fa-briefcase',
+            'Housing': 'fas fa-home',
+            'Health Services': 'fas fa-heartbeat',
+            'Education': 'fas fa-graduation-cap',
+            'Environment': 'fas fa-leaf',
+            'Finance': 'fas fa-dollar-sign',
+            'Legal Services': 'fas fa-gavel',
+            'Technology': 'fas fa-laptop',
+            'Social Services': 'fas fa-hands-helping',
+            'Infrastructure': 'fas fa-road',
+            'Utilities': 'fas fa-plug',
+            'Culture & Arts': 'fas fa-palette',
+            'Emergency Services': 'fas fa-ambulance',
+            'Permits & Licenses': 'fas fa-file-alt',
+            'Public Records': 'fas fa-archive',
+            'Community Development': 'fas fa-users',
+            'Senior Services': 'fas fa-user-friends'
+        };
+        
+        function loadCategories() {
+            fetch('/api/search/categories')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.categories && data.categories.length > 0) {
+                        allCategories = data.categories.map(cat => ({
+                            name: cat,
+                            icon: categoryIcons[cat] || 'fas fa-folder',
+                            count: 0 // Will be populated by additional API call
+                        }));
+                        
+                        populateCategoryFilter();
+                        loadCategoryCounts();
+                        displayCategories(allCategories);
+                        
+                        // Handle initial category selection from URL
+                        const selectedCategory = '@selectedCategory';
+                        if (selectedCategory && selectedCategory.trim()) {
+                            setTimeout(() => {
+                                selectCategory(selectedCategory);
+                            }, 500);
+                        }
+                    } else {
+                        showNoCategoriesMessage();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading categories:', error);
+                    showErrorMessage('Failed to load categories. Please try again.');
+                });
+        }
+        
+        function loadCategoryCounts() {
+            // Load document counts for each category
+            allCategories.forEach(category => {
+                fetch(`/api/search/categories/${encodeURIComponent(category.name)}?maxResults=1`)
+                    .then(response => response.json())
+                    .then(data => {
+                        category.count = data.total_results || 0;
+                        updateCategoryDisplay(category);
+                    })
+                    .catch(error => {
+                        console.error(`Error loading count for ${category.name}:`, error);
+                    });
+            });
+        }
+        
+        function populateCategoryFilter() {
+            const select = document.getElementById('categoryFilter');
+            allCategories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.name;
+                option.textContent = category.name;
+                select.appendChild(option);
+            });
+        }
+        
+        function displayCategories(categories) {
+            const container = document.getElementById('categoriesContainer');
+            
+            if (currentView === 'grid') {
+                displayCategoriesGrid(categories, container);
+            } else {
+                displayCategoriesList(categories, container);
+            }
+        }
+        
+        function displayCategoriesGrid(categories, container) {
+            let html = '<div class="row g-4">';
+            
+            categories.forEach(category => {
+                html += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 category-card" onclick="selectCategory('${category.name}')" data-category="${category.name}">
+                            <div class="card-body text-center">
+                                <i class="${category.icon} fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">${escapeHtml(category.name)}</h5>
+                                <p class="card-text text-muted">
+                                    <span class="document-count">${category.count}</span> documents available
+                                </p>
+                                <div class="mt-3">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-arrow-right me-1"></i>Browse
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+        
+        function displayCategoriesList(categories, container) {
+            let html = '<div class="list-group list-group-flush">';
+            
+            categories.forEach(category => {
+                html += `
+                    <div class="list-group-item list-group-item-action category-list-item" onclick="selectCategory('${category.name}')" data-category="${category.name}">
+                        <div class="d-flex w-100 justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <i class="${category.icon} fa-2x text-primary me-3"></i>
+                                <div>
+                                    <h5 class="mb-1">${escapeHtml(category.name)}</h5>
+                                    <p class="mb-1 text-muted">Access services and information</p>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-secondary document-count">${category.count}</span>
+                                <i class="fas fa-chevron-right ms-2 text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+        
+        function updateCategoryDisplay(category) {
+            const elements = document.querySelectorAll(`[data-category="${category.name}"] .document-count`);
+            elements.forEach(el => {
+                el.textContent = category.count;
+            });
+        }
+        
+        function switchView(view) {
+            currentView = view;
+            
+            // Update button states
+            document.getElementById('gridView').classList.toggle('active', view === 'grid');
+            document.getElementById('listView').classList.toggle('active', view === 'list');
+            
+            // Re-display categories
+            displayCategories(filteredCategories.length > 0 ? filteredCategories : allCategories);
+        }
+        
+        function filterByCategory() {
+            const selected = document.getElementById('categoryFilter').value;
+            
+            if (selected) {
+                filteredCategories = allCategories.filter(cat => cat.name === selected);
+                selectCategory(selected);
+            } else {
+                filteredCategories = [];
+                clearCategorySelection();
+            }
+            
+            displayCategories(filteredCategories.length > 0 ? filteredCategories : allCategories);
+        }
+        
+        function searchWithinCategories() {
+            const searchTerm = document.getElementById('categorySearchInput').value.toLowerCase();
+            
+            if (searchTerm.trim()) {
+                filteredCategories = allCategories.filter(cat => 
+                    cat.name.toLowerCase().includes(searchTerm)
+                );
+            } else {
+                filteredCategories = [];
+            }
+            
+            displayCategories(filteredCategories.length > 0 ? filteredCategories : allCategories);
+            
+            if (filteredCategories.length === 0 && searchTerm.trim()) {
+                showNoResultsMessage(searchTerm);
+            }
+        }
+        
+        function selectCategory(categoryName) {
+            // Update filter dropdown
+            document.getElementById('categoryFilter').value = categoryName;
+            
+            // Load category documents
+            loadCategoryDocuments(categoryName);
+            
+            // Show details section
+            document.getElementById('categoryDetailsTitle').innerHTML = 
+                `<i class="${getCategoryIcon(categoryName)} me-2"></i>${escapeHtml(categoryName)}`;
+            document.getElementById('categoryDetailsSection').style.display = 'block';
+            
+            // Scroll to details
+            document.getElementById('categoryDetailsSection').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
+        
+        function loadCategoryDocuments(categoryName) {
+            const contentDiv = document.getElementById('categoryDetailsContent');
+            
+            contentDiv.innerHTML = `
+                <div class="text-center py-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading documents...</span>
+                    </div>
+                    <p class="mt-2">Loading ${categoryName} documents...</p>
+                </div>
+            `;
+            
+            fetch(`/api/search/categories/${encodeURIComponent(categoryName)}?maxResults=20`)
+                .then(response => response.json())
+                .then(data => {
+                    displayCategoryDocuments(data, categoryName);
+                })
+                .catch(error => {
+                    console.error('Error loading category documents:', error);
+                    contentDiv.innerHTML = `
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Failed to load documents for this category. Please try again.
+                        </div>
+                    `;
+                });
+        }
+        
+        function displayCategoryDocuments(data, categoryName) {
+            const contentDiv = document.getElementById('categoryDetailsContent');
+            
+            if (data.documents && data.documents.length > 0) {
+                let html = `
+                    <div class="category-summary mb-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="text-muted mb-0">Found ${data.total_results} documents in ${categoryName}</p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <button class="btn btn-outline-primary btn-sm" onclick="searchInCategory('${categoryName}')">
+                                    <i class="fas fa-search me-1"></i>Search in Category
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                `;
+                
+                data.documents.forEach(doc => {
+                    html += `
+                        <div class="col-md-6">
+                            <div class="card h-100 document-card">
+                                <div class="card-body">
+                                    <h6 class="card-title text-primary">${escapeHtml(doc.title)}</h6>
+                                    <p class="card-text small text-muted">
+                                        ${escapeHtml(doc.content.substring(0, 150))}${doc.content.length > 150 ? '...' : ''}
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-tag me-1"></i>${escapeHtml(doc.service_type)}
+                                        </small>
+                                        <button class="btn btn-sm btn-outline-primary" onclick="viewDocument('${doc.id}')">
+                                            View
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                contentDiv.innerHTML = html;
+            } else {
+                contentDiv.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                        <h5>No documents found</h5>
+                        <p class="text-muted">This category doesn't have any documents yet.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function clearCategorySelection() {
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('categoryDetailsSection').style.display = 'none';
+            filteredCategories = [];
+            displayCategories(allCategories);
+        }
+        
+        function searchInCategory(categoryName) {
+            window.location.href = `/Home/Search?category=${encodeURIComponent(categoryName)}`;
+        }
+        
+        function viewDocument(documentId) {
+            console.log('View document details:', documentId);
+            
+            // Show the modal
+            const modal = new bootstrap.Modal(document.getElementById('documentDetailsModal'));
+            modal.show();
+            
+            // Reset modal content to loading state
+            document.getElementById('documentDetailsContent').innerHTML = `
+                <div class="text-center py-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading document details...</span>
+                    </div>
+                    <p class="mt-2">Loading document details...</p>
+                </div>
+            `;
+            
+            // Fetch document details
+            fetch(`/api/search/documents/${encodeURIComponent(documentId)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(document => {
+                    displayDocumentDetails(document);
+                })
+                .catch(error => {
+                    console.error('Error fetching document details:', error);
+                    document.getElementById('documentDetailsContent').innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Error:</strong> Failed to load document details. Please try again.
+                            <div class="mt-2 small text-muted">Error: ${error.message}</div>
+                        </div>
+                    `;
+                });
+        }
+        
+        function displayDocumentDetails(doc) {
+            const lastUpdated = new Date(doc.last_updated).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            const content = `
+                <div class="document-details">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-primary mb-3">${escapeHtml(doc.title)}</h4>
+                            <div class="document-meta mb-3">
+                                <span class="badge bg-primary me-2">
+                                    <i class="fas fa-tag me-1"></i>${escapeHtml(doc.category)}
+                                </span>
+                                <span class="badge bg-secondary me-2">
+                                    <i class="fas fa-cogs me-1"></i>${escapeHtml(doc.service_type)}
+                                </span>
+                                <span class="badge bg-info">
+                                    <i class="fas fa-clock me-1"></i>Updated ${lastUpdated}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h6 class="text-muted mb-2">
+                                <i class="fas fa-file-text me-2"></i>Document Content:
+                            </h6>
+                            <div class="document-content p-3 bg-light rounded border">
+                                ${formatDocumentContent(doc.content)}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-muted mb-2">
+                                <i class="fas fa-info-circle me-2"></i>Document Information:
+                            </h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><strong>Document ID:</strong></td>
+                                    <td><code>${escapeHtml(doc.id)}</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Category:</strong></td>
+                                    <td>${escapeHtml(doc.category)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Service Type:</strong></td>
+                                    <td>${escapeHtml(doc.service_type)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Last Updated:</strong></td>
+                                    <td>${lastUpdated}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted mb-2">
+                                <i class="fas fa-search me-2"></i>Related Actions:
+                            </h6>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary btn-sm" onclick="searchRelated('${escapeHtml(doc.category)}')">
+                                    <i class="fas fa-folder me-1"></i>View Similar Documents
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="searchByServiceType('${escapeHtml(doc.service_type)}')">
+                                    <i class="fas fa-cogs me-1"></i>Search by Service Type
+                                </button>
+                                <button class="btn btn-outline-info btn-sm" onclick="copyDocumentLink('${doc.id}')">
+                                    <i class="fas fa-link me-1"></i>Copy Document Link
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('documentDetailsContent').innerHTML = content;
+        }
+        
+        function formatDocumentContent(content) {
+            // Format the content with better readability
+            return escapeHtml(content)
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/^/, '<p>')
+                .replace(/$/, '</p>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+        }
+        
+        function searchByServiceType(serviceType) {
+            // Close the modal
+            bootstrap.Modal.getInstance(document.getElementById('documentDetailsModal')).hide();
+            
+            // Navigate to search page with service type query
+            window.location.href = `/Home/Search?q=${encodeURIComponent(serviceType)}`;
+        }
+        
+        function copyDocumentLink(documentId) {
+            const url = `${window.location.origin}/Home/Search?doc=${encodeURIComponent(documentId)}`;
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('Document link copied to clipboard!', 'success');
+                }).catch(err => {
+                    console.error('Failed to copy link:', err);
+                    showToast('Failed to copy link', 'error');
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Document link copied to clipboard!', 'success');
+                } catch (err) {
+                    console.error('Failed to copy link:', err);
+                    showToast('Failed to copy link', 'error');
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+        
+        function printDocument() {
+            const documentContent = document.getElementById('documentDetailsContent').innerHTML;
+            const printWindow = window.open('', '_blank');
+            
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Document Details - NYC Virtual Citizen Agent</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        .document-details { max-width: 800px; }
+                        .badge { display: inline-block; padding: 4px 8px; background: #007bff; color: white; border-radius: 4px; font-size: 12px; margin-right: 8px; }
+                        .bg-secondary { background: #6c757d !important; }
+                        .bg-info { background: #17a2b8 !important; }
+                        .table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                        .table td { padding: 8px; border-bottom: 1px solid #ddd; }
+                        .document-content { background: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; border-radius: 4px; margin: 10px 0; }
+                        .d-grid { display: none; } /* Hide buttons in print */
+                        @@media print {
+                            .d-grid { display: none !important; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="document-details">
+                        ${documentContent}
+                    </div>
+                </body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+        }
+        
+        function showToast(message, type = 'info') {
+            // Simple toast notification
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type === 'error' ? 'danger' : 'success'} position-fixed top-0 end-0 m-3`;
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 3000);
+        }
+        
+        function getCategoryIcon(categoryName) {
+            return categoryIcons[categoryName] || 'fas fa-folder';
+        }
+        
+        function showNoCategoriesMessage() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = `
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                        <h5>No categories available</h5>
+                        <p class="text-muted">Categories will appear here once documents are indexed.</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showNoResultsMessage(searchTerm) {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = `
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h5>No categories found</h5>
+                        <p class="text-muted">No categories match "${searchTerm}". Try a different search term.</p>
+                        <button class="btn btn-outline-primary" onclick="clearSearch()">
+                            <i class="fas fa-times me-1"></i>Clear Search
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function clearSearch() {
+            document.getElementById('categorySearchInput').value = '';
+            filteredCategories = [];
+            displayCategories(allCategories);
+        }
+        
+        function showErrorMessage(message) {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = `
+                <div class="col-12">
+                    <div class="alert alert-danger text-center">
+                        <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                        <h5>Error</h5>
+                        <p>${message}</p>
+                        <button class="btn btn-outline-danger" onclick="loadCategories()">
+                            <i class="fas fa-refresh me-1"></i>Retry
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Utility functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategories();
+            
+            // Enter key support for search
+            document.getElementById('categorySearchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchWithinCategories();
+                }
+            });
+        });
+    </script>
+    
+    <style>
+        .category-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: var(--brand-accent);
+        }
+        
+        .category-list-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-list-item:hover {
+            background-color: var(--brand-light);
+        }
+        
+        .document-card {
+            transition: all 0.3s ease;
+        }
+        
+        .document-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-group .btn.active {
+            background-color: var(--brand-primary);
+            border-color: var(--brand-primary);
+            color: white;
+        }
+    </style>
+}

@@ -1,0 +1,360 @@
+@{
+    ViewData["Title"] = "About";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 fw-bold mb-4">About @(ViewData["CityName"]) Virtual Citizen Agent</h1>
+            <p class="lead">Your intelligent assistant for navigating city services, finding information, and connecting with your community</p>
+        </div>
+    </div>
+    
+    <!-- Mission Section -->
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2 class="h3 mb-3">Our Mission</h2>
+                            <p class="mb-3">The Virtual Citizen Agent is designed to make city services more accessible, efficient, and user-friendly. We leverage advanced AI technology to help residents quickly find the information they need, understand complex processes, and connect with the right departments.</p>
+                            <p class="mb-0">Whether you're looking for permits, need to understand regulations, or want to stay informed about city programs, our intelligent search system is here to help you navigate government services with ease.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-city fa-5x text-primary mb-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Features Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">How We Help You</h2>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-search fa-3x text-primary mb-3"></i>
+                    <h5>Smart Search</h5>
+                    <p class="text-muted">Find information using natural language. Ask questions the way you naturally think about them.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-brain fa-3x text-primary mb-3"></i>
+                    <h5>AI-Powered</h5>
+                    <p class="text-muted">Advanced semantic understanding helps you find relevant information even when you're not sure of the exact terms.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+                    <h5>24/7 Available</h5>
+                    <p class="text-muted">Access city information anytime, anywhere. No need to wait for business hours or navigate complex phone systems.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-mobile-alt fa-3x text-primary mb-3"></i>
+                    <h5>Mobile Friendly</h5>
+                    <p class="text-muted">Optimized for all devices. Get help whether you're at home, at work, or on the go.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-universal-access fa-3x text-primary mb-3"></i>
+                    <h5>Accessible</h5>
+                    <p class="text-muted">Designed with accessibility in mind to serve all residents, regardless of technical experience or abilities.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                    <h5>Secure & Private</h5>
+                    <p class="text-muted">Your interactions are secure and private. We don't store personal information from your searches.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Technology Section -->
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-cogs fa-5x text-primary mb-3"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h2 class="h3 mb-3">Powered by Advanced Technology</h2>
+                            <p class="mb-3">Our Virtual Citizen Agent uses cutting-edge artificial intelligence and semantic search technologies to understand your questions and provide relevant, accurate information.</p>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Natural Language Processing</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Semantic Search Capabilities</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Real-time Document Indexing</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></li>Multi-category Classification</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Usage Statistics -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Service Impact</h2>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 fw-bold text-primary" id="documentsIndexed">---</div>
+                    <h6 class="text-muted">Documents Indexed</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 fw-bold text-primary" id="categoriesAvailable">---</div>
+                    <h6 class="text-muted">Service Categories</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 fw-bold text-primary" id="averageResponseTime">---</div>
+                    <h6 class="text-muted">Avg Response Time</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 fw-bold text-primary" id="uptime">99.9%</div>
+                    <h6 class="text-muted">System Uptime</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FAQ Section -->
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                            How do I search for information?
+                        </button>
+                    </h2>
+                    <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Simply type your question or search terms in natural language. For example, "How do I get a parking permit?" or "What are the recycling guidelines?" Our AI will understand your intent and find relevant information.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                            What types of information can I find?
+                        </button>
+                    </h2>
+                    <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            You can find information about city services, permits, licenses, regulations, programs, events, and much more. The system covers all major city departments and services.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                            Is my search data stored or tracked?
+                        </button>
+                    </h2>
+                    <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            We respect your privacy. Search queries are processed to provide results but are not stored with any personal identifying information. We may collect anonymous usage statistics to improve the service.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                            What if I can't find what I'm looking for?
+                        </button>
+                    </h2>
+                    <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Try rephrasing your question or using different keywords. You can also browse by categories to discover related information. If you still need help, contact the relevant city department directly.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                            How often is the information updated?
+                        </button>
+                    </h2>
+                    <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Our system continuously monitors city databases and websites for updates. Most information is refreshed daily, ensuring you have access to the most current policies and procedures.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Contact Section -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5 text-center">
+                    <h2 class="h3 mb-3">Need Additional Help?</h2>
+                    <p class="mb-4">While our Virtual Citizen Agent can help with most questions, some services may require direct contact with city departments.</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex flex-column align-items-center">
+                                <i class="fas fa-phone fa-2x text-primary mb-2"></i>
+                                <h6>Call 311</h6>
+                                <small class="text-muted">General Information</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex flex-column align-items-center">
+                                <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
+                                <h6>Email Support</h6>
+                                <small class="text-muted">Non-urgent Inquiries</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex flex-column align-items-center">
+                                <i class="fas fa-map-marker-alt fa-2x text-primary mb-2"></i>
+                                <h6>Visit City Hall</h6>
+                                <small class="text-muted">In-person Services</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Load and display usage statistics
+        function loadStatistics() {
+            // Load total document count
+            fetch('/api/search/documents?maxResults=1')
+                .then(response => response.json())
+                .then(data => {
+                    const count = data.total_results || 0;
+                    animateNumber('documentsIndexed', count);
+                })
+                .catch(error => {
+                    console.error('Error loading document count:', error);
+                    document.getElementById('documentsIndexed').textContent = 'N/A';
+                });
+            
+            // Load categories count
+            fetch('/api/search/categories')
+                .then(response => response.json())
+                .then(data => {
+                    const count = data.categories ? data.categories.length : 0;
+                    animateNumber('categoriesAvailable', count);
+                })
+                .catch(error => {
+                    console.error('Error loading categories count:', error);
+                    document.getElementById('categoriesAvailable').textContent = 'N/A';
+                });
+            
+            // Simulate average response time (in a real system, this would come from monitoring)
+            setTimeout(() => {
+                document.getElementById('averageResponseTime').textContent = '<0.5s';
+            }, 1000);
+        }
+        
+        function animateNumber(elementId, targetNumber) {
+            const element = document.getElementById(elementId);
+            const duration = 2000; // 2 seconds
+            const steps = 60;
+            const stepTime = duration / steps;
+            const increment = targetNumber / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= targetNumber) {
+                    current = targetNumber;
+                    clearInterval(timer);
+                }
+                
+                element.textContent = Math.floor(current).toLocaleString();
+            }, stepTime);
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStatistics();
+            
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <style>
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(var(--brand-primary-rgb), 0.25);
+            border-color: var(--brand-primary);
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--brand-light);
+            color: var(--brand-primary);
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .display-4 {
+            color: var(--brand-primary);
+        }
+    </style>
+}
