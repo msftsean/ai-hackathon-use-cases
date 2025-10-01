@@ -1,0 +1,607 @@
+@{
+    ViewData["Title"] = "Search Services";
+    Layout = "_Layout";
+    string initialQuery = ViewContext.HttpContext.Request.Query["q"].ToString();
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="search-page-header text-center mb-5">
+                <h1 class="display-5 fw-bold">Search @(ViewData["CityName"]) Services</h1>
+                <p class="lead">Find information about city services, permits, programs, and more</p>
+            </div>
+            
+            <div class="search-widget mb-4">
+                <div class="search-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-lg" 
+                               placeholder="What can we help you find today?"
+                               id="searchPageInput" 
+                               value="@initialQuery">
+                        <button class="btn btn-primary btn-lg" type="button" onclick="performSearchPageSearch()">
+                            <i class="fas fa-search me-2"></i>Search
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="search-options mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-outline-secondary btn-sm w-100 mb-2" onclick="performSemanticSearch()">
+                                <i class="fas fa-brain me-2"></i>Smart Search
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-outline-secondary btn-sm w-100 mb-2" onclick="showRecentDocuments()">
+                                <i class="fas fa-clock me-2"></i>Recent Updates
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="search-suggestions mt-3">
+                    <small class="text-muted">Try searching for:</small>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchFromPage('parking permit application')">Parking permits</button>
+                        <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchFromPage('trash collection schedule')">Waste collection</button>
+                        <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchFromPage('business license requirements')">Business licenses</button>
+                        <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchFromPage('public transportation routes')">Transit info</button>
+                        <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchFromPage('building permit process')">Building permits</button>
+                        <button class="btn btn-sm btn-outline-secondary me-2 mb-2" onclick="searchFromPage('property tax information')">Property taxes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Search Results Section -->
+    <div class="row" id="searchPageResults" style="display: none;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-search me-2"></i>Search Results</h5>
+                    <div class="search-filters">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown">
+                                Sort by Relevance
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" onclick="sortResults('relevance')">Relevance</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="sortResults('date')">Date Updated</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="sortResults('category')">Category</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" id="searchPageResultsContent">
+                    <!-- Search results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Categories Quick Access -->
+    <div class="row mt-5" id="categoriesSection">
+        <div class="col-12">
+            <h3 class="text-center mb-4">Browse by Category</h3>
+            <div class="row g-3" id="categoriesGrid">
+                <!-- Categories will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Document Details Modal -->
+<div class="modal fade" id="documentDetailsModal" tabindex="-1" aria-labelledby="documentDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="documentDetailsModalLabel">
+                    <i class="fas fa-file-alt me-2"></i>Document Details
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="documentDetailsContent">
+                <div class="text-center py-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading document details...</span>
+                    </div>
+                    <p class="mt-2">Loading document details...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="printDocumentBtn" onclick="printDocument()">
+                    <i class="fas fa-print me-1"></i>Print
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Search page specific functions
+        function performSearchPageSearch() {
+            const query = document.getElementById('searchPageInput').value;
+            if (query.trim()) {
+                searchFromPage(query);
+            }
+        }
+        
+        function searchFromPage(query) {
+            document.getElementById('searchPageInput').value = query;
+            showLoadingState();
+            
+            fetch('/api/search/documents?query=' + encodeURIComponent(query) + '&maxResults=10')
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchPageResults(data, query);
+                })
+                .catch(error => {
+                    console.error('Search error:', error);
+                    showErrorState('An error occurred while searching. Please try again.');
+                });
+        }
+        
+        function performSemanticSearch() {
+            const query = document.getElementById('searchPageInput').value;
+            if (!query.trim()) {
+                alert('Please enter a search query first');
+                return;
+            }
+            
+            showLoadingState('Performing smart search...');
+            
+            fetch('/api/search/semantic?query=' + encodeURIComponent(query) + '&maxResults=10')
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchPageResults(data, query, 'Smart Search');
+                })
+                .catch(error => {
+                    console.error('Semantic search error:', error);
+                    showErrorState('Smart search failed. Please try again.');
+                });
+        }
+        
+        function showRecentDocuments() {
+            showLoadingState('Loading recent updates...');
+            
+            fetch('/api/search/recent?daysBack=7&maxResults=10')
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchPageResults(data, '', 'Recent Updates');
+                })
+                .catch(error => {
+                    console.error('Recent documents error:', error);
+                    showErrorState('Failed to load recent updates. Please try again.');
+                });
+        }
+        
+        function showLoadingState(message = 'Searching...') {
+            const resultsDiv = document.getElementById('searchPageResults');
+            const contentDiv = document.getElementById('searchPageResultsContent');
+            
+            contentDiv.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">${message}</span>
+                    </div>
+                    <p class="mt-2">${message}</p>
+                </div>
+            `;
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function displaySearchPageResults(data, query, searchType = 'Search') {
+            const contentDiv = document.getElementById('searchPageResultsContent');
+            
+            if (data.documents && data.documents.length > 0) {
+                let html = `<div class="search-results-header mb-3">
+                    <p class="text-muted mb-2">${searchType} Results: Found ${data.total_results} items${query ? ` for "${query}"` : ''}</p>
+                </div>`;
+                
+                data.documents.forEach((doc, index) => {
+                    const relevanceScore = doc.relevance_score ? (doc.relevance_score * 100).toFixed(0) : 'N/A';
+                    const semanticScore = doc.semantic_score && doc.semantic_score > 0 ? (doc.semantic_score * 100).toFixed(0) : null;
+                    
+                    html += `
+                        <div class="search-result-item mb-4 p-3 border rounded">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-1 text-primary">${escapeHtml(doc.title)}</h6>
+                                <div>
+                                    <span class="badge bg-secondary me-1">${escapeHtml(doc.category)}</span>
+                                    ${semanticScore ? `<span class="badge bg-info">AI: ${semanticScore}%</span>` : ''}
+                                </div>
+                            </div>
+                            <p class="mb-2 text-muted">${escapeHtml(doc.content.substring(0, 300))}${doc.content.length > 300 ? '...' : ''}</p>
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-tag me-1"></i>${escapeHtml(doc.service_type)} • 
+                                    <i class="fas fa-clock me-1"></i>Updated ${formatDate(doc.last_updated)}
+                                </small>
+                                <span class="badge bg-success">Match: ${relevanceScore}%</span>
+                            </div>
+                            
+                            <div class="mt-2">
+                                <button class="btn btn-sm btn-outline-primary me-2" onclick="viewDocumentDetails('${doc.id}')">
+                                    <i class="fas fa-eye me-1"></i>View Details
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="searchRelated('${escapeHtml(doc.category)}')">
+                                    <i class="fas fa-similar me-1"></i>Similar
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    if (index < data.documents.length - 1) {
+                        html += '<hr>';
+                    }
+                });
+                
+                contentDiv.innerHTML = html;
+            } else {
+                contentDiv.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h5>No results found</h5>
+                        <p class="text-muted">Try different keywords or browse our categories below.</p>
+                        <button class="btn btn-outline-primary" onclick="loadCategories()">
+                            <i class="fas fa-th-large me-2"></i>Browse Categories
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        
+        function showErrorState(message) {
+            const contentDiv = document.getElementById('searchPageResultsContent');
+            contentDiv.innerHTML = `
+                <div class="text-center py-4">
+                    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                    <h5>Search Error</h5>
+                    <p class="text-muted">${message}</p>
+                    <button class="btn btn-outline-primary" onclick="location.reload()">
+                        <i class="fas fa-refresh me-2"></i>Try Again
+                    </button>
+                </div>
+            `;
+        }
+        
+        function viewDocumentDetails(documentId) {
+            console.log('View document details:', documentId);
+            
+            // Show the modal
+            const modal = new bootstrap.Modal(document.getElementById('documentDetailsModal'));
+            modal.show();
+            
+            // Reset modal content to loading state
+            document.getElementById('documentDetailsContent').innerHTML = `
+                <div class="text-center py-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading document details...</span>
+                    </div>
+                    <p class="mt-2">Loading document details...</p>
+                </div>
+            `;
+            
+            // Fetch document details
+            fetch(`/api/search/documents/${encodeURIComponent(documentId)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(document => {
+                    displayDocumentDetails(document);
+                })
+                .catch(error => {
+                    console.error('Error fetching document details:', error);
+                    document.getElementById('documentDetailsContent').innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Error:</strong> Failed to load document details. Please try again.
+                            <div class="mt-2 small text-muted">Error: ${error.message}</div>
+                        </div>
+                    `;
+                });
+        }
+        
+        function displayDocumentDetails(doc) {
+            const lastUpdated = new Date(doc.last_updated).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            const content = `
+                <div class="document-details">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-primary mb-3">${escapeHtml(doc.title)}</h4>
+                            <div class="document-meta mb-3">
+                                <span class="badge bg-primary me-2">
+                                    <i class="fas fa-tag me-1"></i>${escapeHtml(doc.category)}
+                                </span>
+                                <span class="badge bg-secondary me-2">
+                                    <i class="fas fa-cogs me-1"></i>${escapeHtml(doc.service_type)}
+                                </span>
+                                <span class="badge bg-info">
+                                    <i class="fas fa-clock me-1"></i>Updated ${lastUpdated}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h6 class="text-muted mb-2">
+                                <i class="fas fa-file-text me-2"></i>Document Content:
+                            </h6>
+                            <div class="document-content p-3 bg-light rounded border">
+                                ${formatDocumentContent(doc.content)}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-muted mb-2">
+                                <i class="fas fa-info-circle me-2"></i>Document Information:
+                            </h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><strong>Document ID:</strong></td>
+                                    <td><code>${escapeHtml(doc.id)}</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Category:</strong></td>
+                                    <td>${escapeHtml(doc.category)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Service Type:</strong></td>
+                                    <td>${escapeHtml(doc.service_type)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Last Updated:</strong></td>
+                                    <td>${lastUpdated}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted mb-2">
+                                <i class="fas fa-search me-2"></i>Related Actions:
+                            </h6>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary btn-sm" onclick="searchRelated('${escapeHtml(doc.category)}')">
+                                    <i class="fas fa-folder me-1"></i>View Similar Documents
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="searchByServiceType('${escapeHtml(doc.service_type)}')">
+                                    <i class="fas fa-cogs me-1"></i>Search by Service Type
+                                </button>
+                                <button class="btn btn-outline-info btn-sm" onclick="copyDocumentLink('${doc.id}')">
+                                    <i class="fas fa-link me-1"></i>Copy Document Link
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('documentDetailsContent').innerHTML = content;
+        }
+        
+        function formatDocumentContent(content) {
+            // Format the content with better readability
+            return escapeHtml(content)
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/^/, '<p>')
+                .replace(/$/, '</p>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+        }
+        
+        function searchByServiceType(serviceType) {
+            // Close the modal
+            bootstrap.Modal.getInstance(document.getElementById('documentDetailsModal')).hide();
+            
+            // Perform search by service type
+            document.getElementById('searchPageInput').value = serviceType;
+            searchFromPage(serviceType);
+        }
+        
+        function copyDocumentLink(documentId) {
+            const url = `${window.location.origin}${window.location.pathname}?doc=${encodeURIComponent(documentId)}`;
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('Document link copied to clipboard!', 'success');
+                }).catch(err => {
+                    console.error('Failed to copy link:', err);
+                    showToast('Failed to copy link', 'error');
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Document link copied to clipboard!', 'success');
+                } catch (err) {
+                    console.error('Failed to copy link:', err);
+                    showToast('Failed to copy link', 'error');
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+        
+        function printDocument() {
+            const documentContent = document.getElementById('documentDetailsContent').innerHTML;
+            const printWindow = window.open('', '_blank');
+            
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Document Details - NYC Virtual Citizen Agent</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        .document-details { max-width: 800px; }
+                        .badge { display: inline-block; padding: 4px 8px; background: #007bff; color: white; border-radius: 4px; font-size: 12px; margin-right: 8px; }
+                        .bg-secondary { background: #6c757d !important; }
+                        .bg-info { background: #17a2b8 !important; }
+                        .table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                        .table td { padding: 8px; border-bottom: 1px solid #ddd; }
+                        .document-content { background: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; border-radius: 4px; margin: 10px 0; }
+                        .d-grid { display: none; } /* Hide buttons in print */
+                        @@media print {
+                            .d-grid { display: none !important; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="document-details">
+                        ${documentContent}
+                    </div>
+                </body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+        }
+        
+        function showToast(message, type = 'info') {
+            // Simple toast notification
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type === 'error' ? 'danger' : 'success'} position-fixed top-0 end-0 m-3`;
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 3000);
+        }
+        
+        function searchRelated(category) {
+            window.location.href = '/Home/Categories?category=' + encodeURIComponent(category);
+        }
+        
+        function sortResults(sortType) {
+            // Implementation for sorting results
+            console.log('Sort by:', sortType);
+            // Would re-fetch results with sort parameter
+        }
+        
+        function loadCategories() {
+            fetch('/api/search/categories')
+                .then(response => response.json())
+                .then(data => {
+                    displayCategories(data);
+                })
+                .catch(error => {
+                    console.error('Categories error:', error);
+                });
+        }
+        
+        function displayCategories(data) {
+            const grid = document.getElementById('categoriesGrid');
+            
+            if (data.categories && data.categories.length > 0) {
+                let html = '';
+                data.categories.forEach(category => {
+                    html += `
+                        <div class="col-md-4 col-lg-3">
+                            <div class="card h-100 category-card" onclick="searchCategory('${category}')">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-folder fa-2x text-primary mb-2"></i>
+                                    <h6>${escapeHtml(category)}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                grid.innerHTML = html;
+            }
+        }
+        
+        function searchCategory(category) {
+            window.location.href = '/Home/Categories?category=' + encodeURIComponent(category);
+        }
+        
+        // Utility functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-search if query parameter exists
+            const initialQuery = '@initialQuery';
+            if (initialQuery && initialQuery.trim()) {
+                searchFromPage(initialQuery);
+            }
+            
+            // Load categories
+            loadCategories();
+            
+            // Enter key support
+            document.getElementById('searchPageInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearchPageSearch();
+                }
+            });
+        });
+    </script>
+    
+    <style>
+        .category-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: var(--brand-accent);
+        }
+        
+        .search-result-item {
+            transition: all 0.3s ease;
+        }
+        
+        .search-result-item:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+}
