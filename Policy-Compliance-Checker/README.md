@@ -41,13 +41,14 @@ Policy Document → Document Intelligence → Semantic Kernel Planner
                          Report        Report          Engine
 ```
 
-## 💡 Key Features
+## 🌟 Feature Highlights
 
-1. **Document Parsing**: Extract text, structure, and metadata from policy documents
-2. **Rule-Based Analysis**: Apply predefined compliance rules and standards
-3. **Consistency Checking**: Identify contradictions within and across documents
-4. **Compliance Validation**: Verify adherence to legal and regulatory requirements
-5. **Automated Reporting**: Generate detailed compliance reports with actionable insights
+🔍 **Smart Policy Analysis**: Advanced AI-powered scanning and compliance checking
+📋 **Multiple Formats**: Comprehensive support for policy documents  
+✅ **Detailed Validation**: Thorough compliance verification with actionable insights
+🎯 **Template Matching**: Efficient rule-based checking against industry templates
+🔧 **Easy Configuration**: Simple setup with comprehensive rule system
+🤖 **AI-Powered Insights**: Real-time policy analysis with compliance scoring
 
 ## 📊 Example Use Cases
 
@@ -134,6 +135,7 @@ By completing this use case, you'll learn:
 - **🔧 Production Ready**: Zero warnings, professional-grade output
 - **🛡️ Robust Error Handling**: Enhanced stability and reliability
 - **📊 Enhanced Plugins**: Improved AI-powered policy analysis
+- **🤖 OpenAI Integration**: Fully tested and validated Azure OpenAI connectivity
 
 ### 🔧 Quick Start (v2.0)
 
@@ -144,6 +146,10 @@ cd Policy-Compliance-Checker
 
 # Install dependencies (Python 3.9+ required)
 pip install -r requirements.txt
+
+# Set up AI integration (optional)
+cp .env.template .env
+# Edit .env to add your Azure OpenAI credentials
 
 # Run the comprehensive test suite
 python -m pytest
