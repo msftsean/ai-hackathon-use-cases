@@ -1,27 +1,97 @@
-# 🚨 Emergency Response Planning Agent v2.0.0
+# 🚨 Emergency Response Planning Agent
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue)](https://github.com/msftsean/ai-hackathon-use-cases/releases/tag/v2.0.0)
 [![Tests](https://img.shields.io/badge/tests-83%20passed-green)](./tests/)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
 [![Semantic Kernel](https://img.shields.io/badge/semantic--kernel-1.37.0-orange)](https://github.com/microsoft/semantic-kernel)
 [![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
+> **🎯 Hackathon Ready!** This is a complete, working AI emergency response system that you can run, test, and extend during the hackathon.
+
 ## 📋 Overview
 
-A production-ready AI-powered emergency response planning system that helps city departments simulate, coordinate, and optimize emergency responses for various scenarios including natural disasters, public health crises, and security incidents. This solution uses sophisticated multi-agent orchestration to coordinate complex emergency planning tasks with real-time data integration.
+An AI-powered emergency response planning system that helps city departments simulate, coordinate, and optimize emergency responses for natural disasters, public health crises, and security incidents. Built with Semantic Kernel and real-time data integration.
 
-**🎉 FULLY IMPLEMENTED** - Complete working system with 100% test coverage (83 tests passing)
+**✅ Production-Ready System** - Complete implementation with 83 tests passing
 
-## 🎯 What's New in v2.0.0
+## 🚀 Quick Start for Hackathon
 
-This is a **complete production-ready implementation** featuring:
-- **Modern Architecture**: Upgraded to Semantic Kernel 1.37.0 with multi-agent orchestration
-- **Comprehensive Testing**: 83 tests across 5 categories with 100% pass rate
-- **Production-Ready Code**: Full error handling, logging, and configuration management
-- **Real Weather Integration**: OpenWeatherMap API with intelligent fallbacks
-- **Professional Documentation**: Complete setup guides and usage examples
+**Get running in 5 minutes!**
 
-> **Major Version 2.0**: Complete transformation from conceptual design to fully implemented production system.
+### Option 1: Codespaces (Recommended)
+1. Open this repository in GitHub Codespaces
+2. Navigate to Emergency-Response-Agent: `cd Emergency-Response-Agent`
+3. Install dependencies: `pip install -r requirements.txt`
+4. Configure API keys (see [Configuration](#configuration))
+5. Run the system: `python src/main.py`
+
+### Option 2: Local Development
+```bash
+git clone <repository-url>
+cd ai-hackathon-use-cases/Emergency-Response-Agent
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python src/main.py
+```
+
+## 🎯 Hackathon Features
+
+Perfect for extending and customizing during the hackathon:
+- **83 Working Tests**: Reliable foundation to build upon
+- **Multi-Agent Architecture**: Easy to add new emergency response agents
+- **Real API Integration**: OpenWeatherMap API with intelligent fallbacks
+- **Modular Design**: Simple to extend with new emergency scenarios
+- **Complete Documentation**: Examples and guides for rapid development
+
+## ⚙️ Configuration
+
+### Required API Keys
+
+Create a `.env` file in the Emergency-Response-Agent directory:
+
+```bash
+# Azure OpenAI Configuration (Required)
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_API_KEY=your-api-key-here
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
+
+# OpenWeatherMap API (Optional - has fallback)
+OPENWEATHERMAP_API_KEY=your-weather-api-key-here
+
+# Azure AI Search (Optional - for document integration)
+AZURE_SEARCH_SERVICE_ENDPOINT=https://your-service.search.windows.net
+AZURE_SEARCH_ADMIN_KEY=your-search-admin-key
+AZURE_SEARCH_INDEX_NAME=emergency-procedures
+```
+
+### Configuration Options
+
+#### Option 1: .env File (Recommended for Hackathon)
+- Copy `.env.example` to `.env` (or create new file)
+- Fill in your API keys
+- Most secure for local development
+
+#### Option 2: Environment Variables
+```bash
+export AZURE_OPENAI_ENDPOINT="https://your-resource.openai.azure.com/"
+export AZURE_OPENAI_API_KEY="your-api-key-here"
+export AZURE_OPENAI_DEPLOYMENT_NAME="gpt-4"
+```
+
+#### Option 3: Direct Configuration
+Edit `src/config.py` for quick testing (not recommended for production)
+
+### Getting API Keys
+
+#### Azure OpenAI (Required)
+1. Create Azure OpenAI resource in Azure portal
+2. Deploy GPT-4 or GPT-3.5-turbo model
+3. Copy endpoint, deployment name, and API key
+
+#### OpenWeatherMap (Optional)
+1. Sign up at [OpenWeatherMap](https://openweathermap.org/api)
+2. Get free API key (1000 calls/day)
+3. Add to `.env` file
 
 ## 🛠️ Technology Stack
 
@@ -259,6 +329,134 @@ python run_all_tests.py
 - **911 Dispatch Systems**: Active incident data
 - **Hospital Networks**: Capacity and resource availability
 - **Utility Companies**: Power, water, and gas system status
+
+## 🧪 Testing
+
+The system includes comprehensive testing with **83 tests** covering all major functionality.
+
+### Running Tests
+```bash
+# Run all tests
+python -m pytest
+
+# Run with detailed output
+python -m pytest -v
+
+# Run specific test category
+python -m pytest tests/test_emergency_coordinator.py -v
+
+# Run tests with coverage
+python -m pytest --cov=src --cov-report=html
+```
+
+### Test Categories
+- **Unit Tests**: Individual component testing (45 tests)
+- **Integration Tests**: Multi-component workflows (20 tests)
+- **API Tests**: External service integration (8 tests)
+- **Scenario Tests**: Complete emergency scenarios (10 tests)
+
+### Quick Test Validation
+```bash
+# Quick system validation
+python run_all_tests.py
+```
+
+## 🎯 Hackathon Ideas & Extensions
+
+### Beginner Extensions (30-60 minutes)
+1. **New Emergency Type**: Add earthquake response scenario
+2. **Custom Weather Source**: Integrate a different weather API
+3. **Resource Calculator**: Add equipment/personnel calculation logic
+4. **Alert System**: Add notification/messaging capabilities
+
+### Intermediate Extensions (2-4 hours)
+1. **Web Interface**: Create Flask/FastAPI web dashboard
+2. **Database Integration**: Add persistent storage for response plans
+3. **Map Visualization**: Integrate with mapping services
+4. **Mobile Alerts**: SMS/push notification system
+
+### Advanced Extensions (Full Hackathon)
+1. **Real-time Dashboard**: Live emergency response monitoring
+2. **ML Predictions**: Predictive models for emergency impact
+3. **IoT Integration**: Connect to city sensors and cameras
+4. **Multi-City Support**: Scale to multiple municipalities
+
+### Extension Points in Code
+- `src/plugins/`: Add new emergency response plugins
+- `src/models/`: Extend data models for new scenarios
+- `src/agents/`: Create specialized agent types
+- `tests/`: Add tests for new functionality
+
+## 🚀 Getting Started Guide
+
+### Step 1: Environment Setup
+```bash
+cd Emergency-Response-Agent
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Step 2: Configure API Keys
+```bash
+# Create .env file
+cp .env.example .env  # Or create manually
+# Edit .env with your API keys
+```
+
+### Step 3: Test Installation
+```bash
+# Run basic tests to verify setup
+python -m pytest tests/test_config.py -v
+```
+
+### Step 4: Run Example Scenario
+```bash
+# Run hurricane response example
+python src/examples/run_hurricane_scenario.py
+```
+
+### Step 5: Start Building!
+- Check `src/examples/` for usage patterns
+- Review `tests/` for component examples
+- Explore `src/plugins/` for extension points
+
+## 🆘 Troubleshooting
+
+### Common Issues
+
+#### "No API key found"
+- **Solution**: Verify `.env` file exists and contains correct keys
+- **Check**: File is in correct directory (Emergency-Response-Agent/)
+
+#### "Module not found" errors
+- **Solution**: Ensure virtual environment is activated
+- **Check**: Run `pip list` to verify installed packages
+
+#### Tests failing
+- **Solution**: Run `python -m pytest tests/test_config.py` to verify configuration
+- **Check**: API keys are valid and services are accessible
+
+#### Weather API errors
+- **Solution**: The system has fallback mock data if weather API fails
+- **Check**: Verify OpenWeatherMap API key if using real weather data
+
+### Getting Help
+1. **Check Tests**: Run tests to identify specific issues
+2. **Review Logs**: Check console output for detailed error messages
+3. **Example Files**: Look at `src/examples/` for working code patterns
+4. **Documentation**: Review inline code comments and docstrings
+
+## 📚 Additional Resources
+
+- **Semantic Kernel Documentation**: [Microsoft Semantic Kernel](https://learn.microsoft.com/en-us/semantic-kernel/)
+- **Azure OpenAI Service**: [Azure OpenAI Documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/)
+- **Emergency Management Best Practices**: [FEMA Guidelines](https://www.fema.gov/emergency-managers)
+- **API Documentation**: See `docs/` folder for detailed API reference
+
+---
+
+**Ready to build the future of emergency response? Start coding and make a difference! 🚨💪**
 
 ## 📖 Documentation
 

@@ -11,7 +11,7 @@ using VirtualCitizenAgent.Models;
 
 namespace VirtualCitizenAgent;
 
-class Program
+public class Program
 {
     static void Main(string[] args)
     {

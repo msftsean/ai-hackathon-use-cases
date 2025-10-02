@@ -291,12 +291,100 @@ WORKDIR /App
 ENTRYPOINT ["dotnet", "VirtualCitizenAgent.dll"]
 ```
 
-## 🤝 Contributing
+## � Testing
+
+The project includes comprehensive test coverage with automated unit tests and integration tests.
+
+### Running Tests
+```bash
+# Run all tests
+dotnet test
+
+# Run with detailed output
+dotnet test --verbosity normal
+
+# Run specific test project
+dotnet test VirtualCitizenAgent.Tests
+```
+
+### Test Coverage
+- **Total Tests**: 101
+- **Unit Tests**: 98 (covering services, models, controllers, plugins)
+- **Integration Tests**: 3 (manual configuration required)
+- **Test Coverage**: Models, Services, Controllers, Plugins, API contracts
+
+### Manual Integration Test Configuration
+
+The project includes 3 integration tests that require real Azure OpenAI credentials for manual execution:
+
+#### 1. Set Up Azure OpenAI Service
+1. Create an Azure OpenAI resource in the Azure portal
+2. Deploy a GPT-4 or GPT-3.5-turbo model
+3. Note your endpoint, deployment name, and API key
+
+#### 2. Configure Test Credentials
+
+**Option A: Using .env file (Recommended for development)**
+Create a `.env` file in the project root:
+```bash
+OPENAI__ENDPOINT=https://your-resource.openai.azure.com/
+OPENAI__DEPLOYMENTNAME=your-deployment-name
+OPENAI__APIKEY=your-api-key
+```
+
+**Option B: Using User Secrets**
+```bash
+cd VirtualCitizenAgent.Tests
+dotnet user-secrets set "OpenAI:Endpoint" "https://your-resource.openai.azure.com/"
+dotnet user-secrets set "OpenAI:DeploymentName" "your-deployment-name"
+dotnet user-secrets set "OpenAI:ApiKey" "your-api-key"
+```
+
+**Option C: Using Environment Variables**
+```bash
+export OPENAI__ENDPOINT="https://your-resource.openai.azure.com/"
+export OPENAI__DEPLOYMENTNAME="your-deployment-name"
+export OPENAI__APIKEY="your-api-key"
+```
+
+#### 3. Enable Integration Tests
+
+Edit `VirtualCitizenAgent.Tests/Integration/RealOpenAIIntegrationTests.cs` and change:
+```csharp
+// From:
+[Fact(Skip = "Requires real OpenAI credentials - enable manually for integration testing")]
+
+// To:
+[Fact]
+```
+
+#### 4. Integration Tests Description
+
+- **`OpenAI_WithRealCredentials_ShouldGenerateResponse`**: Tests basic Azure OpenAI connectivity and response generation
+- **`OpenAI_QueryEnhancement_ShouldImproveSearchTerms`**: Tests AI-powered query enhancement for search optimization
+- **`OpenAI_WithKernelFunctions_ShouldInvokePluginFunctions`**: Tests Semantic Kernel plugin integration with AI functions
+
+#### 5. Run Integration Tests
+```bash
+# Run all tests including integration tests
+dotnet test VirtualCitizenAgent.Tests --verbosity normal
+
+# Run only integration tests
+dotnet test VirtualCitizenAgent.Tests --filter "Category=Integration" --verbosity normal
+```
+
+### Test Architecture
+- **FluentAssertions**: For readable test assertions
+- **Moq**: For mocking dependencies
+- **xUnit**: Test framework with parallel execution
+- **TestWebApplicationFactory**: For integration testing ASP.NET Core applications
+
+## �🤝 Contributing
 
 1. **Fork the repository**
 2. **Create feature branch**: `git checkout -b feature/amazing-feature`
 3. **Follow coding standards**: Clean architecture principles
-4. **Add tests**: Ensure functionality works correctly
+4. **Add tests**: Ensure functionality works correctly (maintain 100% unit test pass rate)
 5. **Update documentation**: Keep README and comments current
 6. **Submit pull request**: Describe your changes clearly
 

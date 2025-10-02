@@ -229,20 +229,95 @@ var result = await _kernel.InvokeAsync("YourPlugin", "YourFunction", arguments);
 
 ## 🧪 Testing Strategy
 
-### Unit Tests
-- **Service Tests**: Test business logic in isolation
-- **Plugin Tests**: Test Semantic Kernel functions
-- **Controller Tests**: Test API endpoints
+### Current Test Status (✅ All Tests Passing)
+- **Total Tests**: 101
+- **Passed**: 98 automated tests
+- **Skipped**: 3 integration tests (manual configuration required)
+- **Failed**: 0
+- **Warnings**: 0
 
-### Integration Tests
-- **End-to-End**: Test complete workflows
-- **Azure Integration**: Test with actual Azure services
-- **UI Tests**: Test frontend functionality
+### Test Categories
 
-### Test Data
-- **Sample Documents**: Use realistic NYC service documents
-- **Mock Services**: For isolated testing
-- **Test Fixtures**: Reusable test data setup
+#### Unit Tests (98 tests)
+- **Service Tests**: Business logic validation
+  - `DocumentSearchService`: Search functionality
+  - `AIEnhancedQueryService`: AI query enhancement
+  - `OpenAIKernelIntegration`: Semantic Kernel integration
+  
+- **Plugin Tests**: Semantic Kernel functions
+  - `DocumentSearchPlugin`: 6 plugin functions testing
+  - Parameter validation and error handling
+  - Mock service integration
+  
+- **Controller Tests**: HTTP API endpoints
+  - `SearchController`: Document search endpoints
+  - Parameter validation and response formatting
+  - Dependency injection testing
+  
+- **Model Tests**: Data model validation
+  - `ErrorViewModel`: Error handling models
+  - `SearchResultDocument`: Search result serialization
+
+#### Integration Tests (3 tests - Manual Setup Required)
+- **`OpenAI_WithRealCredentials_ShouldGenerateResponse`**: Basic Azure OpenAI connectivity
+- **`OpenAI_QueryEnhancement_ShouldImproveSearchTerms`**: AI query enhancement
+- **`OpenAI_WithKernelFunctions_ShouldInvokePluginFunctions`**: Plugin function execution
+
+### Test Configuration
+
+#### Automated Tests
+All unit tests run automatically with no configuration needed. They use:
+- **Mocked Dependencies**: No external service calls
+- **In-Memory Data**: Fast test execution
+- **Parallel Execution**: Optimized test performance
+
+#### Manual Integration Tests
+These tests require real Azure OpenAI credentials:
+
+1. **Create Azure OpenAI Resource**
+2. **Configure Credentials** (choose one method):
+   - `.env` file in project root
+   - .NET User Secrets
+   - Environment variables
+3. **Enable Tests**: Remove `Skip` attribute
+4. **Run Tests**: `dotnet test --verbosity normal`
+
+### Running Tests
+
+```bash
+# Run all automated tests (excludes manual integration tests)
+dotnet test
+
+# Run with detailed output
+dotnet test --verbosity normal
+
+# Run specific test categories
+dotnet test --filter "Category=Unit"
+dotnet test --filter "TestCategory=Service"
+
+# Run tests with coverage (requires coverlet)
+dotnet test --collect:"XPlat Code Coverage"
+```
+
+### Test Architecture
+- **Framework**: xUnit 2.5.3 with async/await support
+- **Assertions**: FluentAssertions 6.12.1 for readable test code
+- **Mocking**: Moq 4.20.72 for dependency mocking
+- **Integration**: TestWebApplicationFactory for ASP.NET Core testing
+- **Configuration**: Supports multiple configuration sources
+
+### Adding New Tests
+
+1. **Unit Tests**: Add to appropriate test class in `VirtualCitizenAgent.Tests/`
+2. **Integration Tests**: Add to integration test classes with proper setup
+3. **Mocking**: Use Moq for external dependencies
+4. **Assertions**: Use FluentAssertions for clear test failures
+5. **Naming**: Follow pattern `MethodName_Scenario_ExpectedResult`
+
+### Test Data Management
+- **Mock Services**: Realistic test data without external dependencies
+- **Test Fixtures**: Reusable test setup and data
+- **Configuration**: Separate test configurations for different scenarios
 
 ## 🚀 Deployment
 

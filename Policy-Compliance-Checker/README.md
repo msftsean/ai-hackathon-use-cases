@@ -1,23 +1,99 @@
-# 📋 Automated Policy Review and Compliance Checker v2.0
+# 📋 Automated Policy Review and Compliance Checker
 
 [![Tests](https://img.shields.io/badge/tests-59%2F59%20passing-brightgreen.svg)](./tests/)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://python.org)
 [![Semantic Kernel](https://img.shields.io/badge/semantic--kernel-1.37.0-purple.svg)](https://github.com/microsoft/semantic-kernel)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+> **🎯 Hackathon Ready!** Complete AI policy analysis system with 59 passing tests. Ready to run, extend, and customize!
+
 ## 📋 Overview
 
-Create an AI agent that reviews policy documents and flags inconsistencies or compliance issues based on predefined rules. Version 2.0 features comprehensive testing, modern dependencies, and production-ready deployment capabilities.
+An AI-powered system that automatically reviews policy documents, identifies inconsistencies, flags compliance issues, and generates actionable recommendations. Built with Semantic Kernel and modern AI technologies for government and enterprise use.
 
-## 🎯 Challenge Goals
+**✅ Production-Ready System** - Complete implementation with comprehensive testing
 
-- Automate policy document analysis and compliance checking
-- Identify inconsistencies, conflicts, and compliance gaps
-- Generate actionable recommendations for policy improvements
-- Streamline the policy review process for city departments
-- Ensure adherence to legal and regulatory requirements
+## 🚀 Quick Start for Hackathon
 
-## 🛠️ Technology Stack (v2.0)
+**Get running in 5 minutes!**
+
+### Option 1: Codespaces (Recommended)
+1. Open this repository in GitHub Codespaces
+2. Navigate to Policy-Compliance-Checker: `cd Policy-Compliance-Checker`
+3. Install dependencies: `pip install -r requirements.txt`
+4. Configure API keys (see [Configuration](#configuration))
+5. Run demo: `python demo.py`
+
+### Option 2: Local Development
+```bash
+git clone <repository-url>
+cd ai-hackathon-use-cases/Policy-Compliance-Checker
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python demo.py
+```
+
+## 🎯 Hackathon Features
+
+Perfect for extending and customizing during the hackathon:
+- **59 Working Tests**: Solid foundation with comprehensive test coverage
+- **Document Processing**: PDF, DOCX, and text file support
+- **Rule Engine**: Flexible compliance rule system
+- **AI-Powered Analysis**: Advanced policy inconsistency detection
+- **Template System**: Pre-built compliance rule templates
+
+## ⚙️ Configuration
+
+### Required API Keys
+
+Create a `.env` file in the Policy-Compliance-Checker directory:
+
+```bash
+# Azure OpenAI Configuration (Required)
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_API_KEY=your-api-key-here
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
+
+# Azure AI Services (Optional - for advanced document processing)
+AZURE_AI_TEXT_ANALYTICS_ENDPOINT=https://your-service.cognitiveservices.azure.com/
+AZURE_AI_TEXT_ANALYTICS_KEY=your-text-analytics-key
+
+# Azure Document Intelligence (Optional - for complex document layouts)
+AZURE_FORM_RECOGNIZER_ENDPOINT=https://your-service.cognitiveservices.azure.com/
+AZURE_FORM_RECOGNIZER_KEY=your-form-recognizer-key
+```
+
+### Configuration Options
+
+#### Option 1: .env File (Recommended for Hackathon)
+- Copy the `.env` file already in the directory
+- Update with your API keys
+- Most secure for local development
+
+#### Option 2: Environment Variables
+```bash
+export AZURE_OPENAI_ENDPOINT="https://your-resource.openai.azure.com/"
+export AZURE_OPENAI_API_KEY="your-api-key-here"
+export AZURE_OPENAI_DEPLOYMENT_NAME="gpt-4"
+```
+
+#### Option 3: Configuration File
+Edit `src/config/settings.py` for quick testing
+
+### Getting API Keys
+
+#### Azure OpenAI (Required)
+1. Create Azure OpenAI resource in Azure portal
+2. Deploy GPT-4 or GPT-3.5-turbo model
+3. Copy endpoint, deployment name, and API key
+
+#### Azure AI Services (Optional)
+1. Create Text Analytics resource for enhanced analysis
+2. Create Document Intelligence resource for complex layouts
+3. Add endpoints and keys to configuration
+
+## 🛠️ Technology Stack
 
 - **Semantic Kernel 1.37.0**: Modern plugin orchestration and rule processing
 - **Azure OpenAI**: Large language model for document analysis  
@@ -25,7 +101,7 @@ Create an AI agent that reviews policy documents and flags inconsistencies or co
 - **pytest 8.4.2+**: Comprehensive testing framework with 59 tests
 - **Azure AI Services**: Document Intelligence and Text Analytics
 - **Python 3.9+**: Modern Python with Pydantic v2 support
-- **GitHub Copilot**: AI-powered development acceleration
+- **python-docx**: Microsoft Word document processing
 
 ## 🏗️ Architecture
 
@@ -139,9 +215,205 @@ By completing this use case, you'll learn:
 
 ### 🔧 Quick Start (v2.0)
 
+## 🧪 Testing
+
+The system includes comprehensive testing with **59 tests** covering all major functionality.
+
+### Running Tests
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/Policy-Compliance-Checker.git
+# Run all tests
+python -m pytest
+
+# Run with detailed output
+python -m pytest -v
+
+# Run specific test category
+python -m pytest tests/test_compliance_engine.py -v
+
+# Run tests with coverage
+python -m pytest --cov=src --cov-report=html
+
+# Quick test validation
+python run_all_tests.py
+```
+
+### Test Categories
+- **Unit Tests**: Core component testing (25 tests)
+- **Integration Tests**: Multi-component workflows (15 tests)
+- **Plugin Tests**: Semantic Kernel plugin testing (11 tests)
+- **Setup Tests**: Environment and configuration validation (8 tests)
+
+### Sample Test Documents
+The `assets/test_documents/` folder contains:
+- `employee_code_of_conduct.md`: Employee policy document
+- `data_privacy_protection_policy.md`: Data protection policy
+- `remote_work_policy_it_department.md`: IT department remote work policy
+
+## 🎯 Hackathon Ideas & Extensions
+
+### Beginner Extensions (30-60 minutes)
+1. **New Document Type**: Add support for Excel/CSV policy files
+2. **Custom Rules**: Create domain-specific compliance rules
+3. **Report Export**: Add PDF/HTML report generation
+4. **Policy Comparison**: Compare two policy versions
+
+### Intermediate Extensions (2-4 hours)
+1. **Web Interface**: Create Flask/FastAPI dashboard
+2. **Batch Processing**: Process multiple documents simultaneously
+3. **Rule Builder**: Visual rule creation interface
+4. **Database Storage**: Persist analysis results
+
+### Advanced Extensions (Full Hackathon)
+1. **Real-time Monitoring**: Monitor policy changes across systems
+2. **ML Classification**: Train models for policy categorization
+3. **Workflow Integration**: Connect to approval/review workflows
+4. **Multi-language Support**: Analyze policies in different languages
+
+### Extension Points in Code
+- `src/plugins/`: Add new compliance analysis plugins
+- `src/models/`: Extend data models for new policy types
+- `src/rules/`: Create custom compliance rule engines
+- `assets/rule_templates/`: Add new rule template types
+
+## 🚀 Getting Started Guide
+
+### Step 1: Environment Setup
+```bash
+cd Policy-Compliance-Checker
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Step 2: Configure API Keys
+```bash
+# The .env file already exists with template
+# Edit .env with your API keys
+code .env  # Or use any text editor
+```
+
+### Step 3: Test Installation
+```bash
+# Run basic tests to verify setup
+python -m pytest tests/test_setup.py -v
+```
+
+### Step 4: Run Demo
+```bash
+# Run interactive demo
+python demo.py
+
+# Or analyze a specific document
+python src/main.py assets/test_documents/employee_code_of_conduct.md
+```
+
+### Step 5: Start Building!
+- Check `src/examples/` for usage patterns
+- Review `tests/` for component examples
+- Explore `assets/rule_templates/` for rule examples
+
+## 📊 Example Usage
+
+### Basic Policy Analysis
+```python
+from src.compliance_engine import ComplianceEngine
+from src.document_processor import DocumentProcessor
+
+# Load and process document
+processor = DocumentProcessor()
+document = processor.load_document("policy.pdf")
+
+# Run compliance check
+engine = ComplianceEngine()
+results = engine.analyze_policy(document)
+
+# Review findings
+for violation in results.violations:
+    print(f"Issue: {violation.description}")
+    print(f"Severity: {violation.severity}")
+    print(f"Recommendation: {violation.recommendation}")
+```
+
+### Custom Rule Creation
+```python
+from src.models.compliance_rule import ComplianceRule
+
+# Create custom rule
+rule = ComplianceRule(
+    name="Data Retention Policy",
+    description="Ensure data retention periods are specified",
+    pattern=r"data.*retention.*\d+\s*(days|months|years)",
+    severity="HIGH",
+    category="data_protection"
+)
+
+# Add to engine
+engine.add_rule(rule)
+```
+
+## 🆘 Troubleshooting
+
+### Common Issues
+
+#### "No API key found"
+- **Solution**: Verify `.env` file exists and contains correct keys
+- **Check**: File is in correct directory (Policy-Compliance-Checker/)
+
+#### "Module not found" errors
+- **Solution**: Ensure virtual environment is activated
+- **Check**: Run `pip list` to verify installed packages
+
+#### Document parsing errors
+- **Solution**: Check document format and file permissions
+- **Check**: Try with sample documents in `assets/test_documents/`
+
+#### Tests failing
+- **Solution**: Run `python -m pytest tests/test_setup.py` to verify configuration
+- **Check**: API keys are valid and services are accessible
+
+### Getting Help
+1. **Check Tests**: Run tests to identify specific issues
+2. **Review Logs**: Check console output for detailed error messages
+3. **Sample Documents**: Test with provided sample files first
+4. **Documentation**: Review inline code comments and docstrings
+
+## 📚 Policy Analysis Features
+
+### Document Processing
+- **PDF Processing**: Extract text from complex PDF layouts
+- **Word Documents**: Process .docx files with formatting preservation
+- **Markdown**: Parse structured markdown policy documents
+- **Plain Text**: Handle various text file formats
+
+### Compliance Analysis
+- **Consistency Checking**: Identify contradictory statements
+- **Completeness Validation**: Check for required policy sections
+- **Legal Compliance**: Validate against regulatory requirements
+- **Best Practices**: Compare against industry standards
+
+### Reporting
+- **Detailed Reports**: Comprehensive analysis with recommendations
+- **Severity Levels**: Prioritized findings (Critical, High, Medium, Low)
+- **Actionable Items**: Specific steps to address issues
+- **Progress Tracking**: Monitor compliance improvements over time
+
+## 📈 Real-World Applications
+
+### Government Use Cases
+- **Municipal Policies**: City ordinances and regulations
+- **HR Policies**: Employee handbooks and procedures
+- **Procurement Rules**: Vendor and contract guidelines
+- **Safety Protocols**: Emergency and safety procedures
+
+### Enterprise Use Cases
+- **Corporate Policies**: Company-wide policy compliance
+- **Regulatory Compliance**: Industry-specific requirements
+- **Data Protection**: GDPR, CCPA, and privacy policies
+- **Financial Controls**: SOX and financial policy compliance
+
+---
+
+**Ready to revolutionize policy compliance? Start building and make policy review effortless! 📋✨**
 cd Policy-Compliance-Checker
 
 # Install dependencies (Python 3.9+ required)
