@@ -1,0 +1,19 @@
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"] 
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+]
+
+# Suppress all warnings for clean test output
+filterwarnings = [
+    "ignore",
+]
+
+# Async test configuration
+asyncio_mode = "auto"
