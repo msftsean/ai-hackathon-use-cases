@@ -254,20 +254,36 @@ By completing this use case, you'll learn:
 
 ## 🧪 Testing
 
+The Document Eligibility Agent includes a comprehensive test suite with **74 individual tests** covering all components and workflows.
+
 ### Running Tests
 ```bash
-# Test document processing pipeline
-python test_document_processing.py
+# Quick system validation (recommended first)
+python run_all_tests.py quick
 
-# Test email integration
-python test_email_processor.py
+# Run complete test suite (74 tests)
+python run_all_tests.py all
 
-# Validate API connections
-python test_setup.py
+# Run specific test categories
+python run_all_tests.py setup      # Setup and configuration tests
+python run_all_tests.py core       # Core component tests (29 tests)
+python run_all_tests.py plugins    # Semantic Kernel plugin tests (16 tests)
+python run_all_tests.py integration # Integration tests (8 tests)
 
-# Test individual processors
-python -m pytest tests/ -v  # If pytest is configured
+# Check dependencies
+python run_all_tests.py deps
+
+# Run interactive demo
+python demo.py interactive
+python demo.py auto
 ```
+
+### Test Coverage
+- **Setup Tests (10 tests)**: Environment validation, mock services, plugin initialization
+- **Core Component Tests (29 tests)**: Document models, email processing, document intelligence, plugin functionality  
+- **Plugin Tests (16 tests)**: Document classification, data extraction, eligibility calculation
+- **Integration Tests (8 tests)**: End-to-end workflows, concurrent processing, error handling
+- **Manual Validation**: Interactive demo with real-world scenarios
 
 ### Test Data
 Use sample documents in `assets/sample_documents/`:
