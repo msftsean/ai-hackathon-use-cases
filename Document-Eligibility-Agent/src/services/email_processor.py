@@ -264,6 +264,7 @@ class MockEmailProcessorService(EmailProcessorService):
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self._doc_counter = 0  # Counter to ensure unique document IDs
         self.mock_emails = [
             {
                 'id': '1',
@@ -303,8 +304,9 @@ class MockEmailProcessorService(EmailProcessorService):
         
         attachments = []
         for i, filename in enumerate(mock_email['attachments']):
+            self._doc_counter += 1
             metadata = DocumentMetadata(
-                document_id=f"{message_id}_{i}",
+                document_id=f"{message_id}_{i}_{self._doc_counter}",
                 file_name=filename,
                 file_size=1024 * (i + 1),
                 mime_type="application/pdf" if filename.endswith('.pdf') else "image/jpeg",

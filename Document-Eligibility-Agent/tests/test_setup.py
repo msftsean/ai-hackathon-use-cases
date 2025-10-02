@@ -67,10 +67,10 @@ class TestSetupValidation:
         # Test inbox monitoring
         messages = await mock_email.monitor_inbox()
         assert len(messages) > 0
-        assert 'subject' in messages[0]
+        assert hasattr(messages[0], 'subject')
         
         # Test attachment retrieval
-        message_id = messages[0]['id']
+        message_id = messages[0].id
         attachments = await mock_email.get_message_attachments('me', message_id)
         assert len(attachments) > 0
         assert attachments[0].file_name is not None

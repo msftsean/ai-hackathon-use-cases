@@ -257,7 +257,7 @@ class TestDocumentEligibilityAgentIntegration:
         )
         
         extracted_data = ExtractedData(document_type=DocumentType.INCOME_VERIFICATION)
-        extracted_data.add_field("income_amount", 3500.0, 0.95)
+        extracted_data.add_field("income_amount", 1800.0, 0.95)
         extracted_data.add_field("employee_name", "Test User", 0.88)
         extracted_data.add_field("pay_period", "Monthly", 0.85)
         

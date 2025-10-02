@@ -162,13 +162,22 @@ class DataExtractionPlugin:
         
         for line in lines:
             line_lower = line.lower()
-            # Look for income amounts
-            if any(keyword in line_lower for keyword in ['gross pay', 'net pay', 'salary', 'total income']):
-                # Simple regex to find amounts (would be enhanced with proper parsing)
-                import re
-                amounts = re.findall(r'\$?[\d,]+\.?\d*', line)
+            # Look for income amounts - prioritize gross pay over net pay
+            import re
+            if 'gross pay' in line_lower:
+                # Look for dollar amounts with commas and decimals
+                amounts = re.findall(r'\$([0-9,]+\.[0-9]{2})', line)
                 if amounts:
-                    info['income_amount'] = amounts[0].replace('$', '').replace(',', '')
+                    # Take the largest amount found (likely the main pay amount)
+                    largest_amount = max(amounts, key=lambda x: float(x.replace(',', '')))
+                    info['income_amount'] = largest_amount
+            elif any(keyword in line_lower for keyword in ['net pay', 'salary', 'total income']) and 'income_amount' not in info:
+                # Look for dollar amounts with commas and decimals (only if gross pay not found yet)
+                amounts = re.findall(r'\$([0-9,]+\.[0-9]{2})', line)
+                if amounts:
+                    # Take the largest amount found (likely the main pay amount)
+                    largest_amount = max(amounts, key=lambda x: float(x.replace(',', '')))
+                    info['income_amount'] = largest_amount
             
             # Look for employer information
             if 'employer' in line_lower or 'company' in line_lower:
@@ -201,15 +210,30 @@ class DataExtractionPlugin:
         info = {}
         lines = text.split('\n')
         
-        for line in lines:
+        found_address_section = False
+        for i, line in enumerate(lines):
             line_lower = line.lower()
+            line_stripped = line.strip()
+            
+            # Look for service address section
             if 'service address' in line_lower or 'billing address' in line_lower:
-                info['service_address'] = line.strip()
-            elif 'amount due' in line_lower or 'total' in line_lower:
+                found_address_section = True
+                continue
+            
+            # If we found address section, capture the next few non-empty lines as address
+            if found_address_section and line_stripped:
+                # Check if this looks like an address (contains numbers and letters)
                 import re
-                amounts = re.findall(r'\$?[\d,]+\.?\d*', line)
+                if re.search(r'\d+.*[A-Za-z]', line_stripped):
+                    info['service_address'] = line_stripped
+                    found_address_section = False  # Stop after first address line
+            
+            # Look for amount due
+            if 'amount due' in line_lower or 'total' in line_lower:
+                import re
+                amounts = re.findall(r'\$([0-9,]+\.[0-9]{2})', line)
                 if amounts:
-                    info['amount_due'] = amounts[0].replace('$', '').replace(',', '')
+                    info['amount_due'] = amounts[0]
         
         return info
     
@@ -301,7 +325,7 @@ class EligibilityCalculationPlugin:
                 ]
             ),
             'Housing_Assistance': EligibilityCriteria(
-                program_name='Housing Assistance',
+                program_name='Housing_Assistance',
                 income_threshold=3000.0,
                 household_size_factor=True,
                 required_documents=[

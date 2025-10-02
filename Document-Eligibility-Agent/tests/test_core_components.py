@@ -161,7 +161,7 @@ class TestEmailProcessor:
         service = MockEmailProcessorService()
         
         messages = await service.monitor_inbox()
-        message_id = messages[0]['id']
+        message_id = messages[0].id
         
         # Get attachments
         attachments = await service.get_message_attachments('me', message_id)
