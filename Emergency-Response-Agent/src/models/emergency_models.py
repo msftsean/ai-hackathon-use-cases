@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 from enum import Enum
 from pydantic import BaseModel, field_validator
+import os
 
 
 class EmergencyType(Enum):
@@ -19,6 +20,13 @@ class EmergencyType(Enum):
     INFRASTRUCTURE_FAILURE = "infrastructure_failure"
     SECURITY_INCIDENT = "security_incident"
     EARTHQUAKE = "earthquake"
+    DROUGHTS = "droughts"
+    TORNADO = "tornado"
+    TSUNAMI = "tsunami"
+    VOLCANIC_ERUPTION = "volcanic_eruption"
+    CYBER_ATTACK = "cyber_attack"
+    CHEMICAL_SPILL = "chemical_spill"
+    RADIATION_LEAK = "radiation_leak"
 
 
 class SeverityLevel(Enum):
