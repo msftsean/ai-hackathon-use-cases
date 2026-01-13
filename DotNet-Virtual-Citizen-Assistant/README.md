@@ -1,5 +1,9 @@
 # NYC Virtual Citizen Assistant
 
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](#)
+[![Tests](https://img.shields.io/badge/Tests-22%20Passing-brightgreen.svg)](#running-tests)
+[![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4.svg)](https://dotnet.microsoft.com)
+
 A RAG-powered AI assistant for NYC government services built with .NET 9, Semantic Kernel, and Azure AI Services.
 
 ## Features
@@ -107,12 +111,12 @@ dotnet test
 
 - **.NET 9.0** - Web framework
 - **ASP.NET Core MVC** - Web application
-- **Semantic Kernel 1.25** - AI orchestration
+- **Semantic Kernel 1.65** - AI orchestration
 - **Azure AI Search** - Document search
 - **Azure OpenAI** - Chat completions
 - **Bootstrap 5.3** - UI framework
 - **Font Awesome 6** - Icons
-- **xUnit + FluentAssertions** - Testing
+- **xUnit + FluentAssertions** - Testing (22 tests)
 
 ## Architecture
 
@@ -141,6 +145,6 @@ dotnet test
 └─────────────────┘
 ```
 
-## License
+## Hackathon Team
 
-Copyright 2024 City of New York
+NY State AI Hackathon - January 2026

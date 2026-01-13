@@ -1,95 +1,151 @@
-# NY State AI Hackathon - Spec Files Quick Reference
+# NY State AI Hackathon - Quick Start Guide
 
-## 📁 Spec Files Overview
+Get any accelerator running in 5 minutes. All accelerators include mock mode for offline development - no Azure services required to get started.
 
-| Spec File | Use Case | Primary Tech | Hackathon Focus |
-|-----------|----------|--------------|-----------------|
-| `constituent-services-agent.spec.md` | Citizen Q&A chatbot | Foundry IQ + Translator | Multi-language RAG |
-| `document-eligibility-agent.spec.md` | Document processing | Doc Intelligence + Graph | OCR + extraction |
-| `policy-compliance-checker.spec.md` | Compliance review | Azure OpenAI + rules engine | Document analysis |
-| `emergency-response-agent.spec.md` | Multi-agent coordination | Agent Framework | Agent orchestration |
-| `inter-agency-knowledge-hub.spec.md` | Cross-agency search | Foundry IQ + SharePoint | Permission-aware RAG |
+## 🚀 Quick Start (Any Accelerator)
 
----
+### Python Accelerators (1-5)
 
-## 🚀 Using Specs with GitHub Copilot
-
-### Step 1: Open Spec in VS Code/Codespaces
 ```bash
-cd ai-hackathon-use-cases
-code specs/[your-chosen-spec].spec.md
+# 1. Navigate to accelerator
+cd [Accelerator-Directory]
+
+# 2. Create virtual environment
+python -m venv venv
+
+# 3. Activate (Windows)
+venv\Scripts\activate
+# OR Mac/Linux: source venv/bin/activate
+
+# 4. Install dependencies
+pip install -r requirements.txt
+
+# 5. Run demo (mock mode)
+python demo.py
+
+# 6. Run web interface
+python -m src.main
 ```
 
-### Step 2: Generate Implementation Plan
-In Copilot Chat, use:
-```
-/speckit.plan
+### .NET Accelerator (6)
 
-We're building this for the NY State AI Hackathon using:
-- Python 3.11 with Semantic Kernel 1.45+
-- Azure AI Foundry (Foundry IQ for RAG)
-- Azure OpenAI GPT-4o
-- Entra ID authentication
-- GCC-compliant Azure services only
+```bash
+# 1. Navigate to accelerator
+cd DotNet-Virtual-Citizen-Assistant
 
-Focus on the Day 1 Deliverables section for MVP scope.
-```
+# 2. Restore packages
+dotnet restore
 
-### Step 3: Break Into Tasks
-```
-/speckit.tasks
+# 3. Run (mock mode)
+dotnet run --project VirtualCitizenAgent
 
-Create tasks for Day 1 deliverables only. Each task should be completable in 1-2 hours.
-```
-
-### Step 4: Implement
-```
-/speckit.implement
-
-Start with task 1. Use Azure AI Foundry SDK patterns.
+# Open http://localhost:5000
 ```
 
 ---
 
-## 🎯 Hackathon Day 1 Priority Tasks by Use Case
+## 📁 The 6 Accelerators
 
-### Constituent Services Agent
-1. Set up Foundry IQ knowledge base with sample NY State content
-2. Implement basic Q&A endpoint with citation return
-3. Add Azure Translator for language detection
-4. Create simple Streamlit/Gradio chat interface
+| # | Accelerator | Directory | Tests | Demo |
+|---|-------------|-----------|-------|------|
+| 1 | Constituent Services Agent | `Constituent-Services-Agent/` | 43 | `python demo.py` |
+| 2 | Document Eligibility Agent | `Document-Eligibility-Agent/` | 86 | `python demo.py` |
+| 3 | Emergency Response Agent | `Emergency-Response-Agent/` | 62 | `python demo.py` |
+| 4 | Policy Compliance Checker | `Policy-Compliance-Checker/` | 14 | `python demo.py` |
+| 5 | Inter-Agency Knowledge Hub | `Inter-Agency-Knowledge-Hub/` | 38 | `python demo.py` |
+| 6 | Virtual Citizen Assistant | `DotNet-Virtual-Citizen-Assistant/` | 22 | `dotnet run` |
 
-### Document Eligibility Agent  
-1. Set up Azure Document Intelligence client
-2. Implement email attachment extraction (mock or Graph API)
-3. Create extraction pipeline for W-2 and pay stub
-4. Build simple review queue interface
-
-### Policy Compliance Checker
-1. Define 3 rule sets in JSON/YAML format
-2. Implement document upload and text extraction
-3. Create rule matching engine with Azure OpenAI
-4. Display results with severity ranking
-
-### Emergency Response Agent
-1. Set up NWS API integration for weather data
-2. Create Weather Agent with threat assessment prompt
-3. Implement basic resource tracking data model
-4. Build orchestrator connecting agents
-
-### Inter-Agency Knowledge Hub
-1. Create Foundry IQ knowledge base
-2. Connect to 2-3 sample SharePoint document libraries
-3. Implement permission-aware search (Entra ID groups)
-4. Build search interface with citation display
+**Total: 265 tests passing**
 
 ---
 
-## 📋 Key Azure Services by Use Case
+## 🧪 Running Tests
+
+### Python Projects
+
+```bash
+cd [Accelerator-Directory]
+python -m pytest tests/ -v
+```
+
+### .NET Project
+
+```bash
+cd DotNet-Virtual-Citizen-Assistant
+dotnet test
+```
+
+---
+
+## 🔧 Configuring Azure Services (Optional)
+
+All accelerators work in mock mode by default. To connect real Azure services:
+
+### Python Projects
+
+Create a `.env` file based on `.env.example`:
+
+```env
+USE_MOCK_SERVICES=false
+AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com
+AZURE_OPENAI_KEY=your-key
+# Additional service-specific keys...
+```
+
+### .NET Project
+
+Edit `VirtualCitizenAgent/appsettings.json`:
+
+```json
+{
+  "SearchConfiguration": {
+    "UseMockService": false,
+    "Endpoint": "https://your-search.search.windows.net",
+    "ApiKey": "your-key"
+  },
+  "OpenAI": {
+    "UseMockService": false,
+    "Endpoint": "https://your-openai.openai.azure.com",
+    "ApiKey": "your-key"
+  }
+}
+```
+
+---
+
+## 🎯 Accelerator Use Cases
+
+### 1. Constituent Services Agent
+**What it does**: AI chatbot answering citizen questions about NY State services
+**Try**: "How do I apply for SNAP benefits?" / "How do I renew my driver's license?"
+
+### 2. Document Eligibility Agent
+**What it does**: Processes eligibility documents (W-2s, pay stubs, utility bills)
+**Try**: Upload sample documents from `sample_documents/`
+
+### 3. Emergency Response Agent
+**What it does**: Multi-agent planning for emergency response coordination
+**Try**: Simulate a hurricane or winter storm scenario
+
+### 4. Policy Compliance Checker
+**What it does**: Analyzes policy documents for compliance violations
+**Try**: Upload a sample policy document for analysis
+
+### 5. Inter-Agency Knowledge Hub
+**What it does**: Cross-agency search with permission-aware results
+**Try**: Search across DMV, DOL, OTDA knowledge bases
+
+### 6. Virtual Citizen Assistant (.NET)
+**What it does**: RAG-powered chatbot for NYC government services
+**Try**: Ask about housing, transportation, or city services
+
+---
+
+## 📋 Key Azure Services by Accelerator
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    All Use Cases                                 │
+│                    Common Services (All)                        │
 ├─────────────────────────────────────────────────────────────────┤
 │  Azure AI Foundry  │  Entra ID  │  Azure OpenAI  │  Key Vault   │
 └─────────────────────────────────────────────────────────────────┘
@@ -102,97 +158,35 @@ Start with task 1. Use Azure AI Foundry SDK patterns.
 │ Azure AI Search  │ Blob Storage     │ Azure AI Search  │
 └──────────────────┴──────────────────┴──────────────────┘
 
-┌──────────────────┬──────────────────┐
-│ Emergency Resp   │ Knowledge Hub    │
-├──────────────────┼──────────────────┤
-│ Agent Framework  │ Foundry IQ       │
-│ Azure Maps       │ SharePoint API   │
-│ Comm Services    │ Microsoft Graph  │
-└──────────────────┴──────────────────┘
+┌──────────────────┬──────────────────┬──────────────────┐
+│ Emergency Resp   │ Knowledge Hub    │ Virtual Citizen  │
+├──────────────────┼──────────────────┼──────────────────┤
+│ Multi-Agent SK   │ Foundry IQ       │ Semantic Kernel  │
+│ Weather APIs     │ Azure AI Search  │ Azure AI Search  │
+│ Azure Maps       │ Microsoft Graph  │ Azure OpenAI     │
+└──────────────────┴──────────────────┴──────────────────┘
 ```
 
 ---
 
-## 🔧 Common Patterns
+## 🏆 Demo Tips
 
-### Foundry IQ Setup (Constituent Services, Knowledge Hub)
-```python
-from azure.ai.projects import AIProjectClient
-from azure.identity import DefaultAzureCredential
-
-client = AIProjectClient.from_connection_string(
-    credential=DefaultAzureCredential(),
-    conn_str=os.environ["AZURE_AI_PROJECT_CONNECTION"]
-)
-
-# Create agent with file search (Foundry IQ)
-agent = client.agents.create_agent(
-    model="gpt-4o",
-    name="nys-assistant",
-    instructions="You are a helpful NY State government assistant...",
-    tools=[{"type": "file_search"}]
-)
-```
-
-### Document Intelligence (Document Eligibility)
-```python
-from azure.ai.documentintelligence import DocumentIntelligenceClient
-from azure.core.credentials import AzureKeyCredential
-
-client = DocumentIntelligenceClient(
-    endpoint=os.environ["DOC_INTEL_ENDPOINT"],
-    credential=AzureKeyCredential(os.environ["DOC_INTEL_KEY"])
-)
-
-poller = client.begin_analyze_document(
-    "prebuilt-document",  # or prebuilt-tax.us.w2
-    document=document_bytes
-)
-result = poller.result()
-```
-
-### Multi-Agent Orchestration (Emergency Response)
-```python
-from semantic_kernel.agents.orchestration import SequentialOrchestration
-from semantic_kernel.agents import ChatCompletionAgent
-
-weather_agent = ChatCompletionAgent(kernel=kernel, name="WeatherAgent", ...)
-resource_agent = ChatCompletionAgent(kernel=kernel, name="ResourceAgent", ...)
-
-orchestration = SequentialOrchestration(
-    members=[weather_agent, resource_agent]
-)
-```
-
----
-
-## ✅ Spec Validation Checklist
-
-Before starting implementation, verify your chosen spec:
-
-- [ ] Read through all User Stories - do they make sense for hackathon?
-- [ ] Check Day 1 Deliverables - are they achievable in 4-5 hours?
-- [ ] Review Dependencies - do you have access to required services?
-- [ ] Understand Success Criteria - can you demo these metrics?
-- [ ] Note Out of Scope - don't accidentally build excluded features
-
----
-
-## 🏆 Demo Success Tips
-
-1. **Working > Perfect**: Get basic flow working first, polish later
-2. **Use Mock Data**: If API isn't ready, mock it - judges care about the concept
-3. **Prepare Fallbacks**: Have screenshots ready if live demo fails
-4. **Tell a Story**: Frame demo around constituent/user benefit, not tech
-5. **Show Citations**: Government AI must show sources - make this visible
-6. **Human-in-the-Loop**: Demonstrate where humans approve/override AI
+1. **Mock Mode First**: All accelerators work without Azure - start there
+2. **Run Tests**: Verify everything works with `pytest tests/ -v` or `dotnet test`
+3. **Use Sample Data**: Each accelerator includes test data
+4. **Show Citations**: Government AI must show sources - this is built-in
+5. **Human-in-the-Loop**: Demonstrate escalation and approval workflows
 
 ---
 
 ## 📚 Additional Resources
 
-- [Azure AI Foundry Docs](https://learn.microsoft.com/azure/ai-foundry/)
-- [Semantic Kernel Agents](https://learn.microsoft.com/semantic-kernel/agents/)
+- [Main README](./README.md) - Full documentation
+- [Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/)
+- [Semantic Kernel](https://learn.microsoft.com/semantic-kernel/)
 - [Document Intelligence](https://learn.microsoft.com/azure/ai-services/document-intelligence/)
-- [GitHub Spec Kit](https://github.com/github/spec-kit)
 - [NY State ITS AI Policy](https://its.ny.gov/ai)
+
+---
+
+**NY State AI Hackathon - January 2026**

@@ -1,14 +1,11 @@
 # 🏛️ NY State AI Hackathon - AI Accelerators for Government Services
 
-[![Accelerators](https://img.shields.io/badge/Accelerators-5-blue.svg)](#-the-5-ai-accelerators)
-[![Tests](https://img.shields.io/badge/Tests-270%2B%20Passing-brightgreen.svg)](#-testing--evaluation)
-[![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](#revision-matrix)
-[![Azure GCC](https://img.shields.io/badge/Azure-GCC%20Compliant-0078D4.svg)](#-compliance--responsible-ai)
-[![LOADinG Act](https://img.shields.io/badge/NY%20LOADinG%20Act-Compliant-purple.svg)](#-compliance--responsible-ai)
+[![Accelerators](https://img.shields.io/badge/Accelerators-6-blue.svg)](#-the-6-ai-accelerators)
+[![Tests](https://img.shields.io/badge/Tests-265%20Passing-brightgreen.svg)](#-testing--evaluation)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://python.org)
-[![Semantic Kernel](https://img.shields.io/badge/Semantic%20Kernel-1.45%2B-orange.svg)](https://docs.microsoft.com/semantic-kernel)
+[![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4.svg)](https://dotnet.microsoft.com)
+[![Semantic Kernel](https://img.shields.io/badge/Semantic%20Kernel-1.37%2B-orange.svg)](https://docs.microsoft.com/semantic-kernel)
 
-**Branch**: `001-constituent-services-agent`
 **Hackathon**: NY State AI Hackathon for Public Sector
 **Event Date**: January 13-14, 2026
 **Location**: SUNY ETEC Albany
@@ -30,7 +27,7 @@ Think of accelerators as **fully-functional blueprints** - they work out of the 
 
 ### This Repository
 
-This repository contains **5 AI accelerators** designed to transform how NY State government agencies serve constituents. Each accelerator is a complete application built with Microsoft Azure AI services and the Semantic Kernel framework, demonstrating practical AI solutions for:
+This repository contains **6 AI accelerators** designed to transform how NY State government agencies serve constituents. Each accelerator is a complete application built with Microsoft Azure AI services and the Semantic Kernel framework, demonstrating practical AI solutions for:
 
 | Challenge | Accelerator Solution |
 |-----------|---------------------|
@@ -39,6 +36,7 @@ This repository contains **5 AI accelerators** designed to transform how NY Stat
 | 🚨 Emergency coordination gaps | Multi-agent planning system |
 | 📋 Policy compliance burden | Automated document review |
 | 🔍 Siloed agency knowledge | Cross-agency secure search |
+| 🏙️ NYC citizen services | RAG-powered .NET chatbot |
 
 All accelerators comply with NY State's **LOADinG Act** and **RAISE Act** requirements for transparent, accountable AI in government.
 
@@ -48,7 +46,8 @@ All accelerators comply with NY State's **LOADinG Act** and **RAISE Act** requir
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| **2.0.0** | Jan 12, 2026 | Production release with 5 accelerators, 270+ tests | ✅ Current |
+| **2.1.0** | Jan 12, 2026 | Added .NET Virtual Citizen Assistant, 265 tests | ✅ Current |
+| 2.0.0 | Jan 12, 2026 | Production release with 5 accelerators | ✅ Stable |
 | 1.5.0 | Jan 10, 2026 | Added Inter-Agency Knowledge Hub accelerator | ✅ Stable |
 | 1.4.0 | Jan 9, 2026 | Added Policy Compliance Checker accelerator | ✅ Stable |
 | 1.3.0 | Jan 8, 2026 | Added Emergency Response Agent accelerator | ✅ Stable |
@@ -58,11 +57,11 @@ All accelerators comply with NY State's **LOADinG Act** and **RAISE Act** requir
 
 ---
 
-## 🚀 The 5 AI Accelerators
+## 🚀 The 6 AI Accelerators
 
 ### 1️⃣ Constituent Services Agent
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./Constituent-Services-Agent/)
-[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)](./Constituent-Services-Agent/)
+[![Tests](https://img.shields.io/badge/Tests-43%20Passing-brightgreen.svg)](./Constituent-Services-Agent/)
 [![Demo](https://img.shields.io/badge/Demo-5%20min-blue.svg)](./Constituent-Services-Agent/)
 
 **🎯 Purpose**: AI-powered chatbot answering citizen questions about NY State services
@@ -92,7 +91,7 @@ python demo.py
 
 ### 2️⃣ Document Eligibility Agent
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./Document-Eligibility-Agent/)
-[![Tests](https://img.shields.io/badge/Tests-74%2F74%20Passing-brightgreen.svg)](./Document-Eligibility-Agent/)
+[![Tests](https://img.shields.io/badge/Tests-86%20Passing-brightgreen.svg)](./Document-Eligibility-Agent/)
 [![Demo](https://img.shields.io/badge/Demo-5%20min-blue.svg)](./Document-Eligibility-Agent/)
 
 **🎯 Purpose**: Automated processing of eligibility documents (W-2s, pay stubs, utility bills)
@@ -129,7 +128,7 @@ python demo.py
 
 ### 3️⃣ Emergency Response Agent
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./Emergency-Response-Agent/)
-[![Tests](https://img.shields.io/badge/Tests-83%20Passing-brightgreen.svg)](./Emergency-Response-Agent/)
+[![Tests](https://img.shields.io/badge/Tests-62%20Passing-brightgreen.svg)](./Emergency-Response-Agent/)
 [![Multi-Agent](https://img.shields.io/badge/Pattern-Multi--Agent-purple.svg)](./Emergency-Response-Agent/)
 
 **🎯 Purpose**: Multi-agent system for emergency response planning and coordination
@@ -158,9 +157,9 @@ python demo.py
 ---
 
 ### 4️⃣ Policy Compliance Checker
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./ai-hackathon-use-cases/Policy-Compliance-Checker/)
-[![Tests](https://img.shields.io/badge/Tests-59%2F59%20Passing-brightgreen.svg)](./ai-hackathon-use-cases/Policy-Compliance-Checker/)
-[![AI Powered](https://img.shields.io/badge/AI-Powered-orange.svg)](./ai-hackathon-use-cases/Policy-Compliance-Checker/)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./Policy-Compliance-Checker/)
+[![Tests](https://img.shields.io/badge/Tests-14%20Passing-brightgreen.svg)](./Policy-Compliance-Checker/)
+[![AI Powered](https://img.shields.io/badge/AI-Powered-orange.svg)](./Policy-Compliance-Checker/)
 
 **🎯 Purpose**: Automated review of policy documents against compliance rules
 
@@ -185,9 +184,9 @@ python demo.py
 ---
 
 ### 5️⃣ Inter-Agency Knowledge Hub
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./ai-hackathon-use-cases/Inter-Agency-Knowledge-Hub/)
-[![Foundry IQ](https://img.shields.io/badge/Foundry%20IQ-Enabled-blue.svg)](./ai-hackathon-use-cases/Inter-Agency-Knowledge-Hub/)
-[![Cross-Agency](https://img.shields.io/badge/Search-Cross--Agency-purple.svg)](./ai-hackathon-use-cases/Inter-Agency-Knowledge-Hub/)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./Inter-Agency-Knowledge-Hub/)
+[![Tests](https://img.shields.io/badge/Tests-38%20Passing-brightgreen.svg)](./Inter-Agency-Knowledge-Hub/)
+[![Cross-Agency](https://img.shields.io/badge/Search-Cross--Agency-purple.svg)](./Inter-Agency-Knowledge-Hub/)
 
 **🎯 Purpose**: Cross-agency document search with permission-aware results
 
@@ -201,6 +200,37 @@ python demo.py
 - 📋 7-year audit log retention
 
 **🛠️ Tech Stack**: Microsoft Foundry + Foundry IQ + Azure AI Search + Entra ID
+
+---
+
+### 6️⃣ Virtual Citizen Assistant (.NET)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./DotNet-Virtual-Citizen-Assistant/)
+[![Tests](https://img.shields.io/badge/Tests-22%20Passing-brightgreen.svg)](./DotNet-Virtual-Citizen-Assistant/)
+[![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4.svg)](./DotNet-Virtual-Citizen-Assistant/)
+
+**🎯 Purpose**: RAG-powered AI assistant for NYC government services built with .NET
+
+**✨ Key Features**:
+- 💬 AI chat assistant with source citations
+- 🔍 Semantic, keyword, and hybrid search modes
+- 📂 Category browser with visual grid layout
+- 📄 Document details with print and share
+- 🛠️ Data upload utility for Azure AI Search
+- 🎨 Bootstrap 5.3 responsive UI
+
+**🛠️ Tech Stack**: .NET 9 + ASP.NET Core MVC + Semantic Kernel 1.65 + Azure AI Search + Azure OpenAI
+
+**▶️ Demo Command**:
+```bash
+cd DotNet-Virtual-Citizen-Assistant
+dotnet restore
+dotnet run --project VirtualCitizenAgent
+```
+
+**💡 Sample Features**:
+- Chat with AI about NYC services
+- Search documents semantically
+- Browse by service category
 
 ---
 
@@ -286,12 +316,30 @@ newyork/
 │   │   └── services/                  # Weather, traffic APIs
 │   └── requirements.txt
 │
+├── 📂 Policy-Compliance-Checker/      # 📋 Compliance checking
+│   ├── src/
+│   │   ├── models/                    # Compliance models
+│   │   ├── services/                  # Rule engine, parsing
+│   │   └── api/                       # Flask routes
+│   └── requirements.txt
+│
+├── 📂 Inter-Agency-Knowledge-Hub/     # 🔍 Cross-agency search
+│   ├── src/
+│   │   ├── models/                    # Search models
+│   │   ├── services/                  # Search, auth services
+│   │   └── api/                       # Flask routes
+│   └── requirements.txt
+│
+├── 📂 DotNet-Virtual-Citizen-Assistant/  # 🏙️ NYC .NET chatbot
+│   ├── VirtualCitizenAgent/           # Main web application
+│   │   ├── Controllers/               # MVC and API controllers
+│   │   ├── Services/                  # Business logic
+│   │   ├── Plugins/                   # Semantic Kernel plugins
+│   │   └── Views/                     # Razor views
+│   ├── VirtualCitizenAgent.Tests/     # xUnit tests
+│   └── AzureSearchUploader/           # Data upload utility
+│
 ├── 📂 ai-hackathon-use-cases/         # 📚 Reference implementations
-│   ├── Constituent-Services-Agent/
-│   ├── Document-Eligibility-Agent/
-│   ├── Emergency-Response-Agent/
-│   ├── Policy-Compliance-Checker/
-│   ├── Inter-Agency-Knowledge-Hub/
 │   └── shared/                        # Common patterns, evaluation
 │
 └── 📂 specs/                          # 📋 Feature specifications
@@ -354,12 +402,13 @@ python -m src.main
 ### ✅ Test Coverage
 | Accelerator | Tests | Status |
 |-------------|-------|--------|
-| Constituent Services Agent | Working Suite | ✅ Ready |
-| Document Eligibility Agent | 74/74 | ✅ 100% Passing |
-| Emergency Response Agent | 83 | ✅ All Passing |
-| Policy Compliance Checker | 59/59 | ✅ 100% Passing |
-| Inter-Agency Knowledge Hub | Core Suite | ✅ Ready |
-| **Total** | **270+** | ✅ **Production Ready** |
+| Constituent Services Agent | 43 | ✅ All Passing |
+| Document Eligibility Agent | 86 | ✅ All Passing |
+| Emergency Response Agent | 62 | ✅ All Passing |
+| Policy Compliance Checker | 14 | ✅ All Passing |
+| Inter-Agency Knowledge Hub | 38 | ✅ All Passing |
+| Virtual Citizen Assistant (.NET) | 22 | ✅ All Passing |
+| **Total** | **265** | ✅ **Production Ready** |
 
 ### 🤖 AI Evaluation Framework
 - **Quality Evaluators**: Groundedness, Relevance, Coherence, Fluency
@@ -367,9 +416,13 @@ python -m src.main
 - **Red Team Tests**: Jailbreak, PII extraction, authority spoofing, hallucination
 
 ```bash
-# Run tests for any accelerator
+# Run tests for Python accelerators
 cd [Accelerator-Directory]
 python -m pytest tests/ -v
+
+# Run tests for .NET accelerator
+cd DotNet-Virtual-Citizen-Assistant
+dotnet test
 
 # Run AI evaluations
 python -m shared.evaluation.eval_config
