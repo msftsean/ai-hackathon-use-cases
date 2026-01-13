@@ -551,6 +551,7 @@ Built for NY State government agencies to demonstrate how AI can improve constit
 - 🔗 [Azure AI Foundry Documentation](https://docs.microsoft.com/azure/ai-foundry)
 - 🔗 [Semantic Kernel Documentation](https://docs.microsoft.com/semantic-kernel)
 - 🔗 [Microsoft Accelerators](https://github.com/microsoft/solution-accelerators)
+- 💡 [Foundry-First Example Approach](https://github.com/ricardo-msft-SE/aihack-FoundryFirst/blob/main/virtual_citizen_assistant/step_by_step.md#virtual-citizen-assistant--azure-ai-foundry-guide)
 
 ---
 
