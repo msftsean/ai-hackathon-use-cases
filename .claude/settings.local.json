@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git branch:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nRefactor for NY State AI Hackathon \\(Jan 13-14, 2026\\)\n\n- Update branding from NYC to NY State AI Hackathon for Public Sector\n- Add compliance sections for LOADinG Act, RAISE Act, and GCC\n- Rename Virtual-Citizen-Assistant to Constituent-Services-Agent\n- Add Foundry IQ integration for agentic RAG\n- Add multi-language support \\(8 languages\\)\n- Create new Inter-Agency-Knowledge-Hub use case\n- Add AI Evaluation Framework with Azure AI Evaluation and red teaming\n- Add Microsoft Agent Framework patterns \\(sequential, handoff\\)\n- Add NY State agency sample data \\(DMV, DOL, OTDA, DOH, OGS\\)\n- Create GitHub Spec Kit templates for all use cases\n- Update dependencies to 2025/2026 versions \\(Semantic Kernel 1.45+\\)\n- Add HACKATHON_QUICKSTART.md for Day 1 setup\n- Add .github/copilot-instructions.md with gov constraints\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Skill(speckit.plan)",
+      "Skill(speckit.plan:*)",
+      "Bash(python -c:*)",
+      "Bash(python demo.py:*)",
+      "Bash(dir \"c:\\\\Users\\\\segayle\\\\repos\\\\hackathon\\\\newyork\\\\Constituent-Services-Agent\")",
+      "Bash(dir:*)",
+      "Bash(dotnet sln:*)",
+      "Bash(dotnet sln add:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet nuget list:*)",
+      "Bash(dotnet nuget add source:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet test:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(git remote add:*)",
+      "Bash(git fetch:*)",
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(powershell -Command \"Remove-Item -Path ''NUL'' -Force -ErrorAction SilentlyContinue; Remove-Item -Path ''\\\\?\\\\c:\\\\Users\\\\segayle\\\\repos\\\\hackathon\\\\newyork\\\\NUL'' -Force -ErrorAction SilentlyContinue\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd 6 AI hackathon use cases with full implementations and tests\n\nProjects included:\n- 001-Constituent-Services-Agent: Python chatbot for citizen services\n- 002-Document-Eligibility-Agent: Document OCR and validation\n- 003-Emergency-Response-Agent: Emergency response planning with Semantic Kernel\n- 004-Policy-Compliance-Checker: Policy document compliance checking\n- 005-Inter-Agency-Knowledge-Hub: Cross-agency document search\n- 006-DotNet-Virtual-Citizen-Assistant: .NET 9 RAG chatbot with Azure AI Search\n\nAll projects include:\n- Complete implementation with mock services for offline development\n- Unit tests \\(265 total tests passing\\)\n- E2E tests with Playwright \\(Python\\) and xUnit WebApplicationFactory \\(.NET\\)\n- Feature specifications and implementation plans in /specs\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nUpdate documentation for all 6 accelerators\n\n- Update main README with accurate test counts \\(265 total\\)\n- Add 6th accelerator \\(DotNet Virtual Citizen Assistant\\) section\n- Create READMEs for Document-Eligibility-Agent, Emergency-Response-Agent,\n  Policy-Compliance-Checker, and Inter-Agency-Knowledge-Hub\n- Update DotNet-Virtual-Citizen-Assistant README with badges and test count\n- Rewrite QUICKSTART.md with current accelerator info and running instructions\n- Fix test badge counts: CSA\\(43\\), DEA\\(86\\), ERA\\(62\\), PCC\\(14\\), IKH\\(38\\), VCA\\(22\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git merge:*)",
+      "Bash(gh pr list:*)"
+    ]
+  }
+}

@@ -97,14 +97,28 @@ For Azure services, create a `.env` file based on `.env.example`:
 
 ```env
 USE_MOCK_SERVICES=false
+
+# Azure OpenAI (Required)
+AZURE_OPENAI_ENDPOINT=https://your-resource-name.openai.azure.com
+AZURE_OPENAI_KEY=your-api-key
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o
+AZURE_OPENAI_API_VERSION=2024-02-15-preview
+
+# Azure AI Search (Required)
 AZURE_AI_SEARCH_ENDPOINT=https://your-search.search.windows.net
 AZURE_AI_SEARCH_KEY=your-key
-AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com
-AZURE_OPENAI_KEY=your-key
+
+# Entra ID Authentication (Required for production)
 AZURE_TENANT_ID=your-tenant-id
 AZURE_CLIENT_ID=your-client-id
 AZURE_CLIENT_SECRET=your-client-secret
 ```
+
+**Where to find these values:**
+1. **Azure OpenAI**: Azure Portal → Your OpenAI resource → Keys and Endpoint
+2. **AI Search**: Azure Portal → Your Search resource → Keys
+3. **Entra ID**: Azure Portal → App registrations → Your app → Overview
+4. **Deployment Name**: Azure AI Studio → Deployments (e.g., `gpt-4o`)
 
 ## Search Modes
 

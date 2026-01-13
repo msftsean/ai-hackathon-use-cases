@@ -79,11 +79,22 @@ For Azure services, create a `.env` file based on `.env.example`:
 
 ```env
 USE_MOCK_SERVICES=false
-AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT=https://your-endpoint.cognitiveservices.azure.com
+
+# Azure OpenAI (Required)
+AZURE_OPENAI_ENDPOINT=https://your-resource-name.openai.azure.com
+AZURE_OPENAI_KEY=your-api-key
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o
+AZURE_OPENAI_API_VERSION=2024-02-15-preview
+
+# Azure Document Intelligence (Required for OCR)
+AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT=https://your-doc-intel.cognitiveservices.azure.com
 AZURE_DOCUMENT_INTELLIGENCE_KEY=your-key
-AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com
-AZURE_OPENAI_KEY=your-key
 ```
+
+**Where to find these values:**
+1. **Azure OpenAI**: Azure Portal → Your OpenAI resource → Keys and Endpoint
+2. **Document Intelligence**: Azure Portal → Your Document Intelligence resource → Keys and Endpoint
+3. **Deployment Name**: Azure AI Studio → Deployments (e.g., `gpt-4o`)
 
 ## Eligibility Programs
 

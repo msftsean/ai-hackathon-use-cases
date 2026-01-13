@@ -77,22 +77,51 @@ dotnet test
 
 ---
 
-## 🔧 Configuring Azure Services (Optional)
+## 🔧 Configuring Azure OpenAI (Optional)
 
-All accelerators work in mock mode by default. To connect real Azure services:
+All accelerators work in mock mode by default. To connect real Azure OpenAI services, follow these steps.
 
-### Python Projects
+### Step 1: Get Your Azure OpenAI Credentials
 
-Create a `.env` file based on `.env.example`:
+1. Go to [Azure Portal](https://portal.azure.com)
+2. Navigate to your **Azure OpenAI** resource
+3. Click **Keys and Endpoint** in the left menu
+4. Copy:
+   - **Endpoint**: `https://your-resource-name.openai.azure.com`
+   - **Key 1** or **Key 2**: Your API key
+
+5. Click **Model deployments** → **Manage Deployments** in Azure AI Studio
+6. Note your **Deployment name** (e.g., `gpt-4`, `gpt-4o`, `gpt-35-turbo`)
+
+### Step 2: Configure Python Projects (Accelerators 1-5)
+
+Create a `.env` file in the accelerator directory:
 
 ```env
+# Required for all Python accelerators
 USE_MOCK_SERVICES=false
-AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com
-AZURE_OPENAI_KEY=your-key
-# Additional service-specific keys...
+AZURE_OPENAI_ENDPOINT=https://your-resource-name.openai.azure.com
+AZURE_OPENAI_KEY=your-api-key-here
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o
+AZURE_OPENAI_API_VERSION=2024-02-15-preview
+
+# Additional keys by accelerator:
+
+# Document Eligibility Agent (Accelerator 2)
+AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT=https://your-doc-intel.cognitiveservices.azure.com
+AZURE_DOCUMENT_INTELLIGENCE_KEY=your-key
+
+# Inter-Agency Knowledge Hub (Accelerator 5)
+AZURE_AI_SEARCH_ENDPOINT=https://your-search.search.windows.net
+AZURE_AI_SEARCH_KEY=your-key
+AZURE_TENANT_ID=your-tenant-id
+AZURE_CLIENT_ID=your-client-id
+AZURE_CLIENT_SECRET=your-client-secret
 ```
 
-### .NET Project
+### Step 3: Configure .NET Project (Accelerator 6)
+
+**Option A: Edit appsettings.json**
 
 Edit `VirtualCitizenAgent/appsettings.json`:
 
@@ -101,15 +130,44 @@ Edit `VirtualCitizenAgent/appsettings.json`:
   "SearchConfiguration": {
     "UseMockService": false,
     "Endpoint": "https://your-search.search.windows.net",
-    "ApiKey": "your-key"
+    "IndexName": "citizen-services",
+    "ApiKey": "your-search-api-key"
   },
   "OpenAI": {
     "UseMockService": false,
-    "Endpoint": "https://your-openai.openai.azure.com",
-    "ApiKey": "your-key"
+    "Endpoint": "https://your-resource-name.openai.azure.com",
+    "ApiKey": "your-openai-api-key",
+    "DeploymentName": "gpt-4o"
   }
 }
 ```
+
+**Option B: Use Environment Variables**
+
+```bash
+# Windows PowerShell
+$env:OpenAI__Endpoint = "https://your-resource-name.openai.azure.com"
+$env:OpenAI__ApiKey = "your-api-key"
+$env:OpenAI__DeploymentName = "gpt-4o"
+$env:OpenAI__UseMockService = "false"
+
+# Mac/Linux
+export OpenAI__Endpoint="https://your-resource-name.openai.azure.com"
+export OpenAI__ApiKey="your-api-key"
+export OpenAI__DeploymentName="gpt-4o"
+export OpenAI__UseMockService="false"
+```
+
+### Supported Azure OpenAI Models
+
+| Model | Deployment Name | Best For |
+|-------|-----------------|----------|
+| GPT-4o | `gpt-4o` | Best quality, multimodal |
+| GPT-4 | `gpt-4` | High quality reasoning |
+| GPT-4 Turbo | `gpt-4-turbo` | Fast, large context |
+| GPT-3.5 Turbo | `gpt-35-turbo` | Cost-effective |
+
+> **Note**: Use the deployment name you created in Azure AI Studio, not the model name.
 
 ---
 
@@ -181,7 +239,8 @@ Edit `VirtualCitizenAgent/appsettings.json`:
 
 ## 📚 Additional Resources
 
-- [Main README](./README.md) - Full documentation
+- [Main README](../README.md) - Full documentation
+- [Evaluation Guide](./EVAL_GUIDE.md) - AI evaluation framework
 - [Azure AI Foundry](https://learn.microsoft.com/azure/ai-foundry/)
 - [Semantic Kernel](https://learn.microsoft.com/semantic-kernel/)
 - [Document Intelligence](https://learn.microsoft.com/azure/ai-services/document-intelligence/)

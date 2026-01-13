@@ -52,6 +52,8 @@ Open http://localhost:5000 in your browser.
 
 ### 2. Configure Azure Services (Optional)
 
+**Option A: Edit appsettings.json**
+
 Edit `VirtualCitizenAgent/appsettings.json`:
 
 ```json
@@ -59,17 +61,43 @@ Edit `VirtualCitizenAgent/appsettings.json`:
   "SearchConfiguration": {
     "Endpoint": "https://your-search.search.windows.net",
     "IndexName": "citizen-services",
-    "ApiKey": "your-api-key",
+    "ApiKey": "your-search-api-key",
     "UseMockService": false
   },
   "OpenAI": {
-    "Endpoint": "https://your-openai.openai.azure.com",
-    "ApiKey": "your-api-key",
-    "DeploymentName": "gpt-4",
+    "Endpoint": "https://your-resource-name.openai.azure.com",
+    "ApiKey": "your-openai-api-key",
+    "DeploymentName": "gpt-4o",
     "UseMockService": false
   }
 }
 ```
+
+**Option B: Use Environment Variables**
+
+```powershell
+# Windows PowerShell
+$env:OpenAI__Endpoint = "https://your-resource-name.openai.azure.com"
+$env:OpenAI__ApiKey = "your-api-key"
+$env:OpenAI__DeploymentName = "gpt-4o"
+$env:OpenAI__UseMockService = "false"
+$env:SearchConfiguration__Endpoint = "https://your-search.search.windows.net"
+$env:SearchConfiguration__ApiKey = "your-search-key"
+$env:SearchConfiguration__UseMockService = "false"
+```
+
+```bash
+# Mac/Linux
+export OpenAI__Endpoint="https://your-resource-name.openai.azure.com"
+export OpenAI__ApiKey="your-api-key"
+export OpenAI__DeploymentName="gpt-4o"
+export OpenAI__UseMockService="false"
+```
+
+**Where to find these values:**
+1. Go to [Azure Portal](https://portal.azure.com) → Your Azure OpenAI resource
+2. **Keys and Endpoint** → Copy Endpoint and Key
+3. **Model deployments** in Azure AI Studio → Note your deployment name (e.g., `gpt-4o`)
 
 ### 3. Upload Documents (Optional)
 

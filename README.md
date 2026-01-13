@@ -176,10 +176,18 @@ python demo.py
 
 **▶️ Demo Command**:
 ```bash
-cd ai-hackathon-use-cases/Policy-Compliance-Checker
+cd Policy-Compliance-Checker
 pip install -r requirements.txt
 python demo.py
 ```
+
+**📋 Compliance Categories**:
+| Category | Description | Examples |
+|----------|-------------|----------|
+| Data Privacy | PII handling rules | Encryption, retention |
+| Accessibility | WCAG compliance | Alt text, contrast |
+| Security | Security standards | Authentication, logging |
+| Documentation | Policy requirements | Version control, approval |
 
 ---
 
@@ -200,6 +208,22 @@ python demo.py
 - 📋 7-year audit log retention
 
 **🛠️ Tech Stack**: Microsoft Foundry + Foundry IQ + Azure AI Search + Entra ID
+
+**▶️ Demo Command**:
+```bash
+cd Inter-Agency-Knowledge-Hub
+pip install -r requirements.txt
+python demo.py
+```
+
+**🏛️ Supported Agencies**:
+| Agency | Domain | Documents |
+|--------|--------|-----------|
+| DMV | Transportation | Licensing, registration |
+| DOL | Labor | Employment, wages |
+| OTDA | Social Services | Benefits, assistance |
+| DOH | Health | Public health, regulations |
+| OGS | General Services | Procurement, facilities |
 
 ---
 
@@ -339,10 +363,18 @@ newyork/
 │   ├── VirtualCitizenAgent.Tests/     # xUnit tests
 │   └── AzureSearchUploader/           # Data upload utility
 │
-├── 📂 ai-hackathon-use-cases/         # 📚 Reference implementations
-│   └── shared/                        # Common patterns, evaluation
+├── 📂 docs/                             # 📖 Documentation
+│   ├── QUICKSTART.md                    # Quick start guide
+│   ├── EVAL_GUIDE.md                    # Evaluation guide
+│   └── SPEC_TEMPLATE.md                 # Specification template
 │
-└── 📂 specs/                          # 📋 Feature specifications
+├── 📂 evaluation/                       # 🧪 AI evaluation framework
+│   ├── eval_config.py                   # Evaluation configuration
+│   ├── run_evals.py                     # Run evaluations
+│   ├── red_team.yaml                    # Red team test config
+│   └── test_cases.jsonl                 # Test cases
+│
+└── 📂 specs/                            # 📋 Feature specifications
     ├── 001-constituent-services-agent/
     ├── 002-document-eligibility-agent/
     ├── 003-emergency-response-agent/
@@ -473,8 +505,10 @@ Built for NY State government agencies to demonstrate how AI can improve constit
 
 ## 📚 Additional Resources
 
-- 📖 [AI Hackathon Use Cases README](./ai-hackathon-use-cases/README.md)
+- 🚀 [Quick Start Guide](./docs/QUICKSTART.md)
 - 📋 [Feature Specifications](./specs/)
+- 🧪 [Evaluation Framework](./evaluation/)
+- 📖 [Evaluation Guide](./docs/EVAL_GUIDE.md)
 - 🔗 [Azure AI Foundry Documentation](https://docs.microsoft.com/azure/ai-foundry)
 - 🔗 [Semantic Kernel Documentation](https://docs.microsoft.com/semantic-kernel)
 - 🔗 [Microsoft Accelerators](https://github.com/microsoft/solution-accelerators)
