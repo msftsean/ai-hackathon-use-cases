@@ -1,0 +1,796 @@
+openapi: 3.0.3
+info:
+  title: Emergency Response Planning Agent API
+  description: |
+    AI-powered emergency response planning system for city departments.
+    Simulates, coordinates, and optimizes emergency responses.
+  version: 1.0.0
+  contact:
+    name: NY State AI Hackathon
+
+servers:
+  - url: http://localhost:5002/api/v1
+    description: Local development server
+
+tags:
+  - name: Scenarios
+    description: Emergency scenario management
+  - name: Plans
+    description: Response plan generation and retrieval
+  - name: Weather
+    description: Weather data integration
+  - name: Evacuation
+    description: Evacuation route planning
+  - name: Historical
+    description: Historical incident data
+  - name: System
+    description: System health and status
+
+paths:
+  /scenarios:
+    post:
+      tags: [Scenarios]
+      summary: Create emergency scenario
+      description: Create a new emergency scenario for analysis and planning
+      operationId: createScenario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmergencyScenarioCreate'
+      responses:
+        '201':
+          description: Scenario created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmergencyScenario'
+        '400':
+          description: Invalid scenario parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      tags: [Scenarios]
+      summary: List scenarios
+      description: Retrieve list of scenarios with optional filtering
+      operationId: listScenarios
+      parameters:
+        - name: type
+          in: query
+          schema:
+            $ref: '#/components/schemas/EmergencyType'
+        - name: severity_min
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: List of scenarios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioList'
+
+  /scenarios/{scenario_id}:
+    get:
+      tags: [Scenarios]
+      summary: Get scenario details
+      operationId: getScenario
+      parameters:
+        - name: scenario_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scenario details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmergencyScenario'
+        '404':
+          description: Scenario not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags: [Scenarios]
+      summary: Delete scenario
+      operationId: deleteScenario
+      parameters:
+        - name: scenario_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Scenario deleted
+        '404':
+          description: Scenario not found
+
+  /scenarios/{scenario_id}/plan:
+    post:
+      tags: [Plans]
+      summary: Generate response plan
+      description: Generate comprehensive emergency response plan for scenario
+      operationId: generatePlan
+      parameters:
+        - name: scenario_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Response plan generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmergencyResponsePlan'
+        '404':
+          description: Scenario not found
+        '500':
+          description: Plan generation failed
+
+  /plans/{plan_id}:
+    get:
+      tags: [Plans]
+      summary: Get response plan
+      operationId: getPlan
+      parameters:
+        - name: plan_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Response plan details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmergencyResponsePlan'
+        '404':
+          description: Plan not found
+
+  /weather/current:
+    get:
+      tags: [Weather]
+      summary: Get current weather
+      description: Fetch current weather conditions for location
+      operationId: getCurrentWeather
+      parameters:
+        - name: lat
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: lon
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+      responses:
+        '200':
+          description: Current weather conditions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherCondition'
+        '503':
+          description: Weather service unavailable (fallback used)
+
+  /weather/forecast:
+    get:
+      tags: [Weather]
+      summary: Get weather forecast
+      description: Fetch weather forecast for location
+      operationId: getWeatherForecast
+      parameters:
+        - name: lat
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: lon
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: hours
+          in: query
+          schema:
+            type: integer
+            default: 24
+            maximum: 120
+      responses:
+        '200':
+          description: Weather forecast
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WeatherCondition'
+
+  /weather/risk:
+    post:
+      tags: [Weather]
+      summary: Assess weather risk
+      description: Assess weather-related risks for emergency planning
+      operationId: assessWeatherRisk
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lat:
+                  type: number
+                lon:
+                  type: number
+                emergency_type:
+                  $ref: '#/components/schemas/EmergencyType'
+              required: [lat, lon]
+      responses:
+        '200':
+          description: Weather risk assessment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherRiskAssessment'
+
+  /evacuation/routes:
+    get:
+      tags: [Evacuation]
+      summary: Get evacuation routes
+      description: Get optimized evacuation routes for zones
+      operationId: getEvacuationRoutes
+      parameters:
+        - name: zones
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+        - name: destination
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Evacuation routes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EvacuationRoute'
+
+  /evacuation/capacity:
+    post:
+      tags: [Evacuation]
+      summary: Calculate evacuation capacity
+      description: Calculate total evacuation capacity and timeline
+      operationId: calculateEvacuationCapacity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                route_ids:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Evacuation capacity analysis
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvacuationCapacity'
+
+  /traffic/conditions:
+    get:
+      tags: [Evacuation]
+      summary: Get traffic conditions
+      description: Get current traffic conditions for major routes
+      operationId: getTrafficConditions
+      parameters:
+        - name: routes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Traffic conditions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrafficCondition'
+
+  /historical/search:
+    get:
+      tags: [Historical]
+      summary: Search historical incidents
+      description: Search past emergency incidents for planning reference
+      operationId: searchHistoricalIncidents
+      parameters:
+        - name: q
+          in: query
+          description: Search query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            $ref: '#/components/schemas/EmergencyType'
+        - name: severity_min
+          in: query
+          schema:
+            type: integer
+        - name: date_from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: date_to
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalSearchResults'
+
+  /historical/{incident_id}:
+    get:
+      tags: [Historical]
+      summary: Get historical incident
+      operationId: getHistoricalIncident
+      parameters:
+        - name: incident_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Historical incident details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalIncident'
+        '404':
+          description: Incident not found
+
+  /health:
+    get:
+      tags: [System]
+      summary: Health check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: System healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+
+components:
+  schemas:
+    EmergencyType:
+      type: string
+      enum:
+        - hurricane
+        - winter_storm
+        - flood
+        - fire
+        - public_health
+        - infrastructure_failure
+        - security_incident
+        - earthquake
+
+    SeverityLevel:
+      type: integer
+      minimum: 1
+      maximum: 5
+      description: "1=Low, 2=Moderate, 3=High, 4=Severe, 5=Catastrophic"
+
+    EmergencyScenarioCreate:
+      type: object
+      required:
+        - incident_type
+        - severity_level
+        - location
+        - affected_area_radius
+        - estimated_population_affected
+      properties:
+        incident_type:
+          $ref: '#/components/schemas/EmergencyType'
+        severity_level:
+          $ref: '#/components/schemas/SeverityLevel'
+        location:
+          type: string
+          example: "Manhattan, NYC"
+        affected_area_radius:
+          type: number
+          format: double
+          minimum: 0.01
+          description: Radius in miles
+        estimated_population_affected:
+          type: integer
+          minimum: 0
+        duration_hours:
+          type: integer
+          minimum: 1
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        special_conditions:
+          type: object
+          additionalProperties:
+            type: string
+
+    EmergencyScenario:
+      allOf:
+        - $ref: '#/components/schemas/EmergencyScenarioCreate'
+        - type: object
+          properties:
+            scenario_id:
+              type: string
+            created_at:
+              type: string
+              format: date-time
+
+    EmergencyResponsePlan:
+      type: object
+      properties:
+        plan_id:
+          type: string
+        scenario:
+          $ref: '#/components/schemas/EmergencyScenario'
+        lead_agency:
+          type: string
+        supporting_agencies:
+          type: array
+          items:
+            type: string
+        immediate_actions:
+          type: array
+          items:
+            type: string
+        short_term_actions:
+          type: array
+          items:
+            type: string
+        long_term_recovery:
+          type: array
+          items:
+            type: string
+        resource_allocation:
+          $ref: '#/components/schemas/ResourceAllocation'
+        communication_plan:
+          type: object
+          additionalProperties:
+            type: string
+        activation_time:
+          type: string
+          format: date-time
+        estimated_duration:
+          type: string
+          description: ISO 8601 duration
+        key_milestones:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              time:
+                type: string
+                format: date-time
+        created_at:
+          type: string
+          format: date-time
+
+    ResourceAllocation:
+      type: object
+      properties:
+        personnel_deployment:
+          type: object
+          additionalProperties:
+            type: integer
+          example:
+            First Responders: 600
+            Support Staff: 300
+            Command Staff: 100
+        equipment_requirements:
+          type: object
+          additionalProperties:
+            type: integer
+        facility_assignments:
+          type: object
+          additionalProperties:
+            type: string
+        budget_allocation:
+          type: object
+          additionalProperties:
+            type: number
+
+    WeatherCondition:
+      type: object
+      properties:
+        temperature:
+          type: number
+          description: Temperature in Fahrenheit
+        humidity:
+          type: integer
+          description: Relative humidity percentage
+        wind_speed:
+          type: number
+          description: Wind speed in mph
+        wind_direction:
+          type: integer
+          description: Wind direction in degrees
+        pressure:
+          type: number
+          description: Atmospheric pressure in hPa
+        visibility:
+          type: number
+          description: Visibility in miles
+        conditions:
+          type: string
+          description: Weather description
+        timestamp:
+          type: string
+          format: date-time
+
+    WeatherRiskAssessment:
+      type: object
+      properties:
+        wind_risk:
+          type: string
+          enum: [low, medium, high]
+        precipitation_risk:
+          type: string
+          enum: [low, medium, high]
+        temperature_risk:
+          type: string
+          enum: [low, medium, high]
+        visibility_risk:
+          type: string
+          enum: [low, medium, high]
+        overall_risk:
+          type: string
+          enum: [low, medium, high]
+        recommendations:
+          type: array
+          items:
+            type: string
+
+    TrafficCondition:
+      type: object
+      properties:
+        route_name:
+          type: string
+        current_speed:
+          type: number
+        free_flow_speed:
+          type: number
+        congestion_level:
+          type: string
+          enum: [free_flow, moderate, heavy, severe]
+        travel_time_minutes:
+          type: integer
+        incidents:
+          type: array
+          items:
+            type: string
+        last_updated:
+          type: string
+          format: date-time
+
+    EvacuationRoute:
+      type: object
+      properties:
+        route_id:
+          type: string
+        origin:
+          type: string
+        destination:
+          type: string
+        distance_miles:
+          type: number
+        estimated_time_minutes:
+          type: integer
+        capacity_vehicles_per_hour:
+          type: integer
+        current_usage_percent:
+          type: number
+        alternate_routes:
+          type: array
+          items:
+            type: string
+        bottlenecks:
+          type: array
+          items:
+            type: string
+
+    EvacuationCapacity:
+      type: object
+      properties:
+        total_hourly_capacity:
+          type: integer
+        evacuation_times:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              population:
+                type: integer
+              hours_to_evacuate:
+                type: number
+              recommended_start_time:
+                type: string
+        bottleneck_analysis:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              severity:
+                type: string
+              affected_routes:
+                type: array
+                items:
+                  type: string
+
+    HistoricalIncident:
+      type: object
+      properties:
+        incident_id:
+          type: string
+        incident_type:
+          $ref: '#/components/schemas/EmergencyType'
+        title:
+          type: string
+        description:
+          type: string
+        date_occurred:
+          type: string
+          format: date-time
+        location:
+          type: string
+        severity_level:
+          $ref: '#/components/schemas/SeverityLevel'
+        response_actions:
+          type: array
+          items:
+            type: string
+        resources_deployed:
+          type: object
+          additionalProperties:
+            type: integer
+        lessons_learned:
+          type: array
+          items:
+            type: string
+        response_time_minutes:
+          type: integer
+        effectiveness_score:
+          type: number
+          minimum: 0
+          maximum: 10
+        agencies_involved:
+          type: array
+          items:
+            type: string
+        estimated_cost:
+          type: number
+        weather_conditions:
+          type: string
+        affected_population:
+          type: integer
+
+    HistoricalSearchResults:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoricalIncident'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+
+    ScenarioList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmergencyScenario'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        version:
+          type: string
+        services:
+          type: object
+          properties:
+            weather_api:
+              type: string
+              enum: [available, unavailable, mock]
+            traffic_api:
+              type: string
+              enum: [available, unavailable, mock]
+            search_api:
+              type: string
+              enum: [available, unavailable, mock]
+        timestamp:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object

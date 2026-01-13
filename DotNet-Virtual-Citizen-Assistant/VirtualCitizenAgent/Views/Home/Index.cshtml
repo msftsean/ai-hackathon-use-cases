@@ -1,0 +1,115 @@
+@{
+    ViewData["Title"] = "Home";
+    var categories = ViewBag.Categories as List<VirtualCitizenAgent.Models.ServiceCategory> ?? new List<VirtualCitizenAgent.Models.ServiceCategory>();
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4">
+        <i class="fas fa-city text-primary"></i> NYC Virtual Citizen Assistant
+    </h1>
+    <p class="lead">Your AI-powered guide to New York City government services</p>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-5">
+    <div class="col-md-6 mb-3">
+        <div class="card h-100 border-primary">
+            <div class="card-body text-center">
+                <i class="fas fa-comments fa-3x text-primary mb-3"></i>
+                <h3 class="card-title">AI Chat Assistant</h3>
+                <p class="card-text">Ask questions in natural language and get instant answers about NYC services with source citations.</p>
+                <a href="/chat" class="btn btn-primary btn-lg">
+                    <i class="fas fa-comments me-2"></i>Start Chat
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card h-100 border-success">
+            <div class="card-body text-center">
+                <i class="fas fa-search fa-3x text-success mb-3"></i>
+                <h3 class="card-title">Document Search</h3>
+                <p class="card-text">Search across thousands of NYC service documents using AI-powered semantic search.</p>
+                <a href="/search" class="btn btn-success btn-lg">
+                    <i class="fas fa-search me-2"></i>Search Documents
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Categories Section -->
+@if (categories.Any())
+{
+    <section class="mb-5">
+        <h2 class="mb-4"><i class="fas fa-th-large me-2"></i>Browse by Category</h2>
+        <div class="row">
+            @foreach (var category in categories)
+            {
+                <div class="col-md-4 col-lg-2 mb-3">
+                    <a href="/search?category=@category.Name" class="text-decoration-none">
+                        <div class="card h-100 text-center category-card">
+                            <div class="card-body">
+                                <i class="fas @(category.Icon ?? "fa-file-alt") fa-2x mb-2 text-primary"></i>
+                                <h6 class="card-title mb-1">@category.DisplayName</h6>
+                                <small class="text-muted">@category.DocumentCount docs</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-3">
+            <a href="/categories" class="btn btn-outline-primary">
+                <i class="fas fa-th-large me-2"></i>View All Categories
+            </a>
+        </div>
+    </section>
+}
+
+<!-- Features Section -->
+<section class="mb-5">
+    <h2 class="mb-4"><i class="fas fa-star me-2"></i>Features</h2>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <i class="fas fa-brain fa-2x text-info mb-3"></i>
+                    <h5 class="card-title">AI-Powered Search</h5>
+                    <p class="card-text">Our semantic search understands your questions and finds the most relevant information.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <i class="fas fa-quote-right fa-2x text-warning mb-3"></i>
+                    <h5 class="card-title">Source Citations</h5>
+                    <p class="card-text">Every answer includes links to official NYC government sources for verification.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <i class="fas fa-mobile-alt fa-2x text-success mb-3"></i>
+                    <h5 class="card-title">Mobile Friendly</h5>
+                    <p class="card-text">Access information on any device with our responsive design.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<style>
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    .category-card {
+        transition: all 0.3s ease;
+    }
+</style>
+}

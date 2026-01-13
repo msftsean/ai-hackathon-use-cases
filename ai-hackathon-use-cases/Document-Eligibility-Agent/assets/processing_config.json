@@ -1,0 +1,224 @@
+{
+  "configuration": {
+    "document_types_supported": [
+      "pay_stubs",
+      "medical_records", 
+      "utility_bills",
+      "unemployment_benefits",
+      "social_security_statements",
+      "tax_documents",
+      "bank_statements",
+      "lease_agreements",
+      "disability_documentation",
+      "child_support_orders"
+    ],
+    "ocr_confidence_threshold": 0.85,
+    "processing_timeout_seconds": 120,
+    "max_file_size_mb": 10
+  },
+  "document_processors": {
+    "pay_stub": {
+      "required_fields": [
+        "employee_name",
+        "employer_name", 
+        "pay_period",
+        "gross_pay",
+        "net_pay",
+        "year_to_date_earnings"
+      ],
+      "validation_rules": {
+        "gross_pay_minimum": 0,
+        "pay_period_format": "MM/DD/YYYY - MM/DD/YYYY",
+        "name_match_threshold": 0.8
+      },
+      "extraction_patterns": {
+        "gross_pay": "(?i)gross\\s+pay[:\\s]+\\$?([0-9,]+\\.\\d{2})",
+        "net_pay": "(?i)net\\s+pay[:\\s]+\\$?([0-9,]+\\.\\d{2})",
+        "employee_name": "(?i)employee[:\\s]+([A-Za-z\\s]+)",
+        "employer_name": "(?i)(?:company|employer)[:\\s]+([A-Za-z\\s&.,]+)"
+      }
+    },
+    "medical_record": {
+      "required_fields": [
+        "patient_name",
+        "provider_name",
+        "date_of_service",
+        "diagnosis",
+        "provider_license"
+      ],
+      "validation_rules": {
+        "provider_license_format": "[A-Z]{2}-\\d{6,10}",
+        "date_format": "MM/DD/YYYY",
+        "diagnosis_code_format": "[A-Z]\\d{2}\\.\\d"
+      },
+      "extraction_patterns": {
+        "patient_name": "(?i)patient[:\\s]+([A-Za-z\\s]+)",
+        "provider_name": "(?i)(?:dr\\.|doctor|physician)[\\s:]*([A-Za-z\\s.,]+)",
+        "diagnosis": "(?i)diagnosis[:\\s]+([A-Za-z0-9\\s.,\\-]+)",
+        "date_of_service": "(?i)(?:date\\s+of\\s+service|service\\s+date)[:\\s]+(\\d{1,2}/\\d{1,2}/\\d{4})"
+      }
+    },
+    "utility_bill": {
+      "required_fields": [
+        "account_holder_name",
+        "service_address",
+        "billing_period",
+        "total_amount",
+        "utility_company"
+      ],
+      "validation_rules": {
+        "amount_minimum": 0,
+        "billing_period_days": 30,
+        "address_format": "street_number street_name, city, state zip"
+      },
+      "extraction_patterns": {
+        "account_holder": "(?i)(?:account\\s+holder|customer)[:\\s]+([A-Za-z\\s]+)",
+        "service_address": "(?i)service\\s+address[:\\s]+([A-Za-z0-9\\s,.-]+)",
+        "total_amount": "(?i)total\\s+(?:amount\\s+)?due[:\\s]+\\$?([0-9,]+\\.\\d{2})",
+        "utility_company": "^([A-Za-z\\s&.]+)(?:\\n|Company)"
+      }
+    },
+    "unemployment_benefits": {
+      "required_fields": [
+        "claimant_name",
+        "claim_number",
+        "weekly_benefit_amount",
+        "benefit_year",
+        "employment_history"
+      ],
+      "validation_rules": {
+        "claim_number_format": "[A-Z]{2}-\\d{4}-\\d{9}",
+        "benefit_amount_minimum": 0,
+        "benefit_year_duration": 365
+      },
+      "extraction_patterns": {
+        "claimant_name": "(?i)claimant[:\\s]+([A-Za-z\\s]+)",
+        "claim_number": "(?i)claim\\s+number[:\\s]+([A-Z]{2}-\\d{4}-\\d{9})",
+        "weekly_benefit": "(?i)weekly\\s+benefit[:\\s]+\\$?([0-9,]+\\.\\d{2})",
+        "last_employer": "(?i)last\\s+employer[:\\s]+([A-Za-z\\s&.,]+)"
+      }
+    }
+  },
+  "eligibility_rules": {
+    "snap_benefits": {
+      "income_thresholds": {
+        "household_size_1": 2265,
+        "household_size_2": 3052,
+        "household_size_3": 3839,
+        "household_size_4": 4625
+      },
+      "required_documents": [
+        "pay_stub",
+        "utility_bill",
+        "medical_records"
+      ],
+      "verification_period_days": 30
+    },
+    "medicaid": {
+      "income_thresholds": {
+        "individual": 1677,
+        "family_of_2": 2268,
+        "family_of_3": 2859,
+        "family_of_4": 3450
+      },
+      "required_documents": [
+        "pay_stub",
+        "medical_records",
+        "unemployment_benefits"
+      ],
+      "verification_period_days": 45
+    },
+    "housing_assistance": {
+      "income_thresholds": {
+        "extremely_low": 0.3,
+        "very_low": 0.5,
+        "low": 0.8
+      },
+      "required_documents": [
+        "pay_stub",
+        "utility_bill",
+        "lease_agreement",
+        "bank_statement"
+      ],
+      "verification_period_days": 60
+    },
+    "disability_benefits": {
+      "medical_requirements": {
+        "duration_months_minimum": 12,
+        "functional_limitations": true,
+        "work_restrictions": true
+      },
+      "required_documents": [
+        "medical_records",
+        "disability_documentation",
+        "pay_stub"
+      ],
+      "verification_period_days": 90
+    }
+  },
+  "processing_workflow": {
+    "stages": [
+      {
+        "stage": "intake",
+        "description": "Receive email and extract attachments",
+        "timeout_seconds": 30,
+        "error_handling": "retry_3_times"
+      },
+      {
+        "stage": "ocr_processing", 
+        "description": "Extract text from document images",
+        "timeout_seconds": 60,
+        "error_handling": "manual_review_queue"
+      },
+      {
+        "stage": "document_classification",
+        "description": "Identify document type using AI",
+        "timeout_seconds": 15,
+        "error_handling": "default_to_manual_review"
+      },
+      {
+        "stage": "field_extraction",
+        "description": "Extract required fields using patterns",
+        "timeout_seconds": 45,
+        "error_handling": "partial_extraction_allowed"
+      },
+      {
+        "stage": "validation",
+        "description": "Validate extracted data against rules",
+        "timeout_seconds": 30,
+        "error_handling": "flag_discrepancies"
+      },
+      {
+        "stage": "eligibility_determination",
+        "description": "Apply eligibility rules to extracted data",
+        "timeout_seconds": 20,
+        "error_handling": "require_human_review"
+      },
+      {
+        "stage": "response_generation",
+        "description": "Generate email response with determination",
+        "timeout_seconds": 15,
+        "error_handling": "use_template_fallback"
+      }
+    ]
+  },
+  "quality_assurance": {
+    "confidence_thresholds": {
+      "automatic_approval": 0.95,
+      "human_review_required": 0.85,
+      "manual_processing": 0.70
+    },
+    "validation_checks": [
+      "document_completeness",
+      "field_accuracy", 
+      "eligibility_logic",
+      "regulatory_compliance"
+    ],
+    "audit_trail": {
+      "log_all_decisions": true,
+      "retain_processed_documents": true,
+      "track_processing_time": true,
+      "record_confidence_scores": true
+    }
+  }
+}

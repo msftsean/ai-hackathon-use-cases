@@ -1,0 +1,71 @@
+@model List<VirtualCitizenAgent.Models.ServiceCategory>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1 class="mb-4"><i class="fas fa-th-large me-2"></i>Service Categories</h1>
+
+<p class="lead mb-4">Browse NYC government services by category</p>
+
+<div class="row">
+    @foreach (var category in Model)
+    {
+        <div class="col-md-4 col-lg-3 mb-4">
+            <a href="/search?category=@category.Name" class="text-decoration-none">
+                <div class="card h-100 category-card">
+                    <div class="card-body text-center">
+                        <i class="fas @(category.Icon ?? "fa-file-alt") fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">@category.DisplayName</h5>
+                        @if (!string.IsNullOrEmpty(category.Description))
+                        {
+                            <p class="card-text text-muted small">@category.Description</p>
+                        }
+                        <span class="badge bg-primary">@category.DocumentCount documents</span>
+                    </div>
+                    @if (category.SubCategories != null && category.SubCategories.Any())
+                    {
+                        <div class="card-footer bg-light">
+                            <small class="text-muted">
+                                Includes: @string.Join(", ", category.SubCategories.Take(3))
+                                @if (category.SubCategories.Count > 3)
+                                {
+                                    <text>...</text>
+                                }
+                            </small>
+                        </div>
+                    }
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        No categories available at this time.
+    </div>
+}
+
+@section Scripts {
+<style>
+    .category-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .category-card .fa-3x {
+        transition: transform 0.3s ease;
+    }
+
+    .category-card:hover .fa-3x {
+        transform: scale(1.1);
+    }
+</style>
+}

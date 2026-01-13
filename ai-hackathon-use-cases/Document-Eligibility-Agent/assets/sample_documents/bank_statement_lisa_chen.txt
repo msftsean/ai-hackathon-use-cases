@@ -1,0 +1,141 @@
+TD BANK
+Monthly Account Statement
+
+Account Holder: LISA CHEN
+Account Number: 4367-****-8901
+Statement Period: 11/01/2023 - 11/30/2023
+Statement Date: 12/01/2023
+
+-----------------------------------
+ACCOUNT INFORMATION
+-----------------------------------
+Primary Account Holder: Lisa Michelle Chen
+Address: 456 Canal Street, Apt 2C
+         New York, NY 10013
+Phone: (212) 555-8765
+Account Type: TD Convenience Checking
+Account Opened: March 2019
+
+-----------------------------------
+ACCOUNT SUMMARY
+-----------------------------------
+Beginning Balance (11/01/23): $2,847.32
+Total Deposits: $3,150.00
+Total Withdrawals: -$2,956.78
+Service Charges: -$12.00
+Ending Balance (11/30/23): $3,028.54
+
+-----------------------------------
+DEPOSIT DETAILS
+-----------------------------------
+11/02/23  Direct Deposit - NYC DEPT OF EDUCATION      $1,875.00
+11/03/23  Mobile Deposit - Check #1234                  $275.00
+11/16/23  Direct Deposit - NYC DEPT OF EDUCATION      $1,875.00
+11/28/23  ATM Deposit - Cash                            $125.00
+
+TOTAL DEPOSITS: $3,150.00
+
+-----------------------------------
+WITHDRAWAL DETAILS
+-----------------------------------
+11/01/23  Rent Payment - Online Transfer               -$1,650.00
+11/02/23  ConEd Energy - Auto Pay                       -$127.45
+11/03/23  Verizon Wireless - Auto Pay                    -$85.99
+11/05/73  Grocery Store - Debit Card                     -$89.32
+11/07/23  MetroCard Refill - Debit Card                  -$33.00
+11/10/23  Pharmacy - Debit Card                          -$24.67
+11/12/23  Restaurant - Debit Card                        -$42.50
+11/15/23  ATM Withdrawal - TD Bank ATM                  -$100.00
+11/18/23  Online Purchase - Amazon                       -$67.89
+11/20/23  Grocery Store - Debit Card                     -$76.45
+11/22/23  Gas Station - Debit Card                       -$45.20
+11/25/23  Restaurant - Debit Card                        -$38.75
+11/28/23  Grocery Store - Debit Card                     -$92.18
+11/30/23  ATM Withdrawal - TD Bank ATM                   -$80.00
+
+TOTAL WITHDRAWALS: -$2,956.78
+
+-----------------------------------
+SERVICE CHARGES
+-----------------------------------
+11/30/23  Monthly Maintenance Fee                        -$12.00
+
+TOTAL SERVICE CHARGES: -$12.00
+
+-----------------------------------
+AVERAGE DAILY BALANCE
+-----------------------------------
+Average Daily Balance: $2,987.45
+Days in Statement Period: 30
+Interest Rate: 0.01% APY
+Interest Earned This Period: $0.25 (to be credited next statement)
+
+-----------------------------------
+ACCOUNT ACTIVITY SUMMARY
+-----------------------------------
+Number of Deposits: 4
+Number of Withdrawals: 14
+Number of ATM Transactions: 2
+Number of Debit Card Transactions: 8
+Number of Online/Auto Transactions: 5
+
+-----------------------------------
+YEAR-TO-DATE SUMMARY
+-----------------------------------
+YTD Total Deposits: $34,650.00
+YTD Total Withdrawals: -$32,890.45
+YTD Service Charges: -$132.00
+YTD Interest Earned: $2.75
+
+-----------------------------------
+OVERDRAFT PROTECTION
+-----------------------------------
+Status: Not Enrolled
+Available: TD Overdraft Relief (fee-based)
+           Transfer from TD Savings Account
+
+-----------------------------------
+IMPORTANT ACCOUNT INFORMATION
+-----------------------------------
+Direct Deposit Information:
+Routing Number: 031201360
+Account Number: 4367-****-8901
+
+Online Banking: Available at td.com
+Mobile App: TD Bank Mobile App
+Customer Service: 1-888-751-9000
+
+ATM Locations: Find locations at td.com/atm
+Fee-Free ATMs: All TD Bank ATMs
+
+-----------------------------------
+REGULATORY INFORMATION
+-----------------------------------
+Reg E Rights: You have certain rights regarding electronic 
+transfers. See your account agreement for details.
+
+FDIC Insured: Your deposits are insured up to $250,000 
+by the Federal Deposit Insurance Corporation.
+
+-----------------------------------
+CONTACT INFORMATION
+-----------------------------------
+Questions about your account?
+Call: 1-888-751-9000
+Visit: td.com
+Visit your local branch
+
+Account statements are available online and through mobile banking.
+Consider going paperless to help protect the environment.
+
+-----------------------------------
+IMPORTANT NOTICE
+-----------------------------------
+Please review your statement carefully. Report any errors or 
+unauthorized transactions within 60 days of the statement date.
+
+Keep this statement for your records. It may be needed for tax 
+preparation or verification of income and expenses.
+
+TD BANK, N.A.
+Member FDIC

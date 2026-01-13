@@ -1,0 +1,217 @@
+{
+  "scenario_id": "compliance_test_scenarios_2024",
+  "description": "Test scenarios for evaluating policy compliance checking effectiveness",
+  "version": "1.2",
+  "last_updated": "2024-11-15",
+  "test_scenarios": [
+    {
+      "scenario_name": "Remote Work Policy Compliance - Positive Case",
+      "scenario_id": "RW-001-PASS",
+      "test_document": "remote_work_policy_it_department.md",
+      "test_query": "Does this policy adequately address data security requirements for remote workers?",
+      "expected_outcome": "COMPLIANT",
+      "confidence_threshold": 0.85,
+      "applicable_rules": [
+        "data_security_requirements",
+        "equipment_management",
+        "access_control_policies"
+      ],
+      "expected_findings": [
+        "Policy requires VPN for all city network access",
+        "Multi-factor authentication mandate specified",
+        "City-issued device requirement enforced",
+        "Physical security guidelines included",
+        "Incident reporting timeline defined (2 hours)"
+      ],
+      "risk_level": "LOW",
+      "recommendation": "Policy meets security compliance standards"
+    },
+    {
+      "scenario_name": "Remote Work Policy Compliance - Missing Elements",
+      "scenario_id": "RW-002-PARTIAL",
+      "test_document": "remote_work_policy_it_department.md", 
+      "test_query": "Does this policy include adequate privacy protection measures?",
+      "expected_outcome": "PARTIALLY_COMPLIANT",
+      "confidence_threshold": 0.75,
+      "applicable_rules": [
+        "privacy_protection_requirements",
+        "data_handling_procedures",
+        "monitoring_disclosure"
+      ],
+      "expected_findings": [
+        "Limited privacy disclosure about monitoring activities",
+        "No specific data retention timeframes for performance monitoring",
+        "Insufficient detail on employee privacy rights during remote work"
+      ],
+      "risk_level": "MEDIUM",
+      "recommendation": "Add privacy protection section and monitoring disclosure"
+    },
+    {
+      "scenario_name": "Data Privacy Policy Compliance - Comprehensive Review",
+      "scenario_id": "DP-001-PASS",
+      "test_document": "data_privacy_protection_policy.md",
+      "test_query": "Does this policy meet GDPR-style privacy requirements?",
+      "expected_outcome": "COMPLIANT",
+      "confidence_threshold": 0.90,
+      "applicable_rules": [
+        "data_minimization_principle",
+        "purpose_limitation",
+        "individual_rights_protection",
+        "consent_management",
+        "breach_notification_procedures"
+      ],
+      "expected_findings": [
+        "Clear data minimization requirements specified",
+        "Purpose limitation principle well-defined",
+        "Individual rights (access, correction, deletion) addressed",
+        "Breach notification timeline compliant (72 hours)",
+        "Privacy impact assessment requirements included"
+      ],
+      "risk_level": "LOW",
+      "recommendation": "Policy demonstrates strong privacy compliance framework"
+    },
+    {
+      "scenario_name": "Employee Code of Conduct - Ethics Compliance",
+      "scenario_id": "EC-001-FAIL",
+      "test_document": "employee_code_of_conduct.md",
+      "test_query": "Does this code of conduct adequately address conflicts of interest?",
+      "expected_outcome": "NON_COMPLIANT",
+      "confidence_threshold": 0.65,
+      "applicable_rules": [
+        "conflict_of_interest_disclosure",
+        "financial_interest_reporting",
+        "gift_acceptance_policies"
+      ],
+      "expected_findings": [
+        "Missing financial disclosure requirements for senior staff",
+        "Unclear gift acceptance thresholds and procedures", 
+        "No specific guidance on contractor relationships",
+        "Insufficient enforcement mechanisms specified"
+      ],
+      "risk_level": "HIGH",
+      "recommendation": "Significant revision needed for conflict of interest provisions"
+    },
+    {
+      "scenario_name": "Cross-Policy Consistency Check",
+      "scenario_id": "CC-001-INCONSISTENT",
+      "test_documents": [
+        "remote_work_policy_it_department.md",
+        "data_privacy_protection_policy.md"
+      ],
+      "test_query": "Are the data handling requirements consistent across these policies?",
+      "expected_outcome": "INCONSISTENT",
+      "confidence_threshold": 0.70,
+      "applicable_rules": [
+        "policy_consistency_requirements",
+        "data_classification_alignment",
+        "access_control_coordination"
+      ],
+      "expected_findings": [
+        "Remote work policy allows 4-hour response time for communications",
+        "Privacy policy requires 1-hour notification for security incidents",
+        "Different data retention periods specified",
+        "Inconsistent access control terminology used"
+      ],
+      "risk_level": "MEDIUM",
+      "recommendation": "Harmonize response timeframes and data handling procedures"
+    },
+    {
+      "scenario_name": "Regulatory Compliance Gap Analysis",
+      "scenario_id": "RG-001-GAPS",
+      "test_document": "data_privacy_protection_policy.md",
+      "test_query": "Does this policy address all required elements under NYC Local Law 245?",
+      "expected_outcome": "GAPS_IDENTIFIED",
+      "confidence_threshold": 0.80,
+      "applicable_rules": [
+        "nyc_local_law_245_compliance",
+        "automated_decision_disclosure",
+        "algorithm_transparency_requirements"
+      ],
+      "expected_findings": [
+        "No specific mention of automated decision-making processes",
+        "Missing algorithm transparency requirements",
+        "Insufficient detail on automated processing notification",
+        "No specific provisions for algorithmic bias assessment"
+      ],
+      "risk_level": "HIGH", 
+      "recommendation": "Add NYC Local Law 245 specific requirements for automated systems"
+    },
+    {
+      "scenario_name": "Policy Completeness Assessment",
+      "scenario_id": "PC-001-COMPLETE",
+      "test_document": "remote_work_policy_it_department.md",
+      "test_query": "Does this policy include all essential elements for effective implementation?",
+      "expected_outcome": "COMPLETE",
+      "confidence_threshold": 0.85,
+      "applicable_rules": [
+        "policy_structure_requirements",
+        "implementation_guidance",
+        "enforcement_mechanisms",
+        "review_procedures"
+      ],
+      "expected_findings": [
+        "Clear scope and applicability defined",
+        "Specific implementation procedures included",
+        "Enforcement mechanisms clearly stated",
+        "Regular review schedule established",
+        "Contact information and resources provided"
+      ],
+      "risk_level": "LOW",
+      "recommendation": "Policy structure meets completeness standards"
+    },
+    {
+      "scenario_name": "Language and Accessibility Review",
+      "scenario_id": "LA-001-NEEDS_IMPROVEMENT",
+      "test_document": "data_privacy_protection_policy.md",
+      "test_query": "Is this policy written in plain language accessible to all employees?",
+      "expected_outcome": "NEEDS_IMPROVEMENT",
+      "confidence_threshold": 0.70,
+      "applicable_rules": [
+        "plain_language_requirements",
+        "accessibility_standards",
+        "multilingual_considerations"
+      ],
+      "expected_findings": [
+        "High reading level required (college-level vocabulary)",
+        "Extensive use of technical jargon without definitions",
+        "No multilingual version availability mentioned",
+        "Limited use of examples and practical scenarios"
+      ],
+      "risk_level": "MEDIUM",
+      "recommendation": "Simplify language and add practical examples for better accessibility"
+    }
+  ],
+  "testing_methodology": {
+    "compliance_scoring": {
+      "compliant": "0.85-1.0",
+      "partially_compliant": "0.65-0.84", 
+      "non_compliant": "0.0-0.64"
+    },
+    "risk_assessment": {
+      "low": "Minor issues with minimal impact",
+      "medium": "Moderate issues requiring attention",
+      "high": "Significant issues requiring immediate action"
+    },
+    "evaluation_criteria": [
+      "Rule coverage completeness",
+      "Implementation feasibility",
+      "Enforcement mechanisms",
+      "Regular review and update procedures",
+      "Stakeholder communication and training",
+      "Legal and regulatory alignment"
+    ]
+  },
+  "performance_metrics": {
+    "accuracy_targets": {
+      "rule_detection": 0.90,
+      "compliance_classification": 0.85,
+      "risk_assessment": 0.80,
+      "recommendation_relevance": 0.85
+    },
+    "response_time_targets": {
+      "single_document_analysis": "< 30 seconds",
+      "cross_policy_comparison": "< 2 minutes",
+      "comprehensive_review": "< 5 minutes"
+    }
+  }
+}

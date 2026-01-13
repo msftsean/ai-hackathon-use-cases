@@ -1,0 +1,93 @@
+NewYork-Presbyterian Hospital
+525 East 68th Street
+New York, NY 10065
+Phone: (212) 746-5454
+
+MEDICAL RECORD SUMMARY
+
+Patient: DAVID CHEN
+DOB: 03/15/1985
+MRN: 7829456
+Date of Service: 12/15/2023
+
+-----------------------------------
+PATIENT INFORMATION
+-----------------------------------
+Full Name: David Michael Chen
+Address: 89-12 Roosevelt Avenue, Apt 4C
+         Jackson Heights, NY 11372
+Phone: (347) 555-7890
+Emergency Contact: Lisa Chen (Wife) - (347) 555-7891
+Insurance: Medicaid (Primary) / Medicare (Secondary)
+Policy #: MC-847392856
+
+-----------------------------------
+CHIEF COMPLAINT
+-----------------------------------
+Patient presents with chronic lower back pain and mobility issues
+affecting daily activities and ability to work.
+
+-----------------------------------
+DIAGNOSIS
+-----------------------------------
+PRIMARY DIAGNOSIS:
+- M54.5 Low back pain, unspecified
+- M79.3 Panniculitis, unspecified
+
+SECONDARY DIAGNOSIS:  
+- F41.9 Anxiety disorder, unspecified
+- Z87.891 Personal history of nicotine dependence
+
+-----------------------------------
+TREATMENT PLAN
+-----------------------------------
+Current Medications:
+- Ibuprofen 600mg TID for pain management
+- Cyclobenzaprine 10mg BID for muscle spasms
+- Sertraline 50mg daily for anxiety
+
+Physical Therapy: 3x weekly sessions prescribed
+Work Restrictions: 
+- No lifting over 25 lbs
+- Frequent position changes required
+- Limited standing/walking to 2 hours at a time
+
+-----------------------------------
+FUNCTIONAL LIMITATIONS
+-----------------------------------
+Patient demonstrates significant functional impairment:
+- Unable to bend/stoop for extended periods
+- Difficulty with prolonged sitting (>30 minutes)
+- Requires assistive device for ambulation distances >100 feet
+- Pain levels consistently 6-7/10 on pain scale
+
+WORK CAPACITY: Currently unable to perform full-time employment
+due to pain and mobility limitations. Patient qualifies for temporary
+disability accommodations.
+
+-----------------------------------
+PROVIDER INFORMATION
+-----------------------------------
+Attending Physician: Dr. Sarah Kim, MD
+Department: Orthopedic Medicine
+Provider NPI: 1234567890
+License #: NY-789456123
+
+Next Appointment: 01/20/2024 at 2:00 PM
+Follow-up: 4 weeks for reassessment
+
+-----------------------------------
+DISABILITY CERTIFICATION
+-----------------------------------
+This patient is temporarily disabled and unable to work in their
+current capacity from 12/15/2023 through 03/15/2024 (estimated).
+Regular medical follow-up required.
+
+Provider Signature: Dr. Sarah Kim, MD
+Date: 12/15/2023
+
+-----------------------------------
+PATIENT RIGHTS NOTICE
+-----------------------------------
+This medical record contains confidential health information protected
+under HIPAA. Unauthorized disclosure is prohibited by law.

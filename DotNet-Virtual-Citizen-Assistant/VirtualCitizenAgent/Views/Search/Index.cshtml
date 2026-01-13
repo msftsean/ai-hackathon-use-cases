@@ -1,0 +1,156 @@
+@{
+    ViewData["Title"] = "Search";
+    var query = ViewBag.Query as string;
+    var category = ViewBag.Category as string;
+    var results = ViewBag.Results as VirtualCitizenAgent.Models.SearchResponse;
+    var categories = ViewBag.Categories as List<VirtualCitizenAgent.Models.ServiceCategory> ?? new List<VirtualCitizenAgent.Models.ServiceCategory>();
+}
+
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <h1 class="mb-4"><i class="fas fa-search me-2"></i>Document Search</h1>
+
+        <!-- Search Form -->
+        <form method="get" action="/search" class="mb-4">
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label for="search-query" class="visually-hidden">Search query</label>
+                    <input type="text" id="search-query" name="q" class="form-control form-control-lg"
+                           placeholder="Search for NYC services..." value="@query" required />
+                </div>
+                <div class="col-md-3">
+                    <label for="category-filter" class="visually-hidden">Category filter</label>
+                    <select id="category-filter" name="category" class="form-select form-select-lg">
+                        <option value="">All Categories</option>
+                        @foreach (var cat in categories)
+                        {
+                            <option value="@cat.Name" selected="@(cat.Name == category)">@cat.DisplayName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary btn-lg w-100" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Search Mode Toggle -->
+        <div class="mb-4">
+            <div class="btn-group" role="group" aria-label="Search mode">
+                <input type="radio" class="btn-check" name="mode" id="mode-semantic" value="semantic" checked>
+                <label class="btn btn-outline-primary" for="mode-semantic">
+                    <i class="fas fa-brain me-1"></i>Semantic
+                </label>
+                <input type="radio" class="btn-check" name="mode" id="mode-keyword" value="keyword">
+                <label class="btn btn-outline-primary" for="mode-keyword">
+                    <i class="fas fa-key me-1"></i>Keyword
+                </label>
+                <input type="radio" class="btn-check" name="mode" id="mode-hybrid" value="hybrid">
+                <label class="btn btn-outline-primary" for="mode-hybrid">
+                    <i class="fas fa-layer-group me-1"></i>Hybrid
+                </label>
+            </div>
+        </div>
+
+        @if (results != null)
+        {
+            <!-- Results Summary -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <p class="mb-0">
+                    Found <strong>@results.TotalCount</strong> results for "<strong>@results.Query</strong>"
+                    <small class="text-muted">(@results.SearchTimeMs ms)</small>
+                </p>
+            </div>
+
+            <!-- Results List -->
+            @if (results.Results.Any())
+            {
+                <div class="list-group">
+                    @foreach (var result in results.Results)
+                    {
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">
+                                    <a href="/documents/@result.Document.Id" class="text-decoration-none">
+                                        @result.Document.Title
+                                    </a>
+                                </h5>
+                                <small class="text-muted">
+                                    <span class="badge bg-secondary">@result.Score.ToString("F2")</span>
+                                </small>
+                            </div>
+                            <p class="mb-1">
+                                @if (result.Captions != null && result.Captions.Any())
+                                {
+                                    @Html.Raw(result.Captions.First())
+                                }
+                                else if (!string.IsNullOrEmpty(result.Document.Summary))
+                                {
+                                    @result.Document.Summary
+                                }
+                                else
+                                {
+                                    @(result.Document.Content.Length > 200 ? result.Document.Content.Substring(0, 200) + "..." : result.Document.Content)
+                                }
+                            </p>
+                            <div class="d-flex gap-2 mt-2">
+                                <span class="badge bg-primary">
+                                    <i class="fas fa-folder me-1"></i>@result.Document.Category
+                                </span>
+                                @if (result.Document.Tags != null)
+                                {
+                                    @foreach (var tag in result.Document.Tags.Take(3))
+                                    {
+                                        <span class="badge bg-light text-dark">@tag</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No documents found matching your search. Try different keywords or browse by category.
+                </div>
+            }
+        }
+        else if (string.IsNullOrEmpty(query))
+        {
+            <!-- Suggestions when no search -->
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <h4>Search NYC Government Services</h4>
+                    <p class="text-muted">Try searching for:</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <a href="/search?q=parking+permit" class="btn btn-outline-secondary">Parking Permit</a>
+                        <a href="/search?q=business+license" class="btn btn-outline-secondary">Business License</a>
+                        <a href="/search?q=affordable+housing" class="btn btn-outline-secondary">Affordable Housing</a>
+                        <a href="/search?q=property+tax" class="btn btn-outline-secondary">Property Tax</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // Handle search mode changes
+    document.querySelectorAll('input[name="mode"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const form = document.querySelector('form');
+            const modeInput = document.createElement('input');
+            modeInput.type = 'hidden';
+            modeInput.name = 'mode';
+            modeInput.value = this.value;
+            form.appendChild(modeInput);
+        });
+    });
+</script>
+}

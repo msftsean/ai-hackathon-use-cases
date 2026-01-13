@@ -1,0 +1,32 @@
+{
+  "agency": "dmv",
+  "name": "Department of Motor Vehicles",
+  "description": "Vehicle registration, driver licensing, and road safety policies",
+  "enabled": true,
+  "index_settings": {
+    "index_name": "agency-docs-dmv",
+    "vector_dimensions": 1536,
+    "semantic_config": "default-semantic"
+  },
+  "permission_groups": [
+    "DMV_Staff",
+    "DMV_Manager",
+    "DMV_Admin"
+  ],
+  "admin_groups": [
+    "DMV_Admin"
+  ],
+  "base_url": "https://dmv.ny.gov",
+  "document_types": [
+    "policy",
+    "procedure",
+    "form",
+    "guideline",
+    "regulation"
+  ],
+  "sync_schedule": "0 0 * * *",
+  "contact": {
+    "email": "dmv-support@dmv.ny.gov",
+    "phone": "1-800-CALL-DMV"
+  }
+}

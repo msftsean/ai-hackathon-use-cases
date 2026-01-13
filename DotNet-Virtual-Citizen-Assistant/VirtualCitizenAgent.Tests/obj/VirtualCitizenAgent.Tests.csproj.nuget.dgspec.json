@@ -1,0 +1,191 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent.Tests\\VirtualCitizenAgent.Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent.Tests\\VirtualCitizenAgent.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent.Tests\\VirtualCitizenAgent.Tests.csproj",
+        "projectName": "VirtualCitizenAgent.Tests",
+        "projectPath": "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent.Tests\\VirtualCitizenAgent.Tests.csproj",
+        "packagesPath": "C:\\Users\\segayle\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\segayle\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent\\VirtualCitizenAgent.csproj": {
+                "projectPath": "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent\\VirtualCitizenAgent.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "noWarn": [
+            "NU1605"
+          ],
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.12.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.11.1, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.0, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.8.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent\\VirtualCitizenAgent.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent\\VirtualCitizenAgent.csproj",
+        "projectName": "VirtualCitizenAgent",
+        "projectPath": "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent\\VirtualCitizenAgent.csproj",
+        "packagesPath": "C:\\Users\\segayle\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\segayle\\repos\\hackathon\\newyork\\DotNet-Virtual-Citizen-Assistant\\VirtualCitizenAgent\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\segayle\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "noWarn": [
+            "NU1605"
+          ],
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Azure.AI.OpenAI": {
+              "target": "Package",
+              "version": "[2.1.0-beta.1, )"
+            },
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.13.0, )"
+            },
+            "Azure.Search.Documents": {
+              "target": "Package",
+              "version": "[11.6.0, )"
+            },
+            "Microsoft.SemanticKernel": {
+              "target": "Package",
+              "version": "[1.25.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

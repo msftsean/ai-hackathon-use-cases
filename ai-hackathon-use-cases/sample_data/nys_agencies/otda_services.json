@@ -1,0 +1,144 @@
+{
+  "agency": "OTDA",
+  "agency_name": "New York State Office of Temporary and Disability Assistance",
+  "website": "https://otda.ny.gov",
+  "services": [
+    {
+      "service_id": "otda-snap",
+      "name": "SNAP (Supplemental Nutrition Assistance Program)",
+      "description": "Food assistance for eligible low-income individuals and families",
+      "eligibility": {
+        "income_limits": "Varies by household size",
+        "resource_limits": {
+          "household_without_elderly": 2750,
+          "household_with_elderly": 4250
+        },
+        "citizenship": "US citizen or qualified non-citizen",
+        "work_requirements": "Able-bodied adults 18-59 without dependents"
+      },
+      "required_documents": [
+        "Proof of identity",
+        "Proof of residence",
+        "Social Security Number",
+        "Proof of income",
+        "Proof of resources"
+      ],
+      "methods": {
+        "online": {
+          "url": "https://mybenefits.ny.gov",
+          "requirements": ["NY.gov account"],
+          "processing_time": "30 days (7 days expedited)"
+        },
+        "in_person": {
+          "locations": "Local Social Services District",
+          "requirements": ["All documents"],
+          "processing_time": "30 days"
+        },
+        "phone": {
+          "number": "1-800-342-3009",
+          "hours": "Available 24/7"
+        }
+      },
+      "benefit_amounts": {
+        "calculation": "Based on household size and income",
+        "maximum_by_household": {
+          "1": 291,
+          "2": 535,
+          "3": 766,
+          "4": 973,
+          "5": 1155,
+          "6": 1386,
+          "7": 1532,
+          "8": 1751
+        }
+      },
+      "recertification": "Every 6-12 months"
+    },
+    {
+      "service_id": "otda-medicaid",
+      "name": "Medicaid",
+      "description": "Health coverage for eligible low-income individuals and families",
+      "eligibility": {
+        "income_limits": "Up to 138% of Federal Poverty Level for most adults",
+        "categories": [
+          "Low-income adults",
+          "Children",
+          "Pregnant women",
+          "Seniors",
+          "People with disabilities"
+        ]
+      },
+      "required_documents": [
+        "Proof of identity",
+        "Proof of citizenship or immigration status",
+        "Proof of income",
+        "Social Security Number"
+      ],
+      "methods": {
+        "online": {
+          "url": "https://nystateofhealth.ny.gov",
+          "requirements": ["NY.gov account"]
+        },
+        "phone": {
+          "number": "1-855-355-5777",
+          "hours": "Monday-Friday 8:00 AM - 8:00 PM, Saturday 9:00 AM - 1:00 PM"
+        },
+        "in_person": {
+          "locations": "Local Social Services District"
+        }
+      }
+    },
+    {
+      "service_id": "otda-cash-assistance",
+      "name": "Cash Assistance (TANF)",
+      "description": "Temporary financial assistance for families with children",
+      "eligibility": [
+        "Family with dependent children",
+        "Meet income and resource limits",
+        "US citizen or qualified non-citizen",
+        "NY resident"
+      ],
+      "required_documents": [
+        "Proof of identity",
+        "Birth certificates for children",
+        "Proof of income",
+        "Proof of resources",
+        "Proof of residence"
+      ],
+      "work_requirements": "Must participate in work activities",
+      "time_limits": "60 months lifetime limit (with exceptions)",
+      "contact": {
+        "website": "https://mybenefits.ny.gov",
+        "phone": "1-800-342-3009"
+      }
+    },
+    {
+      "service_id": "otda-heap",
+      "name": "HEAP (Home Energy Assistance Program)",
+      "description": "Assistance with heating and cooling costs",
+      "eligibility": {
+        "income_limit": "60% of State Median Income",
+        "responsible_for_heating": true
+      },
+      "benefit_types": [
+        "Regular heating benefit",
+        "Emergency benefit",
+        "Cooling assistance"
+      ],
+      "methods": {
+        "online": {
+          "url": "https://mybenefits.ny.gov"
+        },
+        "in_person": {
+          "locations": "Local Social Services District"
+        }
+      },
+      "season": "November through March (heating)"
+    }
+  ],
+  "contact": {
+    "phone": "1-800-342-3009",
+    "hours": "24/7 automated system",
+    "website": "https://mybenefits.ny.gov"
+  }
+}

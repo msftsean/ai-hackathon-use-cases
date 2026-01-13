@@ -1,0 +1,685 @@
+openapi: 3.1.0
+info:
+  title: Document Eligibility Agent API
+  description: |
+    AI-powered document processing for NY State eligibility verification.
+    Extracts, validates, and routes documents with confidence scoring.
+  version: 1.0.0
+  contact:
+    name: NY State AI Hackathon
+    url: https://github.com/msftsean/ai-hackathon-use-cases
+
+servers:
+  - url: http://localhost:5001/api/v1
+    description: Local development
+  - url: https://{environment}.azurewebsites.net/api/v1
+    description: Azure deployment
+    variables:
+      environment:
+        default: nys-doc-eligibility-dev
+        enum:
+          - nys-doc-eligibility-dev
+          - nys-doc-eligibility-staging
+          - nys-doc-eligibility-prod
+
+tags:
+  - name: Documents
+    description: Document upload and management
+  - name: Queue
+    description: Processing queue operations
+  - name: Extractions
+    description: Data extraction results
+  - name: Health
+    description: Service health checks
+
+paths:
+  /documents:
+    post:
+      tags:
+        - Documents
+      summary: Upload a document
+      description: |
+        Upload a document for processing. Document is queued for extraction.
+      operationId: uploadDocument
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - case_id
+                - document_type
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Document file (PDF, JPG, PNG)
+                case_id:
+                  type: string
+                  description: Case identifier
+                document_type:
+                  $ref: '#/components/schemas/DocumentType'
+                priority:
+                  $ref: '#/components/schemas/Priority'
+                  default: standard
+      responses:
+        '201':
+          description: Document uploaded and queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: File too large (max 50MB)
+
+  /documents/{document_id}:
+    get:
+      tags:
+        - Documents
+      summary: Get document details
+      operationId: getDocument
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentDetail'
+        '404':
+          description: Document not found
+
+    delete:
+      tags:
+        - Documents
+      summary: Delete document
+      operationId: deleteDocument
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Document deleted
+        '404':
+          description: Document not found
+
+  /documents/{document_id}/download:
+    get:
+      tags:
+        - Documents
+      summary: Download original document
+      operationId: downloadDocument
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: redact_pii
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: Redact PII from document
+      responses:
+        '200':
+          description: Document file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Document not found
+
+  /documents/{document_id}/approve:
+    post:
+      tags:
+        - Documents
+      summary: Approve document
+      operationId: approveDocument
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notes:
+                  type: string
+                  maxLength: 1000
+      responses:
+        '200':
+          description: Document approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '404':
+          description: Document not found
+        '409':
+          description: Document not in reviewable state
+
+  /documents/{document_id}/reject:
+    post:
+      tags:
+        - Documents
+      summary: Reject document
+      operationId: rejectDocument
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - reason
+              properties:
+                reason:
+                  type: string
+                  maxLength: 1000
+                request_resubmission:
+                  type: boolean
+                  default: false
+      responses:
+        '200':
+          description: Document rejected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '404':
+          description: Document not found
+
+  /documents/{document_id}/reprocess:
+    post:
+      tags:
+        - Documents
+      summary: Reprocess document
+      operationId: reprocessDocument
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '202':
+          description: Reprocessing queued
+        '404':
+          description: Document not found
+
+  /queue:
+    get:
+      tags:
+        - Queue
+      summary: Get processing queue
+      operationId: getQueue
+      parameters:
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/DocumentStatus'
+        - name: document_type
+          in: query
+          schema:
+            $ref: '#/components/schemas/DocumentType'
+        - name: assigned_to
+          in: query
+          schema:
+            type: string
+          description: Filter by assigned worker
+        - name: priority
+          in: query
+          schema:
+            $ref: '#/components/schemas/Priority'
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+            enum: [uploaded_at, priority, confidence]
+            default: uploaded_at
+        - name: sort_order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: Queue listing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueResponse'
+
+  /queue/stats:
+    get:
+      tags:
+        - Queue
+      summary: Get queue statistics
+      operationId: getQueueStats
+      responses:
+        '200':
+          description: Queue statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueStats'
+
+  /queue/bulk-approve:
+    post:
+      tags:
+        - Queue
+      summary: Bulk approve documents
+      operationId: bulkApprove
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - document_ids
+              properties:
+                document_ids:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+                  maxItems: 50
+      responses:
+        '200':
+          description: Bulk approval results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  approved:
+                    type: integer
+                  failed:
+                    type: integer
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        document_id:
+                          type: string
+                        error:
+                          type: string
+
+  /extractions/{document_id}:
+    get:
+      tags:
+        - Extractions
+      summary: Get extractions for document
+      operationId: getExtractions
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: include_pii
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: Include unmasked PII values (requires permission)
+      responses:
+        '200':
+          description: Extraction results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractionResponse'
+        '404':
+          description: Document not found
+
+  /extractions/{document_id}/fields/{field_name}:
+    patch:
+      tags:
+        - Extractions
+      summary: Correct extracted field
+      operationId: correctField
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: field_name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - value
+              properties:
+                value:
+                  type: string
+                reason:
+                  type: string
+                  maxLength: 500
+      responses:
+        '200':
+          description: Field corrected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extraction'
+        '404':
+          description: Document or field not found
+
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service unhealthy
+
+  /health/ready:
+    get:
+      tags:
+        - Health
+      summary: Readiness check
+      operationId: readinessCheck
+      responses:
+        '200':
+          description: Service ready
+        '503':
+          description: Service not ready
+
+components:
+  schemas:
+    DocumentType:
+      type: string
+      enum: [w2, paystub, utility_bill, bank_statement, drivers_license, birth_certificate, lease_agreement, other]
+
+    DocumentStatus:
+      type: string
+      enum: [uploaded, processing, extracted, validating, ready_for_review, approved, rejected, resubmit_requested, failed]
+
+    Priority:
+      type: string
+      enum: [expedited, resubmission, standard, low]
+
+    ValidationStatus:
+      type: string
+      enum: [passed, failed, warning, skipped, pending]
+
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+        document_type:
+          $ref: '#/components/schemas/DocumentType'
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        filename:
+          type: string
+        priority:
+          $ref: '#/components/schemas/Priority'
+        uploaded_at:
+          type: string
+          format: date-time
+        processed_at:
+          type: string
+          format: date-time
+        overall_confidence:
+          type: number
+          format: float
+        validation_status:
+          $ref: '#/components/schemas/ValidationStatus'
+        assigned_to:
+          type: string
+
+    DocumentDetail:
+      allOf:
+        - $ref: '#/components/schemas/Document'
+        - type: object
+          properties:
+            extractions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Extraction'
+            validations:
+              type: array
+              items:
+                $ref: '#/components/schemas/ValidationResult'
+            thumbnail_url:
+              type: string
+              format: uri
+            page_count:
+              type: integer
+
+    Extraction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        field_name:
+          type: string
+        field_value:
+          type: string
+          description: Actual or masked value
+        display_value:
+          type: string
+          description: Formatted display value
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        is_pii:
+          type: boolean
+        validated:
+          type: boolean
+        validation_status:
+          $ref: '#/components/schemas/ValidationStatus'
+        validation_message:
+          type: string
+        bounding_box:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+            width:
+              type: number
+            height:
+              type: number
+            page:
+              type: integer
+        manually_corrected:
+          type: boolean
+
+    ExtractionResponse:
+      type: object
+      properties:
+        document_id:
+          type: string
+          format: uuid
+        document_type:
+          $ref: '#/components/schemas/DocumentType'
+        overall_confidence:
+          type: number
+          format: float
+        extractions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Extraction'
+        raw_text:
+          type: string
+          description: Full OCR text (if requested)
+
+    ValidationResult:
+      type: object
+      properties:
+        rule_name:
+          type: string
+        status:
+          $ref: '#/components/schemas/ValidationStatus'
+        message:
+          type: string
+        field_name:
+          type: string
+
+    QueueResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        has_more:
+          type: boolean
+
+    QueueStats:
+      type: object
+      properties:
+        total:
+          type: integer
+        by_status:
+          type: object
+          additionalProperties:
+            type: integer
+        by_type:
+          type: object
+          additionalProperties:
+            type: integer
+        by_priority:
+          type: object
+          additionalProperties:
+            type: integer
+        avg_processing_time_ms:
+          type: integer
+        auto_approved_rate:
+          type: number
+          format: float
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        version:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        dependencies:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              status:
+                type: string
+                enum: [up, down, degraded]
+              latency_ms:
+                type: integer
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Entra ID JWT token
+
+security:
+  - bearerAuth: []

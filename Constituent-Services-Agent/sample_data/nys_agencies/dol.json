@@ -1,0 +1,46 @@
+{
+  "agency": "DOL",
+  "name": "New York State Department of Labor",
+  "website": "https://dol.ny.gov",
+  "documents": [
+    {
+      "title": "Unemployment Insurance Filing Guide",
+      "type": "guide",
+      "url": "https://dol.ny.gov/unemployment/file-your-first-claim",
+      "summary": "Step-by-step guide to filing for unemployment insurance benefits in New York.",
+      "content": "FILING FOR UNEMPLOYMENT INSURANCE:\n\nONLINE FILING (Fastest):\n1. Visit labor.ny.gov\n2. Create or sign in to your NY.gov ID account\n3. Complete the unemployment application\n4. Have ready:\n   - Social Security number\n   - Driver license or ID number\n   - Last employer's information (name, address, phone)\n   - Work history for past 18 months\n   - Alien Registration number (if not US citizen)\n\nBY PHONE:\nCall 1-888-209-8124\n- Monday-Friday, 8:00 AM - 5:00 PM\n- Expect longer wait times\n\nWEEKLY CERTIFICATION:\n- You MUST certify every week to receive benefits\n- Certify online or by phone\n- Report any earnings\n- Document your work search activities\n\nPAYMENT METHODS:\n- Direct deposit (recommended)\n- Debit card\n- Allow 2-3 business days for payment"
+    },
+    {
+      "title": "Unemployment Eligibility Requirements",
+      "type": "policy",
+      "url": "https://dol.ny.gov/unemployment/eligibility",
+      "summary": "Eligibility requirements for receiving unemployment benefits in New York.",
+      "content": "ELIGIBILITY REQUIREMENTS:\n\nYou may be eligible for unemployment if you:\n1. Lost your job through no fault of your own\n2. Earned enough wages during the base period\n3. Are ready, willing, and able to work\n4. Are actively searching for work\n\nBASE PERIOD:\n- Usually the first 4 of the last 5 completed calendar quarters\n- Must have earned at least $3,600 in one quarter\n- Must have total base period wages of 1.5x highest quarter\n\nWEEKLY BENEFIT AMOUNT:\n- Based on your highest quarter earnings\n- Maximum weekly benefit: $504 (2026)\n- Minimum weekly benefit: $104\n- Benefits last up to 26 weeks\n\nDISQUALIFICATIONS:\n- Quit without good cause\n- Fired for misconduct\n- Refused suitable work\n- Making false statements\n- Not available for work\n\nAPPEALS:\n- You can appeal any determination\n- File appeal within 30 days\n- Request a hearing online or by mail"
+    },
+    {
+      "title": "Paid Family Leave",
+      "type": "guide",
+      "url": "https://paidfamilyleave.ny.gov",
+      "summary": "Information about New York's Paid Family Leave program.",
+      "content": "PAID FAMILY LEAVE (PFL):\n\nCOVERAGE:\n- Bond with new child (birth, adoption, foster)\n- Care for family member with serious health condition\n- Assist with family obligations when family member deployed abroad\n\n2026 BENEFITS:\n- Up to 12 weeks of leave\n- 67% of your average weekly wage\n- Maximum weekly benefit: $1,151.16\n- Job protection guaranteed\n\nELIGIBILITY:\n- Work for covered employer\n- Regular schedule: 26+ weeks at employer\n- Part-time: 175+ days worked\n\nHOW TO APPLY:\n1. Notify your employer at least 30 days in advance\n2. Complete PFL-1 form\n3. Submit to your employer's insurance carrier\n4. Provide supporting documentation\n\nPFL vs FMLA:\n- PFL provides paid leave; FMLA is unpaid\n- PFL covers more family relationships\n- Can use both if eligible"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Albany Career Center",
+      "address": "175 Central Ave, Albany, NY 12206",
+      "hours": "Monday-Friday 8:30 AM - 4:30 PM",
+      "phone": "(518) 462-7600",
+      "accessibility": true,
+      "services": ["UI Claims", "Job Search", "Training Programs"]
+    },
+    {
+      "name": "Troy One-Stop Career Center",
+      "address": "270 Broadway, Troy, NY 12180",
+      "hours": "Monday-Friday 9:00 AM - 4:00 PM",
+      "phone": "(518) 270-2860",
+      "accessibility": true,
+      "services": ["UI Claims", "Job Search", "Resume Help"]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    
+    <!-- Brand Colors and Variables -->
+    <style>
+        :root {
+            --brand-primary: @(ViewData["BrandColor"] ?? "#1f5582");
+            --brand-accent: @(ViewData["AccentColor"] ?? "#ffc72c");
+            --brand-secondary: #2c5aa0;
+            --brand-light: #f8f9fa;
+            --brand-dark: #1a1a1a;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --border-color: #e0e0e0;
+            --shadow-light: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 8px rgba(0,0,0,0.15);
+            --shadow-heavy: 0 8px 16px rgba(0,0,0,0.2);
+        }
+    </style>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--brand-primary);">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-city me-2"></i>
+                    <div>
+                        <div class="brand-title">@(ViewData["CityName"] ?? "Virtual Citizen Agent")</div>
+                        <small class="brand-subtitle">Virtual Assistant</small>
+                    </div>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home me-1"></i>Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Search">
+                                <i class="fas fa-search me-1"></i>Search Services
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Categories">
+                                <i class="fas fa-th-large me-1"></i>Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
+                                <i class="fas fa-info-circle me-1"></i>About
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Quick Search in Header -->
+                    <div class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Quick search..." id="headerSearch" style="width: 200px;">
+                        <button class="btn btn-outline-light" type="button" onclick="performQuickSearch()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer class="footer mt-auto py-4" style="background-color: var(--brand-dark); color: white;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>@(ViewData["CityName"] ?? "Virtual Citizen Agent")</h5>
+                    <p class="mb-2">Your AI-powered assistant for city services and information.</p>
+                    <p class="mb-0">
+                        <small>&copy; @DateTime.Now.Year - Virtual Citizen Agent. Built with ❤️ for citizens.</small>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h6>Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Emergency Services</a></li>
+                        <li><a href="#" class="text-light">Public Transportation</a></li>
+                        <li><a href="#" class="text-light">City Council</a></li>
+                        <li><a href="#" class="text-light">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Follow Us</h6>
+                    <div>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

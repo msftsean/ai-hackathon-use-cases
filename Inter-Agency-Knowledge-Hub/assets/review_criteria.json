@@ -1,0 +1,65 @@
+{
+  "version": "1.0",
+  "last_updated": "2024-01-15T00:00:00",
+  "criteria": [
+    {
+      "name": "multi_agency_conflict",
+      "description": "Query spans multiple agencies with potentially conflicting policies",
+      "enabled": true,
+      "priority": 1,
+      "multi_agency_threshold": 3,
+      "sensitive_keywords": [],
+      "min_confidence_threshold": 1.0,
+      "flagged_topics": []
+    },
+    {
+      "name": "sensitive_keywords",
+      "description": "Query contains sensitive keywords that require human review",
+      "enabled": true,
+      "priority": 2,
+      "multi_agency_threshold": 99,
+      "sensitive_keywords": [
+        "confidential",
+        "restricted",
+        "security",
+        "breach",
+        "investigation",
+        "legal",
+        "lawsuit",
+        "complaint",
+        "grievance",
+        "termination"
+      ],
+      "min_confidence_threshold": 1.0,
+      "flagged_topics": []
+    },
+    {
+      "name": "low_confidence",
+      "description": "System has low confidence in search results",
+      "enabled": true,
+      "priority": 3,
+      "multi_agency_threshold": 99,
+      "sensitive_keywords": [],
+      "min_confidence_threshold": 0.5,
+      "flagged_topics": []
+    },
+    {
+      "name": "flagged_topics",
+      "description": "Query involves pre-flagged sensitive topics",
+      "enabled": true,
+      "priority": 1,
+      "multi_agency_threshold": 99,
+      "sensitive_keywords": [],
+      "min_confidence_threshold": 1.0,
+      "flagged_topics": [
+        "personnel records",
+        "disciplinary action",
+        "medical information",
+        "financial data",
+        "performance review",
+        "salary information",
+        "employee benefits"
+      ]
+    }
+  ]
+}

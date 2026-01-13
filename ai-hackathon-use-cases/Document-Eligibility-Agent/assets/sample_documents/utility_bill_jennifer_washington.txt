@@ -1,0 +1,96 @@
+CONSOLIDATED EDISON COMPANY OF NEW YORK
+4 Irving Place, New York, NY 10003
+Customer Service: 1-800-752-6633
+
+ELECTRIC AND GAS BILL
+
+Account Number: 4567-8901-2345
+Service Address: 2847 Grand Concourse, Apt 3A
+                Bronx, NY 10458
+Billing Period: 11/20/2023 - 12/20/2023
+Bill Date: 12/22/2023
+Due Date: 01/15/2024
+
+-----------------------------------
+CUSTOMER INFORMATION
+-----------------------------------
+Primary Account Holder: JENNIFER WASHINGTON
+Phone: (718) 555-4567
+Email: jwashington.email@gmail.com
+Service Type: Residential
+Rate Schedule: Residential Service Classification 1
+
+-----------------------------------
+ELECTRIC SERVICE CHARGES
+-----------------------------------
+Previous Reading (11/20/23): 45,678 kWh
+Current Reading (12/20/23):  46,234 kWh
+Usage This Period: 556 kWh (30 days)
+Daily Average: 18.5 kWh
+
+Basic Service Charge:                     $19.73
+Energy Charges:
+  First 250 kWh @ $0.11/kWh:              $27.50
+  Next 306 kWh @ $0.13/kWh:               $39.78
+Delivery Charges:                         $67.89
+System Benefits Charge:                    $8.34
+Revenue Decoupling Adjustment:             $2.14
+Sales Tax (8.25%):                        $13.65
+
+TOTAL ELECTRIC CHARGES:                  $178.03
+
+-----------------------------------
+GAS SERVICE CHARGES
+-----------------------------------
+Previous Reading (11/20/23): 1,245 CCF
+Current Reading (12/20/23):  1,367 CCF  
+Usage This Period: 122 CCF (30 days)
+Daily Average: 4.1 CCF
+
+Basic Service Charge:                     $15.84
+Gas Supply Charges (122 CCF @ $0.92):   $112.24
+Delivery Charges:                         $45.67
+Weather Normalization Adjustment:          $3.21
+Sales Tax (8.25%):                        $14.58
+
+TOTAL GAS CHARGES:                       $191.54
+
+-----------------------------------
+ACCOUNT SUMMARY
+-----------------------------------
+Previous Balance:                         $89.23
+Payment Received 12/15/23:               -$89.23
+Current Electric Charges:                $178.03
+Current Gas Charges:                     $191.54
+
+TOTAL AMOUNT DUE:                        $369.57
+
+-----------------------------------
+PAYMENT INFORMATION
+-----------------------------------
+Pay Online: www.coned.com
+By Phone: 1-800-752-6633
+AutoPay: Enrolled - Next withdrawal 01/12/24
+
+ENERGY ASSISTANCE PROGRAMS AVAILABLE:
+- HEAP (Home Energy Assistance Program)  
+- Con Edison Energy Assistance Program
+- Budget Billing Available
+Call 1-800-752-6633 for information
+
+-----------------------------------
+ENERGY USAGE COMPARISON
+-----------------------------------
+This Period (Dec 2023): 556 kWh, 122 CCF
+Same Period Last Year: 623 kWh, 145 CCF
+Percent Change: -11% Electric, -16% Gas
+
+-----------------------------------
+IMPORTANT NOTICES
+-----------------------------------
+Past due amounts may result in service termination.
+For assistance with paying your bill, visit www.coned.com/assistance
+or call the Customer Service number above.
+
+This bill reflects charges for essential utility services at the above address.
+Service provided under PSC tariffs on file with the New York State Public Service Commission.

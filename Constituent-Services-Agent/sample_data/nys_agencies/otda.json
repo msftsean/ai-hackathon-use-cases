@@ -1,0 +1,61 @@
+{
+  "agency": "OTDA",
+  "name": "New York State Office of Temporary and Disability Assistance",
+  "website": "https://otda.ny.gov",
+  "documents": [
+    {
+      "title": "SNAP Benefits Application Guide",
+      "type": "guide",
+      "url": "https://otda.ny.gov/programs/snap/apply.asp",
+      "summary": "How to apply for SNAP (food stamps) benefits in New York State.",
+      "content": "SNAP (SUPPLEMENTAL NUTRITION ASSISTANCE PROGRAM):\n\nHOW TO APPLY:\n\n1. ONLINE (Recommended):\n   - Visit myBenefits.ny.gov\n   - Create an account\n   - Complete the application\n   - Upload required documents\n   - Schedule interview (phone or in-person)\n\n2. IN PERSON:\n   - Visit your local Department of Social Services\n   - Complete paper application\n   - Bring required documents\n\n3. BY PHONE:\n   - Call OTDA Hotline: 1-800-342-3009\n   - TTY: 1-800-421-1220\n\nREQUIRED DOCUMENTS:\n- Proof of identity (ID, driver license)\n- Proof of citizenship or immigration status\n- Proof of NY residency\n- Social Security numbers for all household members\n- Proof of income (pay stubs, tax returns)\n- Proof of resources (bank statements)\n- Proof of expenses (rent, utilities, childcare)\n\nPROCESSING TIME:\n- Standard: 30 days\n- Expedited (if eligible): 7 days"
+    },
+    {
+      "title": "SNAP Eligibility Requirements",
+      "type": "policy",
+      "url": "https://otda.ny.gov/programs/snap/eligibility.asp",
+      "summary": "Income and eligibility requirements for SNAP benefits.",
+      "content": "SNAP ELIGIBILITY:\n\nINCOME LIMITS (2026):\nGross Monthly Income (130% of poverty):\n- 1 person: $1,659\n- 2 people: $2,237\n- 3 people: $2,815\n- 4 people: $3,393\n- Each additional: +$578\n\nNet Monthly Income (100% of poverty):\n- 1 person: $1,276\n- 2 people: $1,721\n- 3 people: $2,166\n- 4 people: $2,611\n- Each additional: +$445\n\nRESOURCE LIMITS:\n- General households: $2,750\n- Households with elderly/disabled: $4,250\n- Vehicles, home, and retirement accounts usually exempt\n\nWHO CAN APPLY:\n- Must be NY State resident\n- US citizen or qualified non-citizen\n- Must meet income guidelines\n- Must register for work (unless exempt)\n\nMAXIMUM MONTHLY BENEFITS (2026):\n- 1 person: $291\n- 2 people: $535\n- 3 people: $766\n- 4 people: $973\n\nNote: Actual benefit depends on income and expenses."
+    },
+    {
+      "title": "HEAP - Home Energy Assistance",
+      "type": "guide",
+      "url": "https://otda.ny.gov/programs/heap/",
+      "summary": "Home Energy Assistance Program to help pay heating costs.",
+      "content": "HEAP (HOME ENERGY ASSISTANCE PROGRAM):\n\nWHAT IS HEAP?\nHEAP helps low-income New Yorkers pay for:\n- Heating bills\n- Cooling assistance (summer)\n- Furnace repairs/replacement\n- Weatherization\n\nHOW TO APPLY:\n1. Visit myBenefits.ny.gov\n2. Contact local DSS office\n3. Call HEAP Hotline: 1-800-342-3009\n\nELIGIBILITY (2025-2026 Season):\nIncome Limits (60% of State Median Income):\n- 1 person: $2,729/month\n- 2 people: $3,569/month\n- 3 people: $4,409/month\n- 4 people: $5,249/month\n\nBENEFIT AMOUNTS:\n- Regular benefit: $400-$1,000 (varies by fuel type)\n- Emergency benefit: Up to $750 additional\n- Heating equipment: Up to $6,000 for repair/replacement\n\nIMPORTANT DATES:\n- Regular HEAP: Opens November 1\n- Emergency HEAP: Opens January 2\n- Cooling assistance: Opens May 1\n\nAUTO-ENROLLMENT:\nIf you receive SNAP, SSI, or TANF, you may automatically receive HEAP."
+    },
+    {
+      "title": "Medicaid Application",
+      "type": "guide",
+      "url": "https://health.ny.gov/health_care/medicaid/",
+      "summary": "How to apply for Medicaid health coverage in New York.",
+      "content": "MEDICAID IN NEW YORK:\n\nWHAT IS MEDICAID?\nMedicaid provides free or low-cost health coverage for:\n- Low-income adults\n- Children\n- Pregnant women\n- Elderly\n- People with disabilities\n\nHOW TO APPLY:\n1. NY State of Health (nystateofhealth.ny.gov)\n2. Local Department of Social Services\n3. Phone: 1-855-355-5777\n\nELIGIBILITY INCOME LIMITS (2026):\n(Based on Modified Adjusted Gross Income)\n- Single adult: Up to $20,121/year (138% FPL)\n- Family of 2: Up to $27,214/year\n- Family of 4: Up to $41,400/year\n- Pregnant women: Up to 223% FPL\n- Children: Up to 405% FPL\n\nCOVERED SERVICES:\n- Doctor visits\n- Hospital care\n- Prescriptions\n- Mental health\n- Dental (limited)\n- Vision (limited)\n- Transportation to appointments\n\nNOTE: This is general guidance only. Actual eligibility is determined by the NY State of Health marketplace during the application process.\n\nDISCLAIMER: Eligibility depends on many factors. This information does not guarantee benefits."
+    }
+  ],
+  "locations": [
+    {
+      "name": "Albany County DSS",
+      "address": "162 Washington Ave, Albany, NY 12210",
+      "hours": "Monday-Friday 8:00 AM - 5:00 PM",
+      "phone": "(518) 447-7300",
+      "accessibility": true,
+      "services": ["SNAP", "TANF", "Medicaid", "HEAP"]
+    },
+    {
+      "name": "Rensselaer County DSS",
+      "address": "133 Bloomingrove Dr, Troy, NY 12180",
+      "hours": "Monday-Friday 8:30 AM - 4:30 PM",
+      "phone": "(518) 270-2900",
+      "accessibility": true,
+      "services": ["SNAP", "TANF", "Medicaid", "HEAP"]
+    },
+    {
+      "name": "Schenectady County DSS",
+      "address": "797 Broadway, Schenectady, NY 12305",
+      "hours": "Monday-Friday 8:00 AM - 4:00 PM",
+      "phone": "(518) 388-4470",
+      "accessibility": true,
+      "services": ["SNAP", "TANF", "Medicaid", "HEAP"]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "agency": "DOH",
+  "agency_name": "New York State Department of Health",
+  "website": "https://health.ny.gov",
+  "services": [
+    {
+      "service_id": "doh-vital-records",
+      "name": "Vital Records",
+      "description": "Birth, death, and marriage certificates",
+      "services": [
+        {
+          "type": "birth_certificate",
+          "description": "Certified copy of birth certificate",
+          "eligibility": [
+            "Person named on certificate",
+            "Parent/legal guardian",
+            "Legal representative"
+          ],
+          "required_documents": [
+            "Government-issued photo ID",
+            "Proof of relationship (if not named)"
+          ],
+          "fees": {
+            "certified_copy": 30,
+            "additional_copies": 15
+          },
+          "methods": {
+            "online": "https://www.health.ny.gov/vital_records/birth.htm",
+            "mail": "Vital Records Section, PO Box 2602, Albany, NY 12220",
+            "in_person": "Albany office only"
+          }
+        },
+        {
+          "type": "death_certificate",
+          "description": "Certified copy of death certificate",
+          "eligibility": [
+            "Spouse",
+            "Parent/child",
+            "Legal representative",
+            "Funeral director"
+          ],
+          "fees": {
+            "certified_copy": 30,
+            "additional_copies": 15
+          }
+        },
+        {
+          "type": "marriage_certificate",
+          "description": "Certified copy of marriage certificate",
+          "eligibility": [
+            "Either spouse",
+            "Legal representative"
+          ],
+          "note": "NYC marriages must be obtained from NYC City Clerk",
+          "fees": {
+            "certified_copy": 30
+          }
+        }
+      ]
+    },
+    {
+      "service_id": "doh-immunization",
+      "name": "Immunization Information System (NYSIIS)",
+      "description": "Access immunization records",
+      "access_methods": [
+        "Contact healthcare provider",
+        "Contact local health department",
+        "Request through My Wallet (for adults)"
+      ],
+      "required_for": [
+        "School enrollment",
+        "Childcare enrollment",
+        "College enrollment",
+        "Employment in healthcare"
+      ],
+      "website": "https://www.health.ny.gov/prevention/immunization/information_system/"
+    },
+    {
+      "service_id": "doh-health-commerce",
+      "name": "Health Commerce System (HCS)",
+      "description": "Portal for healthcare facilities and professionals",
+      "services": [
+        "License verification",
+        "Facility reporting",
+        "Disease surveillance",
+        "Communications"
+      ],
+      "access": "Requires registration and approval",
+      "website": "https://commerce.health.state.ny.us"
+    },
+    {
+      "service_id": "doh-complaints",
+      "name": "Healthcare Facility Complaints",
+      "description": "File complaints about healthcare facilities",
+      "complaint_types": [
+        "Hospitals",
+        "Nursing homes",
+        "Home care agencies",
+        "Clinical laboratories"
+      ],
+      "methods": {
+        "online": "https://www.health.ny.gov/facilities/hospital/complaint_form.htm",
+        "phone": "1-800-663-6114"
+      },
+      "investigation": "Complaints are investigated based on severity and type"
+    }
+  ],
+  "public_health_programs": [
+    {
+      "name": "WIC (Women, Infants, and Children)",
+      "description": "Nutrition program for pregnant women and children under 5",
+      "website": "https://www.health.ny.gov/prevention/nutrition/wic/"
+    },
+    {
+      "name": "Lead Poisoning Prevention",
+      "description": "Testing and prevention services for children",
+      "website": "https://www.health.ny.gov/environmental/lead/"
+    },
+    {
+      "name": "Cancer Services Program",
+      "description": "Free cancer screenings for eligible New Yorkers",
+      "website": "https://www.health.ny.gov/diseases/cancer/services/"
+    }
+  ],
+  "contact": {
+    "phone": "1-518-474-7354",
+    "hours": "Monday-Friday 8:30 AM - 4:45 PM",
+    "vital_records": "1-855-322-1022"
+  }
+}

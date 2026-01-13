@@ -1,0 +1,504 @@
+openapi: 3.0.3
+info:
+  title: NYC Virtual Citizen Assistant API
+  description: RAG-powered AI assistant for NYC government services
+  version: 1.0.0
+  contact:
+    name: Hackathon Team
+
+servers:
+  - url: http://localhost:5000/api
+    description: Local development server
+
+paths:
+  /chat:
+    post:
+      summary: Send a chat message and get AI response
+      operationId: sendChatMessage
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: AI-generated response with sources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: AI service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /chat/session:
+    post:
+      summary: Create a new chat session
+      operationId: createChatSession
+      tags:
+        - Chat
+      responses:
+        '201':
+          description: New session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatSession'
+
+  /chat/session/{sessionId}:
+    get:
+      summary: Get chat session history
+      operationId: getChatSession
+      tags:
+        - Chat
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Session with message history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatSession'
+        '404':
+          description: Session not found
+
+    delete:
+      summary: End and delete a chat session
+      operationId: deleteChatSession
+      tags:
+        - Chat
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Session deleted
+        '404':
+          description: Session not found
+
+  /search:
+    get:
+      summary: Search for documents
+      operationId: searchDocuments
+      tags:
+        - Search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 500
+          description: Search query
+        - name: mode
+          in: query
+          schema:
+            $ref: '#/components/schemas/SearchMode'
+          description: Search mode (default semantic)
+        - name: category
+          in: query
+          schema:
+            type: string
+          description: Filter by category
+        - name: top
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+          description: Number of results
+        - name: skip
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          description: Pagination offset
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          description: Invalid query
+
+  /search/semantic:
+    get:
+      summary: Semantic search with AI ranking
+      operationId: semanticSearch
+      tags:
+        - Search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Natural language query
+        - name: top
+          in: query
+          schema:
+            type: integer
+            default: 5
+          description: Number of results
+      responses:
+        '200':
+          description: Semantically ranked results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+
+  /documents/{documentId}:
+    get:
+      summary: Get document by ID
+      operationId: getDocument
+      tags:
+        - Documents
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '404':
+          description: Document not found
+
+  /documents/recent:
+    get:
+      summary: Get recently updated documents
+      operationId: getRecentDocuments
+      tags:
+        - Documents
+      parameters:
+        - name: days
+          in: query
+          schema:
+            type: integer
+            default: 30
+          description: Days to look back
+        - name: top
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Number of results
+      responses:
+        '200':
+          description: Recently updated documents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Document'
+
+  /categories:
+    get:
+      summary: List all service categories
+      operationId: listCategories
+      tags:
+        - Categories
+      responses:
+        '200':
+          description: List of categories with counts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceCategory'
+
+  /categories/{category}:
+    get:
+      summary: Get category details
+      operationId: getCategory
+      tags:
+        - Categories
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Category with document list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+        '404':
+          description: Category not found
+
+  /health:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      tags:
+        - System
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: healthy
+                  searchAvailable:
+                    type: boolean
+                  openAiAvailable:
+                    type: boolean
+                  version:
+                    type: string
+
+components:
+  schemas:
+    SearchMode:
+      type: string
+      enum: [keyword, semantic, hybrid]
+      default: semantic
+
+    MessageRole:
+      type: string
+      enum: [user, assistant, system]
+
+    ChatRequest:
+      type: object
+      required:
+        - message
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+          description: Existing session ID (optional, creates new if not provided)
+        message:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: User's message
+
+    ChatResponse:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+        content:
+          type: string
+          description: AI-generated response
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentSource'
+        processingTimeMs:
+          type: integer
+
+    ChatSession:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        lastActivityAt:
+          type: string
+          format: date-time
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        role:
+          $ref: '#/components/schemas/MessageRole'
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentSource'
+
+    DocumentSource:
+      type: object
+      properties:
+        documentId:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+          format: uri
+        relevance:
+          type: number
+          format: float
+
+    Document:
+      type: object
+      required:
+        - id
+        - title
+        - content
+        - category
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        summary:
+          type: string
+        category:
+          type: string
+        subCategory:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+          format: uri
+        lastUpdated:
+          type: string
+          format: date-time
+
+    SearchResponse:
+      type: object
+      properties:
+        query:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        totalCount:
+          type: integer
+          format: int64
+        facets:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/FacetValue'
+        searchTimeMs:
+          type: integer
+
+    SearchResult:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/Document'
+        score:
+          type: number
+          format: double
+        highlights:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        captions:
+          type: array
+          items:
+            type: string
+
+    ServiceCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+        documentCount:
+          type: integer
+        subCategories:
+          type: array
+          items:
+            type: string
+
+    CategoryDetail:
+      allOf:
+        - $ref: '#/components/schemas/ServiceCategory'
+        - type: object
+          properties:
+            documents:
+              type: array
+              items:
+                $ref: '#/components/schemas/Document'
+
+    FacetValue:
+      type: object
+      properties:
+        value:
+          type: string
+        count:
+          type: integer
+          format: int64
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object

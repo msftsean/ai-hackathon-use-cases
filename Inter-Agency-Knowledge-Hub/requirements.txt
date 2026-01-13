@@ -1,0 +1,18 @@
+# Core dependencies
+semantic-kernel>=1.37.0
+azure-search-documents>=11.6.0
+azure-identity>=1.19.0
+msal>=1.31.0
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
+flask>=3.1.0
+flask-cors>=5.0.0
+aiosqlite>=0.21.0
+python-dotenv>=1.0.1
+httpx>=0.28.1
+
+# Development dependencies
+pytest>=8.4.2
+pytest-asyncio>=0.25.0
+pytest-cov>=6.1.0
+ruff>=0.9.2

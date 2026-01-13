@@ -1,0 +1,132 @@
+{
+  "agency": "OGS",
+  "agency_name": "New York State Office of General Services",
+  "website": "https://ogs.ny.gov",
+  "services": [
+    {
+      "service_id": "ogs-procurement",
+      "name": "State Procurement",
+      "description": "State contracting and purchasing information",
+      "services": [
+        {
+          "name": "NYS Contract Reporter",
+          "description": "Publication of state contracting opportunities",
+          "website": "https://www.nyscr.ny.gov",
+          "fee": "Free to search, subscription for notifications"
+        },
+        {
+          "name": "Centralized Contracts",
+          "description": "Statewide contracts available to authorized users",
+          "categories": [
+            "IT equipment and services",
+            "Office supplies",
+            "Vehicles",
+            "Professional services"
+          ],
+          "website": "https://ogs.ny.gov/procurement/centralized-contracts"
+        },
+        {
+          "name": "Vendor Registration",
+          "description": "Register as a state vendor",
+          "requirements": [
+            "Business registration",
+            "Tax ID",
+            "W-9 form",
+            "Insurance documentation"
+          ],
+          "website": "https://www.osc.state.ny.us/vendors"
+        }
+      ],
+      "mwbe": {
+        "name": "MWBE Certification",
+        "description": "Minority and Women-Owned Business Enterprise certification",
+        "benefits": [
+          "Access to set-aside contracts",
+          "Subcontracting opportunities",
+          "Technical assistance"
+        ],
+        "website": "https://ny.newnycontracts.com"
+      }
+    },
+    {
+      "service_id": "ogs-real-property",
+      "name": "Real Property",
+      "description": "State building and facility services",
+      "services": [
+        {
+          "name": "Space Requests",
+          "description": "Request office space for state agencies",
+          "process": "Submit through agency real property coordinator"
+        },
+        {
+          "name": "Building Services",
+          "description": "Maintenance and operations for state buildings",
+          "coverage": "Empire State Plaza and other state facilities"
+        },
+        {
+          "name": "Property Disposal",
+          "description": "Sale of surplus state property",
+          "website": "https://ogs.ny.gov/realproperty"
+        }
+      ]
+    },
+    {
+      "service_id": "ogs-fleet",
+      "name": "Fleet Management",
+      "description": "State vehicle services",
+      "services": [
+        {
+          "name": "Vehicle Rental",
+          "description": "Short-term vehicle rentals for state employees",
+          "eligibility": "State employees on official business"
+        },
+        {
+          "name": "Fleet Acquisition",
+          "description": "Vehicle purchasing for state agencies"
+        },
+        {
+          "name": "Alternative Fuel Vehicles",
+          "description": "Electric and hybrid vehicle program"
+        }
+      ]
+    },
+    {
+      "service_id": "ogs-printing",
+      "name": "Print Services",
+      "description": "State printing and publishing",
+      "services": [
+        "Official forms and publications",
+        "Agency printing requests",
+        "Digital printing services"
+      ],
+      "contact": "printingservices@ogs.ny.gov"
+    },
+    {
+      "service_id": "ogs-surplus",
+      "name": "State Surplus",
+      "description": "Sale of surplus state property to the public",
+      "categories": [
+        "Vehicles",
+        "Office equipment",
+        "Electronics",
+        "Furniture"
+      ],
+      "how_to_buy": {
+        "auctions": "Online auctions through approved vendors",
+        "retail": "OGS Surplus Store in Albany",
+        "website": "https://ogs.ny.gov/statesurplus"
+      }
+    }
+  ],
+  "customer_services": {
+    "agencies": "State agency procurement support",
+    "vendors": "Vendor registration and support",
+    "public": "Surplus sales and property information"
+  },
+  "contact": {
+    "phone": "1-518-474-6717",
+    "hours": "Monday-Friday 8:30 AM - 4:30 PM",
+    "procurement": "1-518-474-6707",
+    "email": "customer.services@ogs.ny.gov"
+  }
+}

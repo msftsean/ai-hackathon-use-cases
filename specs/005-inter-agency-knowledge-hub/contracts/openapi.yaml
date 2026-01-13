@@ -1,0 +1,742 @@
+openapi: 3.0.3
+info:
+  title: Inter-Agency Knowledge Hub API
+  description: Cross-agency document search with permission-aware responses
+  version: 1.0.0
+  contact:
+    name: Hackathon Team
+
+servers:
+  - url: http://localhost:5000/api/v1
+    description: Local development server
+
+security:
+  - bearerAuth: []
+
+paths:
+  /search:
+    post:
+      summary: Search across agency knowledge bases
+      operationId: searchDocuments
+      tags:
+        - Search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          description: Invalid search query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+        '202':
+          description: Query flagged for review
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewPendingResponse'
+
+  /documents/{document_id}:
+    get:
+      summary: Get document by ID
+      operationId: getDocument
+      tags:
+        - Documents
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentDetail'
+        '403':
+          description: Access denied
+        '404':
+          description: Document not found
+
+  /documents/{document_id}/cross-references:
+    get:
+      summary: Get cross-references for a document
+      operationId: getCrossReferences
+      tags:
+        - Documents
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: relationship_type
+          in: query
+          schema:
+            $ref: '#/components/schemas/RelationshipType'
+        - name: min_confidence
+          in: query
+          schema:
+            type: number
+            format: float
+            default: 0.7
+      responses:
+        '200':
+          description: Cross-reference list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  references:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CrossReference'
+        '403':
+          description: Access denied
+        '404':
+          description: Document not found
+
+  /agencies:
+    get:
+      summary: List available agency sources
+      operationId: listAgencies
+      tags:
+        - Agencies
+      parameters:
+        - name: is_active
+          in: query
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: List of agency sources
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agencies:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AgencySource'
+
+  /agencies/{agency_id}:
+    get:
+      summary: Get agency source details
+      operationId: getAgency
+      tags:
+        - Agencies
+      parameters:
+        - name: agency_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Agency details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgencySource'
+        '404':
+          description: Agency not found
+
+  /audit/logs:
+    get:
+      summary: Get access logs (admin only)
+      operationId: getAuditLogs
+      tags:
+        - Audit
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            type: string
+        - name: action
+          in: query
+          schema:
+            $ref: '#/components/schemas/ActionType'
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Audit log entries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  logs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AccessLog'
+                  total:
+                    type: integer
+        '403':
+          description: Admin access required
+
+  /audit/logs/export:
+    post:
+      summary: Export audit logs (admin only)
+      operationId: exportAuditLogs
+      tags:
+        - Audit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - start_date
+                - end_date
+              properties:
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+                user_id:
+                  type: string
+                format:
+                  type: string
+                  enum: [json, csv]
+                  default: json
+      responses:
+        '200':
+          description: Exported logs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  export_url:
+                    type: string
+                  record_count:
+                    type: integer
+        '403':
+          description: Admin access required
+
+  /reviews:
+    get:
+      summary: List pending reviews (admin only)
+      operationId: listReviews
+      tags:
+        - Reviews
+      parameters:
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/ReviewStatus'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of review flags
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reviews:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ReviewFlag'
+                  total:
+                    type: integer
+        '403':
+          description: Admin access required
+
+  /reviews/{flag_id}:
+    get:
+      summary: Get review details (admin only)
+      operationId: getReview
+      tags:
+        - Reviews
+      parameters:
+        - name: flag_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Review details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewFlagDetail'
+        '403':
+          description: Admin access required
+        '404':
+          description: Review not found
+
+    put:
+      summary: Update review status (admin only)
+      operationId: updateReview
+      tags:
+        - Reviews
+      parameters:
+        - name: flag_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewUpdateRequest'
+      responses:
+        '200':
+          description: Review updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewFlag'
+        '400':
+          description: Invalid update
+        '403':
+          description: Admin access required
+        '404':
+          description: Review not found
+
+  /user/permissions:
+    get:
+      summary: Get current user's permissions
+      operationId: getUserPermissions
+      tags:
+        - User
+      responses:
+        '200':
+          description: User permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPermissions'
+        '401':
+          description: Authentication required
+
+  /user/search-history:
+    get:
+      summary: Get current user's search history
+      operationId: getUserSearchHistory
+      tags:
+        - User
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Search history
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  queries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SearchQuerySummary'
+                  total:
+                    type: integer
+        '401':
+          description: Authentication required
+
+  /health:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      tags:
+        - System
+      security: []
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: healthy
+                  azure_search_available:
+                    type: boolean
+                  entra_id_available:
+                    type: boolean
+                  version:
+                    type: string
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Entra ID JWT token
+
+  schemas:
+    Agency:
+      type: string
+      enum: [DMV, DOL, OTDA, DOH, OGS]
+
+    DocumentClassification:
+      type: string
+      enum: [PUBLIC, INTERNAL, RESTRICTED, CONFIDENTIAL]
+
+    RelationshipType:
+      type: string
+      enum: [SIMILAR_TOPIC, DEPENDENCY, SUPERSEDES, CONFLICT, RELATED]
+
+    ReviewStatus:
+      type: string
+      enum: [PENDING, APPROVED, MODIFIED, REJECTED]
+
+    ActionType:
+      type: string
+      enum: [SEARCH, VIEW, EXPORT, CROSS_REFERENCE]
+
+    SearchRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          minLength: 1
+          maxLength: 500
+        agency_filter:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agency'
+        date_range_start:
+          type: string
+          format: date
+        date_range_end:
+          type: string
+          format: date
+        classification_filter:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentClassification'
+        page:
+          type: integer
+          minimum: 1
+          default: 1
+        page_size:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+
+    SearchResponse:
+      type: object
+      properties:
+        query_id:
+          type: string
+          format: uuid
+        query:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        total_results:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        response_time_ms:
+          type: integer
+
+    SearchResult:
+      type: object
+      properties:
+        result_id:
+          type: string
+        document:
+          $ref: '#/components/schemas/DocumentCitation'
+        relevance_score:
+          type: number
+          format: float
+        snippet:
+          type: string
+        position:
+          type: integer
+
+    DocumentCitation:
+      type: object
+      required:
+        - document_id
+        - title
+        - agency
+        - publication_date
+        - document_url
+        - classification
+      properties:
+        document_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        agency:
+          $ref: '#/components/schemas/Agency'
+        publication_date:
+          type: string
+          format: date
+        last_modified:
+          type: string
+          format: date-time
+        document_url:
+          type: string
+          format: uri
+        version:
+          type: string
+        classification:
+          $ref: '#/components/schemas/DocumentClassification'
+        author:
+          type: string
+        department:
+          type: string
+
+    DocumentDetail:
+      type: object
+      properties:
+        citation:
+          $ref: '#/components/schemas/DocumentCitation'
+        content_preview:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        cross_reference_count:
+          type: integer
+
+    CrossReference:
+      type: object
+      properties:
+        reference_id:
+          type: string
+          format: uuid
+        target_document:
+          $ref: '#/components/schemas/DocumentCitation'
+        relationship_type:
+          $ref: '#/components/schemas/RelationshipType'
+        confidence_score:
+          type: number
+          format: float
+        notes:
+          type: string
+
+    AgencySource:
+      type: object
+      properties:
+        agency_id:
+          type: string
+        agency:
+          $ref: '#/components/schemas/Agency'
+        display_name:
+          type: string
+        document_count:
+          type: integer
+        last_sync:
+          type: string
+          format: date-time
+        is_active:
+          type: boolean
+
+    AccessLog:
+      type: object
+      properties:
+        log_id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+        action:
+          $ref: '#/components/schemas/ActionType'
+        query_text:
+          type: string
+        document_ids:
+          type: array
+          items:
+            type: string
+        timestamp:
+          type: string
+          format: date-time
+        ip_address:
+          type: string
+        response_time_ms:
+          type: integer
+        result_count:
+          type: integer
+
+    ReviewFlag:
+      type: object
+      properties:
+        flag_id:
+          type: string
+          format: uuid
+        query_id:
+          type: string
+          format: uuid
+        criteria_matched:
+          type: array
+          items:
+            type: string
+        status:
+          $ref: '#/components/schemas/ReviewStatus'
+        flagged_at:
+          type: string
+          format: date-time
+        reviewed_by:
+          type: string
+        reviewed_at:
+          type: string
+          format: date-time
+
+    ReviewFlagDetail:
+      allOf:
+        - $ref: '#/components/schemas/ReviewFlag'
+        - type: object
+          properties:
+            original_query:
+              $ref: '#/components/schemas/SearchRequest'
+            original_results:
+              type: array
+              items:
+                $ref: '#/components/schemas/SearchResult'
+            admin_notes:
+              type: string
+            modified_response:
+              type: string
+
+    ReviewUpdateRequest:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/ReviewStatus'
+        admin_notes:
+          type: string
+        modified_response:
+          type: string
+
+    ReviewPendingResponse:
+      type: object
+      properties:
+        flag_id:
+          type: string
+          format: uuid
+        message:
+          type: string
+          example: Query has been flagged for administrator review
+        estimated_review_time:
+          type: string
+
+    UserPermissions:
+      type: object
+      properties:
+        user_id:
+          type: string
+        display_name:
+          type: string
+        email:
+          type: string
+        groups:
+          type: array
+          items:
+            type: string
+        agencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agency'
+        is_admin:
+          type: boolean
+
+    SearchQuerySummary:
+      type: object
+      properties:
+        query_id:
+          type: string
+          format: uuid
+        query_text:
+          type: string
+        submitted_at:
+          type: string
+          format: date-time
+        result_count:
+          type: integer
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object

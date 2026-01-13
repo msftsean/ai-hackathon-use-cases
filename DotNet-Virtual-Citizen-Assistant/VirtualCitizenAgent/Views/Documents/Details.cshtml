@@ -1,0 +1,156 @@
+@model VirtualCitizenAgent.Models.Document
+@{
+    ViewData["Title"] = Model.Title;
+    var relatedDocs = ViewBag.RelatedDocuments as List<VirtualCitizenAgent.Models.Document> ?? new List<VirtualCitizenAgent.Models.Document>();
+}
+
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Document Content -->
+        <article>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/search">Search</a></li>
+                    <li class="breadcrumb-item"><a href="/search?category=@Model.Category">@Model.Category</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                </ol>
+            </nav>
+
+            <h1 class="mb-3">@Model.Title</h1>
+
+            <!-- Metadata -->
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <span class="badge bg-primary">
+                    <i class="fas fa-folder me-1"></i>@Model.Category
+                </span>
+                @if (!string.IsNullOrEmpty(Model.SubCategory))
+                {
+                    <span class="badge bg-secondary">@Model.SubCategory</span>
+                }
+                <span class="badge bg-light text-dark">
+                    <i class="fas fa-calendar me-1"></i>Updated: @Model.LastUpdated.ToString("MMM d, yyyy")
+                </span>
+                @if (Model.Tags != null)
+                {
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <span class="badge bg-outline-secondary border">@tag</span>
+                    }
+                }
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.Summary))
+            {
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Summary:</strong> @Model.Summary
+                </div>
+            }
+
+            <!-- Content -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="document-content">
+                        @Html.Raw(Model.Content.Replace("\n", "<br />"))
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex gap-2 mb-4">
+                @if (!string.IsNullOrEmpty(Model.Url))
+                {
+                    <a href="@Model.Url" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt me-1"></i>View Original
+                    </a>
+                }
+                <button class="btn btn-outline-secondary" onclick="window.print()">
+                    <i class="fas fa-print me-1"></i>Print
+                </button>
+                <button class="btn btn-outline-secondary" id="share-btn">
+                    <i class="fas fa-share-alt me-1"></i>Share
+                </button>
+            </div>
+        </article>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Related Documents -->
+        @if (relatedDocs.Any())
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-link me-2"></i>Related Documents</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var doc in relatedDocs)
+                    {
+                        <li class="list-group-item">
+                            <a href="/documents/@doc.Id" class="text-decoration-none">
+                                <i class="fas fa-file-alt me-2 text-muted"></i>@doc.Title
+                            </a>
+                            <br />
+                            <small class="text-muted">@doc.Category</small>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <!-- Quick Search -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-search me-2"></i>Search More</h5>
+            </div>
+            <div class="card-body">
+                <form action="/search" method="get">
+                    <input type="hidden" name="category" value="@Model.Category" />
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search @Model.Category...">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<style>
+    .document-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+
+    @@media print {
+        .navbar, footer, .breadcrumb, .btn, .card:not(.document-content), .col-lg-4 {
+            display: none !important;
+        }
+        .col-lg-8 {
+            width: 100% !important;
+        }
+    }
+</style>
+
+<script>
+    document.getElementById('share-btn')?.addEventListener('click', async () => {
+        const url = window.location.href;
+        const title = '@Model.Title';
+
+        if (navigator.share) {
+            try {
+                await navigator.share({ title, url });
+            } catch (err) {
+                console.log('Share cancelled');
+            }
+        } else {
+            // Fallback: copy to clipboard
+            await navigator.clipboard.writeText(url);
+            alert('Link copied to clipboard!');
+        }
+    });
+</script>
+}

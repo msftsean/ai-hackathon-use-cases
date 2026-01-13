@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NY State Constituent Services</title>
+    <link rel="stylesheet" href="/styles.css">
+    <!-- WCAG 2.1 AA: Skip link for keyboard navigation -->
+    <style>
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            z-index: 100;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header" role="banner">
+            <div class="header-content">
+                <div class="logo-container">
+                    <svg class="ny-logo" viewBox="0 0 40 40" aria-hidden="true">
+                        <circle cx="20" cy="20" r="18" fill="#003087"/>
+                        <text x="20" y="26" text-anchor="middle" fill="white" font-size="16" font-weight="bold">NY</text>
+                    </svg>
+                    <div class="header-text">
+                        <h1>NY State Services</h1>
+                        <p class="tagline">Your AI Assistant for Government Services</p>
+                    </div>
+                </div>
+                <nav class="header-nav" aria-label="Main navigation">
+                    <button id="new-chat-btn" class="btn btn-secondary" aria-label="Start a new conversation">
+                        New Chat
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content" class="chat-container" role="main">
+            <!-- Welcome Message -->
+            <div class="welcome-section" id="welcome-section">
+                <h2>Welcome to NY State Services Assistant</h2>
+                <p>I can help you with information about:</p>
+                <div class="service-cards" role="list">
+                    <button class="service-card" role="listitem" data-query="How do I apply for SNAP benefits?">
+                        <span class="card-icon" aria-hidden="true">🍎</span>
+                        <span class="card-title">SNAP Benefits</span>
+                        <span class="card-desc">Food assistance programs</span>
+                    </button>
+                    <button class="service-card" role="listitem" data-query="How do I renew my driver's license?">
+                        <span class="card-icon" aria-hidden="true">🚗</span>
+                        <span class="card-title">DMV Services</span>
+                        <span class="card-desc">Licenses & registration</span>
+                    </button>
+                    <button class="service-card" role="listitem" data-query="How do I file for unemployment?">
+                        <span class="card-icon" aria-hidden="true">💼</span>
+                        <span class="card-title">Unemployment</span>
+                        <span class="card-desc">UI benefits & claims</span>
+                    </button>
+                    <button class="service-card" role="listitem" data-query="Am I eligible for Medicaid?">
+                        <span class="card-icon" aria-hidden="true">🏥</span>
+                        <span class="card-title">Medicaid</span>
+                        <span class="card-desc">Health coverage</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="messages-container" id="messages-container" role="log" aria-live="polite" aria-label="Chat messages">
+                <!-- Messages will be inserted here -->
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typing-indicator" aria-live="polite" aria-label="Agent is typing">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </main>
+
+        <!-- Input Area -->
+        <footer class="input-container" role="contentinfo">
+            <form id="chat-form" class="chat-form">
+                <label for="message-input" class="visually-hidden">Type your question</label>
+                <textarea
+                    id="message-input"
+                    class="message-input"
+                    placeholder="Ask about NY State services..."
+                    rows="1"
+                    aria-label="Message input"
+                    maxlength="10000"
+                ></textarea>
+                <button type="submit" id="send-btn" class="btn btn-primary" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                        <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </form>
+            <p class="disclaimer" role="note">
+                <strong>Note:</strong> This is an AI assistant. Information provided is for general guidance only.
+                For official determinations, please contact the relevant agency directly.
+            </p>
+        </footer>
+    </div>
+
+    <!-- Screen reader announcements -->
+    <div id="sr-announcements" class="visually-hidden" aria-live="assertive" aria-atomic="true"></div>
+
+    <script src="/chat.js"></script>
+</body>
+</html>

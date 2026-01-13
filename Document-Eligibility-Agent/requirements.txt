@@ -1,0 +1,34 @@
+# Web Framework
+flask>=3.1.0
+flask-cors>=4.0.0
+
+# Azure AI Services
+azure-ai-documentintelligence>=1.0.0
+azure-ai-projects>=1.0.0
+azure-storage-blob>=12.0.0
+azure-cosmos>=4.5.0
+
+# Microsoft Graph (email integration)
+msgraph-sdk>=1.0.0
+
+# Task Queue
+celery[redis]>=5.3.0
+redis>=5.0.0
+
+# Configuration
+python-dotenv>=1.0.0
+
+# Data Validation
+pydantic>=2.5.0
+pydantic-settings>=2.0.0
+
+# HTTP Client
+httpx>=0.27.0
+
+# Development (install with: pip install -r requirements-dev.txt)
+# pytest>=8.0.0
+# pytest-asyncio>=0.23.0
+# pytest-cov>=4.1.0
+# ruff>=0.4.0
+# black>=24.0.0
+# mypy>=1.8.0

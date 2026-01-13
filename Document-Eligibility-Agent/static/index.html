@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Eligibility Agent - NY State</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header role="banner">
+        <div class="header-content">
+            <h1>Document Eligibility Agent</h1>
+            <p class="subtitle">NY State AI-Powered Document Processing</p>
+        </div>
+        <div class="header-stats" role="status" aria-live="polite">
+            <span id="queue-count">0</span> documents in queue
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <!-- Upload Section -->
+        <section class="upload-section" aria-labelledby="upload-heading">
+            <h2 id="upload-heading">Upload Document</h2>
+            <form id="upload-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file-input">Document File (PDF, JPG, PNG)</label>
+                    <input type="file" id="file-input" name="file"
+                           accept=".pdf,.jpg,.jpeg,.png" required
+                           aria-describedby="file-help">
+                    <span id="file-help" class="help-text">Maximum file size: 50MB</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="case-id">Case ID</label>
+                        <input type="text" id="case-id" name="case_id"
+                               placeholder="CASE-12345" required
+                               pattern="CASE-\d+"
+                               aria-describedby="case-help">
+                        <span id="case-help" class="help-text">Format: CASE-12345</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="doc-type">Document Type</label>
+                        <select id="doc-type" name="document_type" required>
+                            <option value="">Select type...</option>
+                            <option value="w2">W-2 Tax Form</option>
+                            <option value="paystub">Pay Stub</option>
+                            <option value="utility_bill">Utility Bill</option>
+                            <option value="bank_statement">Bank Statement</option>
+                            <option value="drivers_license">Driver's License</option>
+                            <option value="birth_certificate">Birth Certificate</option>
+                            <option value="lease_agreement">Lease Agreement</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select id="priority" name="priority">
+                            <option value="standard">Standard</option>
+                            <option value="expedited">Expedited</option>
+                            <option value="resubmission">Resubmission</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="upload-btn">
+                    Upload Document
+                </button>
+            </form>
+            <div id="upload-status" class="status-message" role="alert" aria-live="polite"></div>
+        </section>
+
+        <!-- Queue Section -->
+        <section class="queue-section" aria-labelledby="queue-heading">
+            <div class="queue-header">
+                <h2 id="queue-heading">Processing Queue</h2>
+                <div class="queue-controls">
+                    <div class="filter-group">
+                        <label for="status-filter" class="sr-only">Filter by status</label>
+                        <select id="status-filter" aria-label="Filter by status">
+                            <option value="">All Status</option>
+                            <option value="uploaded">Uploaded</option>
+                            <option value="processing">Processing</option>
+                            <option value="extracted">Extracted</option>
+                            <option value="ready_for_review">Ready for Review</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="type-filter" class="sr-only">Filter by type</label>
+                        <select id="type-filter" aria-label="Filter by document type">
+                            <option value="">All Types</option>
+                            <option value="w2">W-2</option>
+                            <option value="paystub">Pay Stub</option>
+                            <option value="utility_bill">Utility Bill</option>
+                            <option value="bank_statement">Bank Statement</option>
+                            <option value="drivers_license">Driver's License</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary" id="refresh-btn" aria-label="Refresh queue">
+                        Refresh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bulk Actions -->
+            <div class="bulk-actions" id="bulk-actions" hidden>
+                <span id="selected-count">0 selected</span>
+                <button class="btn btn-success" id="bulk-approve-btn">
+                    Approve Selected
+                </button>
+                <button class="btn btn-secondary" id="clear-selection-btn">
+                    Clear Selection
+                </button>
+            </div>
+
+            <!-- Queue Table -->
+            <div class="table-container">
+                <table id="queue-table" aria-describedby="queue-heading">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <input type="checkbox" id="select-all" aria-label="Select all documents">
+                            </th>
+                            <th scope="col">Case ID</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Confidence</th>
+                            <th scope="col">Priority</th>
+                            <th scope="col">Uploaded</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="queue-body">
+                        <tr>
+                            <td colspan="8" class="empty-message">No documents in queue</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" role="navigation" aria-label="Queue pagination">
+                <button class="btn btn-secondary" id="prev-page" disabled>Previous</button>
+                <span id="page-info">Page 1 of 1</span>
+                <button class="btn btn-secondary" id="next-page" disabled>Next</button>
+            </div>
+        </section>
+
+        <!-- Document Detail Modal -->
+        <dialog id="document-modal" aria-labelledby="modal-title">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h2 id="modal-title">Document Details</h2>
+                    <button class="close-btn" aria-label="Close modal">&times;</button>
+                </header>
+                <div class="modal-body">
+                    <div class="document-info" id="document-info"></div>
+                    <div class="extractions-section">
+                        <h3>Extracted Fields</h3>
+                        <table id="extractions-table">
+                            <thead>
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Value</th>
+                                    <th>Confidence</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="extractions-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <footer class="modal-footer">
+                    <button class="btn btn-success" id="modal-approve-btn">Approve</button>
+                    <button class="btn btn-danger" id="modal-reject-btn">Reject</button>
+                    <button class="btn btn-secondary" id="modal-close-btn">Close</button>
+                </footer>
+            </div>
+        </dialog>
+
+        <!-- Statistics Section -->
+        <section class="stats-section" aria-labelledby="stats-heading">
+            <h2 id="stats-heading">Queue Statistics</h2>
+            <div class="stats-grid" id="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="stat-total">0</span>
+                    <span class="stat-label">Total Documents</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="stat-pending">0</span>
+                    <span class="stat-label">Pending Review</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="stat-approved">0</span>
+                    <span class="stat-label">Approved Today</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="stat-rate">0%</span>
+                    <span class="stat-label">Auto-Approval Rate</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <p>NY State Document Eligibility Agent &copy; 2026 | AI Hackathon</p>
+        <p class="keyboard-shortcuts">
+            Keyboard shortcuts: <kbd>A</kbd> Approve | <kbd>R</kbd> Reject |
+            <kbd>N</kbd> Next | <kbd>P</kbd> Previous | <kbd>Esc</kbd> Close
+        </p>
+    </footer>
+
+    <!-- Screen Reader Announcements -->
+    <div id="sr-announcements" aria-live="polite" class="sr-only"></div>
+
+    <script src="queue.js"></script>
+</body>
+</html>

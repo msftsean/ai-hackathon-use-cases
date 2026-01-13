@@ -1,0 +1,98 @@
+{
+  "agency": "DOL",
+  "agency_name": "New York State Department of Labor",
+  "website": "https://labor.ny.gov",
+  "services": [
+    {
+      "service_id": "dol-unemployment",
+      "name": "Unemployment Insurance",
+      "description": "Apply for and manage unemployment benefits",
+      "eligibility": [
+        "Worked in NY during base period",
+        "Earned minimum qualifying wages",
+        "Unemployed through no fault of your own",
+        "Able and available to work",
+        "Actively seeking employment"
+      ],
+      "required_information": [
+        "Social Security Number",
+        "Driver's license or ID number",
+        "Complete work history (18 months)",
+        "Employer information",
+        "Direct deposit information"
+      ],
+      "filing_schedule": {
+        "A-F": "Monday",
+        "G-N": "Tuesday",
+        "O-Z": "Wednesday",
+        "missed": "Thursday-Saturday"
+      },
+      "methods": {
+        "online": {
+          "url": "https://labor.ny.gov/unemployment",
+          "requirements": ["NY.gov account"],
+          "processing_time": "7-10 business days for determination"
+        },
+        "phone": {
+          "number": "1-888-209-8124",
+          "hours": "8:00 AM - 5:00 PM, Monday-Friday"
+        }
+      },
+      "weekly_certification": {
+        "required": true,
+        "deadline": "Sunday",
+        "method": "Online or phone"
+      },
+      "benefit_amounts": {
+        "minimum": 104,
+        "maximum": 504,
+        "calculation": "Based on highest quarter earnings"
+      }
+    },
+    {
+      "service_id": "dol-workers-comp",
+      "name": "Workers' Compensation",
+      "description": "File claims for work-related injuries or illnesses",
+      "eligibility": [
+        "Injured while working",
+        "Injury occurred in NY",
+        "Employer has workers' comp insurance"
+      ],
+      "required_steps": [
+        "Report injury to employer immediately",
+        "Seek medical treatment",
+        "File C-3 form with Workers' Compensation Board",
+        "Follow treatment guidelines"
+      ],
+      "deadlines": {
+        "report_to_employer": "As soon as possible",
+        "file_claim": "Within 2 years of injury"
+      },
+      "contact": {
+        "board": "Workers' Compensation Board",
+        "phone": "1-877-632-4996",
+        "website": "https://www.wcb.ny.gov"
+      }
+    },
+    {
+      "service_id": "dol-job-search",
+      "name": "Job Search Assistance",
+      "description": "Career services and job placement assistance",
+      "services_offered": [
+        "Resume assistance",
+        "Interview preparation",
+        "Job fairs",
+        "Training programs",
+        "Apprenticeship information"
+      ],
+      "locations": "Career Centers statewide",
+      "cost": "Free",
+      "website": "https://labor.ny.gov/careerservices"
+    }
+  ],
+  "contact": {
+    "phone": "1-888-209-8124",
+    "hours": "Monday-Friday 8:00 AM - 5:00 PM",
+    "tty": "1-800-662-1220"
+  }
+}

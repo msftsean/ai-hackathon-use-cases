@@ -1,0 +1,65 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = VirtualCitizenAgent
+build_property.RootNamespace = VirtualCitizenAgent
+build_property.ProjectDir = C:\Users\segayle\repos\hackathon\newyork\DotNet-Virtual-Citizen-Assistant\VirtualCitizenAgent\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\segayle\repos\hackathon\newyork\DotNet-Virtual-Citizen-Assistant\VirtualCitizenAgent
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/Chat/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hhdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/Documents/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/Search/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhcmNoXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/segayle/repos/hackathon/newyork/DotNet-Virtual-Citizen-Assistant/VirtualCitizenAgent/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-xz39t5lihr

@@ -1,0 +1,92 @@
+{
+  "test_queries": [
+    {
+      "id": "query-001",
+      "description": "Basic remote work search",
+      "query": "remote work policy",
+      "expected_results": {
+        "min_count": 2,
+        "agencies": ["dmv", "dol", "doh"]
+      }
+    },
+    {
+      "id": "query-002",
+      "description": "Eligibility requirements search",
+      "query": "eligibility requirements for benefits",
+      "expected_results": {
+        "min_count": 1,
+        "agencies": ["otda"]
+      }
+    },
+    {
+      "id": "query-003",
+      "description": "Procurement procedures search",
+      "query": "procurement bidding procedures",
+      "expected_results": {
+        "min_count": 1,
+        "agencies": ["ogs"]
+      }
+    },
+    {
+      "id": "query-004",
+      "description": "Agency-specific search",
+      "query": "driver license renewal",
+      "agencies": ["dmv"],
+      "expected_results": {
+        "min_count": 1,
+        "agencies": ["dmv"]
+      }
+    },
+    {
+      "id": "query-005",
+      "description": "Query that should trigger review",
+      "query": "confidential personnel investigation",
+      "expected_review_flag": true
+    },
+    {
+      "id": "query-006",
+      "description": "Multi-agency query",
+      "query": "workplace safety guidelines",
+      "agencies": ["dol", "doh", "ogs", "dmv"],
+      "expected_review_flag": true
+    },
+    {
+      "id": "query-007",
+      "description": "Empty results query",
+      "query": "xyznonexistent123456",
+      "expected_results": {
+        "count": 0
+      }
+    }
+  ],
+  "permission_test_cases": [
+    {
+      "id": "perm-001",
+      "description": "Admin can see all documents",
+      "token": "admin-token",
+      "document_id": "dmv-002",
+      "expected_access": true
+    },
+    {
+      "id": "perm-002",
+      "description": "DMV staff cannot see confidential docs",
+      "token": "dmv-staff-token",
+      "document_id": "dmv-002",
+      "expected_access": false
+    },
+    {
+      "id": "perm-003",
+      "description": "Public user can see public docs",
+      "token": "public-token",
+      "document_id": "dol-001",
+      "expected_access": true
+    },
+    {
+      "id": "perm-004",
+      "description": "DMV staff cannot see DOL internal docs",
+      "token": "dmv-staff-token",
+      "document_id": "dol-002",
+      "expected_access": false
+    }
+  ]
+}

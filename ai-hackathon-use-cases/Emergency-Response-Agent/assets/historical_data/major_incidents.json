@@ -1,0 +1,198 @@
+[
+  {
+    "incident_id": "hurricane_sandy_2012",
+    "incident_type": "hurricane",
+    "date_occurred": "2012-10-29T00:00:00Z",
+    "location": "NYC Metro Area",
+    "severity_level": 4,
+    "weather_conditions": {
+      "wind_speed_mph": 90,
+      "storm_surge_feet": 14,
+      "rainfall_inches": 6.8,
+      "temperature_f": 55
+    },
+    "affected_population": 8400000,
+    "evacuation_zones": ["Zone A", "Zone B", "Zone C"],
+    "response_timeline": {
+      "preparation_hours": 48,
+      "evacuation_start": "2012-10-28T08:00:00Z",
+      "landfall": "2012-10-29T20:00:00Z",
+      "all_clear": "2012-10-31T12:00:00Z"
+    },
+    "resources_deployed": {
+      "emergency_personnel": 15000,
+      "emergency_shelters": 76,
+      "emergency_vehicles": 350,
+      "national_guard": 2000
+    },
+    "agencies_involved": [
+      "NYC Office of Emergency Management",
+      "FDNY",
+      "NYPD", 
+      "National Guard",
+      "Con Edison",
+      "MTA",
+      "American Red Cross"
+    ],
+    "key_challenges": [
+      "Widespread power outages affecting 2.2M customers",
+      "Flooding in Lower Manhattan and coastal areas", 
+      "MTA system shutdown for 4 days",
+      "Communication system failures",
+      "Hospital evacuations required"
+    ],
+    "lessons_learned": [
+      "Need for better pre-positioning of resources in outer boroughs",
+      "Importance of backup communication systems",
+      "Enhanced public messaging about evacuation zones",
+      "Improved coordination between utility companies and city agencies",
+      "Better planning for extended power outages"
+    ],
+    "effectiveness_metrics": {
+      "lives_saved": "Estimated 100+ due to evacuations",
+      "evacuation_compliance": "90% in Zone A, 70% in Zone B",
+      "shelter_utilization": "65,000 residents housed",
+      "response_time": "Emergency services maintained throughout",
+      "recovery_time": "Basic services restored within 7 days"
+    },
+    "estimated_cost": 19000000000,
+    "federal_assistance": true,
+    "state_assistance": true
+  },
+  {
+    "incident_id": "winter_storm_jonas_2016",
+    "incident_type": "winter_storm",
+    "date_occurred": "2016-01-23T00:00:00Z",
+    "location": "All Five Boroughs",
+    "severity_level": 3,
+    "weather_conditions": {
+      "snowfall_inches": 26.8,
+      "wind_speed_mph": 45,
+      "temperature_f": 18,
+      "duration_hours": 24
+    },
+    "affected_population": 8400000,
+    "travel_ban": {
+      "implemented": true,
+      "start_time": "2016-01-23T14:30:00Z",
+      "end_time": "2016-01-24T07:00:00Z",
+      "compliance_rate": "95%"
+    },
+    "response_timeline": {
+      "preparation_hours": 36,
+      "pre_deployment": "2016-01-22T18:00:00Z",
+      "storm_start": "2016-01-23T06:00:00Z",
+      "peak_intensity": "2016-01-23T18:00:00Z",
+      "cleanup_complete": "2016-01-26T12:00:00Z"
+    },
+    "resources_deployed": {
+      "sanitation_workers": 2500,
+      "snow_plows": 1200,
+      "warming_centers": 30,
+      "salt_spreaders": 500,
+      "tow_trucks": 150
+    },
+    "agencies_involved": [
+      "Department of Sanitation",
+      "NYPD",
+      "FDNY",
+      "NYC Emergency Management",
+      "MTA",
+      "Department of Transportation"
+    ],
+    "key_challenges": [
+      "Record snowfall amount in single storm",
+      "Maintaining emergency services during travel ban",
+      "Clearing snow from 6,300+ miles of streets",
+      "Coordinating with ride-sharing services for ban enforcement",
+      "Managing stranded vehicles on highways"
+    ],
+    "lessons_learned": [
+      "Travel ban enforcement highly effective",
+      "GPS tracking of snow plows improved efficiency",
+      "Better communication with ride-sharing companies needed",
+      "Warming centers should be pre-positioned",
+      "Social media crucial for real-time updates"
+    ],
+    "effectiveness_metrics": {
+      "streets_cleared": "Primary routes within 12 hours",
+      "secondary_routes": "Cleared within 36 hours",
+      "emergency_response": "All 911 calls answered within normal parameters",
+      "warming_centers": "2,400 individuals housed",
+      "accidents_prevented": "75% reduction from similar storms without ban"
+    },
+    "estimated_cost": 85000000,
+    "federal_assistance": false,
+    "state_assistance": true
+  },
+  {
+    "incident_id": "covid19_pandemic_2020",
+    "incident_type": "public_health_emergency",
+    "date_occurred": "2020-03-01T00:00:00Z",
+    "location": "All Five Boroughs",
+    "severity_level": 5,
+    "health_metrics": {
+      "initial_cases": 1,
+      "peak_daily_cases": 6000,
+      "total_cases": 1200000,
+      "hospitalizations_peak": 18000,
+      "icu_utilization_peak": "95%"
+    },
+    "affected_population": 8400000,
+    "public_health_measures": {
+      "stay_at_home_order": "2020-03-20T00:00:00Z",
+      "business_closures": "2020-03-16T00:00:00Z",
+      "mask_mandate": "2020-04-17T00:00:00Z",
+      "phase_1_reopening": "2020-06-08T00:00:00Z"
+    },
+    "response_timeline": {
+      "first_case": "2020-03-01T00:00:00Z",
+      "emergency_declaration": "2020-03-12T00:00:00Z",
+      "lockdown_start": "2020-03-20T00:00:00Z",
+      "field_hospitals_operational": "2020-03-30T00:00:00Z",
+      "vaccine_rollout": "2020-12-14T00:00:00Z"
+    },
+    "resources_deployed": {
+      "healthcare_workers": 15000,
+      "field_hospitals": 5,
+      "contact_tracers": 3000,
+      "vaccination_sites": 500,
+      "food_distribution_sites": 400
+    },
+    "agencies_involved": [
+      "NYC Department of Health",
+      "NYC Health + Hospitals",
+      "Office of Emergency Management",
+      "FDNY",
+      "NYPD",
+      "Department of Education",
+      "Human Resources Administration"
+    ],
+    "key_challenges": [
+      "Unprecedented scale of public health emergency",
+      "Supply chain disruptions for PPE and medical supplies",
+      "Economic impact on businesses and residents",
+      "Educational system transition to remote learning",
+      "Mental health impacts of isolation",
+      "Vaccine distribution logistics"
+    ],
+    "lessons_learned": [
+      "Importance of robust public health infrastructure",
+      "Need for flexible supply chain management",
+      "Critical role of clear public communication",
+      "Value of interagency coordination",
+      "Importance of addressing health disparities",
+      "Need for robust remote work capabilities"
+    ],
+    "effectiveness_metrics": {
+      "hospital_capacity": "System never exceeded 100% capacity",
+      "contact_tracing": "70% of cases traced at peak",
+      "vaccination_rate": "85% of adults received first dose",
+      "food_assistance": "1.5M meals distributed weekly",
+      "remote_learning": "1.1M students transitioned successfully"
+    },
+    "estimated_cost": 4000000000,
+    "federal_assistance": true,
+    "state_assistance": true
+  }
+]

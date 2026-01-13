@@ -1,0 +1,100 @@
+{
+  "agency": "DMV",
+  "agency_name": "New York State Department of Motor Vehicles",
+  "website": "https://dmv.ny.gov",
+  "services": [
+    {
+      "service_id": "dmv-license-renewal",
+      "name": "Driver's License Renewal",
+      "description": "Renew your NY driver's license online, by mail, or in person",
+      "eligibility": [
+        "Current NY license holder",
+        "License expires within 1 year",
+        "No outstanding violations or suspensions"
+      ],
+      "required_documents": [
+        "Current driver's license",
+        "Proof of identity (if expired)",
+        "Vision test (may be required)"
+      ],
+      "methods": {
+        "online": {
+          "url": "https://dmv.ny.gov/renew",
+          "requirements": ["NY.gov account", "Credit/debit card"],
+          "processing_time": "7-10 business days"
+        },
+        "in_person": {
+          "locations": "Any DMV office",
+          "requirements": ["Current license", "Payment"],
+          "processing_time": "Same day"
+        },
+        "mail": {
+          "form": "MV-44",
+          "requirements": ["Completed form", "Payment"],
+          "processing_time": "2-3 weeks"
+        }
+      },
+      "fees": {
+        "standard": 64.50,
+        "enhanced": 30.00,
+        "real_id": 0.00
+      }
+    },
+    {
+      "service_id": "dmv-real-id",
+      "name": "REAL ID Application",
+      "description": "Obtain a REAL ID compliant driver's license or ID card",
+      "eligibility": [
+        "US citizen or lawful status",
+        "NY resident"
+      ],
+      "required_documents": [
+        "Proof of identity (passport, birth certificate)",
+        "Proof of Social Security Number",
+        "Two proofs of NY residency"
+      ],
+      "methods": {
+        "in_person": {
+          "locations": "Any DMV office",
+          "requirements": ["Original documents", "Payment"],
+          "processing_time": "7-10 business days"
+        }
+      },
+      "fees": {
+        "license": 64.50,
+        "id_card": 13.00
+      }
+    },
+    {
+      "service_id": "dmv-registration",
+      "name": "Vehicle Registration",
+      "description": "Register or renew vehicle registration",
+      "eligibility": [
+        "Vehicle owner or lessee",
+        "Valid insurance"
+      ],
+      "required_documents": [
+        "Title or lease agreement",
+        "Proof of insurance (NY FS-20)",
+        "Proof of identity"
+      ],
+      "methods": {
+        "online": {
+          "url": "https://dmv.ny.gov/registration",
+          "requirements": ["Current registration", "NY.gov account"],
+          "processing_time": "7-10 business days"
+        },
+        "in_person": {
+          "locations": "Any DMV office",
+          "requirements": ["All documents", "Payment"],
+          "processing_time": "Same day"
+        }
+      }
+    }
+  ],
+  "contact": {
+    "phone": "1-518-486-9786",
+    "hours": "Monday-Friday 8:00 AM - 4:00 PM",
+    "email": "dmvsmalbany@dmv.ny.gov"
+  }
+}

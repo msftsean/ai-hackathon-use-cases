@@ -1,0 +1,54 @@
+{
+  "agency": "DMV",
+  "name": "New York State Department of Motor Vehicles",
+  "website": "https://dmv.ny.gov",
+  "documents": [
+    {
+      "title": "Driver License Renewal Guide",
+      "type": "guide",
+      "url": "https://dmv.ny.gov/driver-license/renew-driver-license",
+      "summary": "Complete guide to renewing your NY driver's license online, by mail, or in person.",
+      "content": "To renew your New York State driver license, you have several options:\n\nONLINE RENEWAL (Recommended):\n1. Visit dmv.ny.gov\n2. Sign in to your MyDMV account\n3. Select 'Renew License'\n4. Verify your information\n5. Pay the $64.50 renewal fee\n6. Your new license will arrive by mail in 2 weeks\n\nIN-PERSON RENEWAL:\n1. Visit any DMV office\n2. Bring your current license\n3. Complete a vision test\n4. Pay the renewal fee\n5. Receive a temporary license immediately\n\nBY MAIL:\n1. Complete form MV-44\n2. Include a check or money order for $64.50\n3. Mail to: NYS DMV, 6 Empire State Plaza, Albany, NY 12228\n\nELIGIBILITY:\n- You can renew up to 1 year before expiration\n- You can renew up to 2 years after expiration without retesting\n- Enhanced licenses require in-person renewal\n\nREQUIRED DOCUMENTS:\n- Current driver license\n- Proof of NY residency (if address changed)\n- Social Security number verification (if not on file)"
+    },
+    {
+      "title": "REAL ID Requirements",
+      "type": "faq",
+      "url": "https://dmv.ny.gov/real-id",
+      "summary": "Information about REAL ID requirements and how to upgrade your license.",
+      "content": "REAL ID OVERVIEW:\nStarting May 7, 2025, you'll need a REAL ID or Enhanced license to board domestic flights and enter federal facilities.\n\nHOW TO GET A REAL ID:\n1. Visit a DMV office in person (required)\n2. Bring proof of:\n   - Identity (birth certificate, passport)\n   - Social Security number\n   - NY residency (2 documents)\n   - Name change documents (if applicable)\n3. Pay the standard license fee\n\nREAL ID vs ENHANCED LICENSE:\n- REAL ID: Domestic flights, federal facilities\n- Enhanced: All REAL ID benefits PLUS Canada/Mexico border crossing\n- Enhanced costs $30 more than standard license\n\nSTANDARD LICENSE STILL VALID FOR:\n- Driving\n- Voting\n- State ID purposes\n- TSA PreCheck (with valid passport)"
+    },
+    {
+      "title": "Vehicle Registration",
+      "type": "guide",
+      "url": "https://dmv.ny.gov/registration/register-vehicle",
+      "summary": "How to register your vehicle in New York State.",
+      "content": "VEHICLE REGISTRATION IN NEW YORK:\n\nNEW VEHICLE REGISTRATION:\n1. Visit a DMV office with:\n   - Title or Manufacturer's Certificate of Origin\n   - Proof of insurance (NY insurance card)\n   - Proof of identity\n   - Payment for fees\n2. Complete form MV-82\n3. Pay registration fee ($26-$140 based on weight)\n4. Receive plates and registration\n\nTRANSFER FROM ANOTHER STATE:\n1. Within 30 days of becoming NY resident\n2. Vehicle must pass NY inspection\n3. Bring out-of-state title and registration\n4. Proof of NY insurance required\n\nRENEWAL:\n- Online at dmv.ny.gov (most vehicles)\n- By mail with renewal notice\n- In person at DMV office\n- Registration valid for 2 years\n\nINSPECTION REQUIREMENTS:\n- Annual safety inspection required\n- Emissions test in designated areas\n- Must be inspected before registration"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Albany DMV",
+      "address": "260 S Pearl St, Albany, NY 12202",
+      "hours": "Monday-Friday 8:30 AM - 4:00 PM",
+      "phone": "(518) 486-9786",
+      "accessibility": true,
+      "services": ["License Renewal", "Registration", "ID Cards", "Titles"]
+    },
+    {
+      "name": "Troy DMV",
+      "address": "125 Adams St, Troy, NY 12180",
+      "hours": "Monday-Friday 9:00 AM - 4:00 PM",
+      "phone": "(518) 270-5340",
+      "accessibility": true,
+      "services": ["License Renewal", "Registration", "ID Cards"]
+    },
+    {
+      "name": "Schenectady County DMV",
+      "address": "1103 State St, Schenectady, NY 12304",
+      "hours": "Monday-Friday 8:30 AM - 4:30 PM",
+      "phone": "(518) 388-4410",
+      "accessibility": true,
+      "services": ["Full Service"]
+    }
+  ]
+}

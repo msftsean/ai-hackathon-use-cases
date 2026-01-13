@@ -1,0 +1,22 @@
+{
+    "folders": [
+        {
+            "name": "Virtual Citizen Agent",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/bin": true,
+            "**/obj": true
+        },
+        "dotnet.defaultSolution": "VirtualCitizenAgent.sln"
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-dotnettools.csharp",
+            "ms-dotnettools.csdevkit",
+            "ms-vscode.vscode-json"
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+# Core Azure AI
+azure-ai-projects>=1.0.0
+azure-ai-evaluation>=1.13.7
+azure-ai-inference>=1.0.0
+azure-identity>=1.19.0
+
+# Microsoft Agent Framework
+semantic-kernel>=1.45.0
+
+# Document processing
+azure-ai-documentintelligence>=1.0.0
+
+# Translation
+azure-ai-translation-text>=1.0.0
+
+# Evaluation tools
+promptfoo>=0.100.0
+
+# Testing
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0.0

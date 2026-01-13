@@ -1,0 +1,80 @@
+{
+  "name": "Legal Compliance Rules for NYC Municipal Policies",
+  "version": "1.0",
+  "category": "legal_compliance",
+  "description": "Comprehensive legal compliance rules covering federal, state, and local requirements",
+  "rules": [
+    {
+      "rule_id": "LEGAL_001",
+      "category": "equal_opportunity",
+      "description": "Policy must include equal opportunity statement",
+      "pattern": "(equal opportunity|non-discrimination|EEO|equal employment opportunity)",
+      "severity": "high",
+      "required": true,
+      "suggestion": "Add equal opportunity statement: 'This organization is an equal opportunity employer and does not discriminate on the basis of race, color, religion, sex, national origin, age, disability, or any other legally protected status.'"
+    },
+    {
+      "rule_id": "LEGAL_002", 
+      "category": "ada_compliance",
+      "description": "ADA compliance statement required for public-facing policies",
+      "pattern": "(ADA|Americans with Disabilities Act|disability accommodation|reasonable accommodation)",
+      "severity": "high",
+      "required": true,
+      "suggestion": "Include ADA compliance statement and procedures for requesting reasonable accommodations."
+    },
+    {
+      "rule_id": "LEGAL_003",
+      "category": "data_protection",
+      "description": "Privacy policy reference required for data collection policies",
+      "pattern": "(privacy policy|data protection|personal information|PII|confidential information)",
+      "severity": "medium",
+      "required": true,
+      "suggestion": "Reference the organization's privacy policy and data handling procedures."
+    },
+    {
+      "rule_id": "LEGAL_004",
+      "category": "anti_harassment",
+      "description": "Anti-harassment policy must be clearly stated",
+      "pattern": "(harassment|sexual harassment|hostile work environment|discrimination)",
+      "severity": "critical",
+      "required": true,
+      "suggestion": "Include comprehensive anti-harassment policy with reporting procedures and consequences."
+    },
+    {
+      "rule_id": "LEGAL_005",
+      "category": "whistleblower_protection",
+      "description": "Whistleblower protection provisions for government policies",
+      "pattern": "(whistleblower|retaliation protection|reporting violations|ethics hotline)",
+      "severity": "high",
+      "required": true,
+      "suggestion": "Include whistleblower protection provisions and anonymous reporting mechanisms."
+    },
+    {
+      "rule_id": "LEGAL_006",
+      "category": "foia_compliance",
+      "description": "Freedom of Information Act compliance for government documents",
+      "pattern": "(FOIA|Freedom of Information|public records|transparency)",
+      "severity": "medium",
+      "required": true,
+      "suggestion": "Include FOIA compliance statement and procedures for public information requests."
+    },
+    {
+      "rule_id": "LEGAL_007",
+      "category": "conflict_of_interest",
+      "description": "Conflict of interest policies must be addressed",
+      "pattern": "(conflict of interest|ethical standards|financial disclosure|nepotism)",
+      "severity": "high",
+      "required": true,
+      "suggestion": "Include conflict of interest provisions and disclosure requirements."
+    },
+    {
+      "rule_id": "LEGAL_008",
+      "category": "safety_compliance",
+      "description": "OSHA safety requirements for workplace policies",
+      "pattern": "(OSHA|workplace safety|occupational health|safety training)",
+      "severity": "high",
+      "required": true,
+      "suggestion": "Include OSHA compliance requirements and workplace safety procedures."
+    }
+  ]
+}

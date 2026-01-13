@@ -1,0 +1,773 @@
+openapi: 3.0.3
+info:
+  title: Policy Compliance Checker API
+  description: AI-powered policy document review and compliance checking API
+  version: 1.0.0
+  contact:
+    name: Hackathon Team
+
+servers:
+  - url: http://localhost:5000/api/v1
+    description: Local development server
+
+paths:
+  /documents:
+    post:
+      summary: Upload policy document
+      operationId: uploadDocument
+      tags:
+        - Documents
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Policy document file (PDF, DOCX, or Markdown)
+      responses:
+        '201':
+          description: Document uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyDocument'
+        '400':
+          description: Invalid file format or size exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      summary: List uploaded documents
+      operationId: listDocuments
+      tags:
+        - Documents
+      parameters:
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/AnalysisStatus'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of documents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PolicyDocument'
+                  total:
+                    type: integer
+
+  /documents/{document_id}:
+    get:
+      summary: Get document by ID
+      operationId: getDocument
+      tags:
+        - Documents
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyDocument'
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Delete document
+      operationId: deleteDocument
+      tags:
+        - Documents
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Document deleted successfully
+        '404':
+          description: Document not found
+
+  /documents/{document_id}/analyze:
+    post:
+      summary: Analyze document for compliance
+      operationId: analyzeDocument
+      tags:
+        - Analysis
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                template_ids:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+                  description: Rule templates to apply (empty = all active rules)
+                include_ai_analysis:
+                  type: boolean
+                  default: true
+                  description: Include AI-powered insights
+      responses:
+        '202':
+          description: Analysis started
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  report_id:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                    example: processing
+        '400':
+          description: Document not ready for analysis
+        '404':
+          description: Document not found
+
+  /reports/{report_id}:
+    get:
+      summary: Get compliance report
+      operationId: getReport
+      tags:
+        - Reports
+      parameters:
+        - name: report_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Compliance report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceReport'
+        '404':
+          description: Report not found
+
+  /reports/{report_id}/export:
+    get:
+      summary: Export report in specified format
+      operationId: exportReport
+      tags:
+        - Reports
+      parameters:
+        - name: report_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [json, html]
+            default: json
+      responses:
+        '200':
+          description: Exported report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceReport'
+            text/html:
+              schema:
+                type: string
+        '404':
+          description: Report not found
+
+  /rules:
+    get:
+      summary: List compliance rules
+      operationId: listRules
+      tags:
+        - Rules
+      parameters:
+        - name: category
+          in: query
+          schema:
+            $ref: '#/components/schemas/RuleCategory'
+        - name: severity
+          in: query
+          schema:
+            $ref: '#/components/schemas/Severity'
+        - name: is_active
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: List of rules
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rules:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ComplianceRule'
+                  total:
+                    type: integer
+
+    post:
+      summary: Create custom compliance rule
+      operationId: createRule
+      tags:
+        - Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRuleRequest'
+      responses:
+        '201':
+          description: Rule created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceRule'
+        '400':
+          description: Invalid rule definition (e.g., invalid regex)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /rules/{rule_id}:
+    get:
+      summary: Get rule by ID
+      operationId: getRule
+      tags:
+        - Rules
+      parameters:
+        - name: rule_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Rule details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceRule'
+        '404':
+          description: Rule not found
+
+    put:
+      summary: Update compliance rule
+      operationId: updateRule
+      tags:
+        - Rules
+      parameters:
+        - name: rule_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRuleRequest'
+      responses:
+        '200':
+          description: Rule updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceRule'
+        '404':
+          description: Rule not found
+
+    delete:
+      summary: Delete custom rule
+      operationId: deleteRule
+      tags:
+        - Rules
+      parameters:
+        - name: rule_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Rule deleted
+        '400':
+          description: Cannot delete built-in rule
+        '404':
+          description: Rule not found
+
+  /templates:
+    get:
+      summary: List rule templates
+      operationId: listTemplates
+      tags:
+        - Templates
+      parameters:
+        - name: category
+          in: query
+          schema:
+            $ref: '#/components/schemas/RuleCategory'
+        - name: is_builtin
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: List of templates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RuleTemplate'
+
+  /templates/{template_id}:
+    get:
+      summary: Get template with rules
+      operationId: getTemplate
+      tags:
+        - Templates
+      parameters:
+        - name: template_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Template with rules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleTemplate'
+        '404':
+          description: Template not found
+
+  /compare:
+    post:
+      summary: Compare two policy documents
+      operationId: compareDocuments
+      tags:
+        - Comparison
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - document_a_id
+                - document_b_id
+              properties:
+                document_a_id:
+                  type: string
+                  format: uuid
+                  description: First document (baseline)
+                document_b_id:
+                  type: string
+                  format: uuid
+                  description: Second document (updated)
+      responses:
+        '200':
+          description: Comparison result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparisonResult'
+        '404':
+          description: One or both documents not found
+
+  /health:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      tags:
+        - System
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: healthy
+                  ai_available:
+                    type: boolean
+                  version:
+                    type: string
+
+components:
+  schemas:
+    Severity:
+      type: string
+      enum: [CRITICAL, HIGH, MEDIUM, LOW]
+
+    RuleCategory:
+      type: string
+      enum: [DATA_PROTECTION, HR_POLICY, IT_SECURITY, LEGAL_COMPLIANCE, ACCESSIBILITY, CUSTOM]
+
+    DocumentFormat:
+      type: string
+      enum: [PDF, DOCX, MARKDOWN, TEXT]
+
+    AnalysisStatus:
+      type: string
+      enum: [PENDING, PROCESSING, COMPLETED, FAILED]
+
+    PolicyDocument:
+      type: object
+      required:
+        - document_id
+        - filename
+        - format
+        - status
+      properties:
+        document_id:
+          type: string
+          format: uuid
+        filename:
+          type: string
+        format:
+          $ref: '#/components/schemas/DocumentFormat'
+        file_size_bytes:
+          type: integer
+        page_count:
+          type: integer
+        status:
+          $ref: '#/components/schemas/AnalysisStatus'
+        upload_timestamp:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+
+    DocumentSection:
+      type: object
+      properties:
+        section_id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        level:
+          type: integer
+          minimum: 1
+          maximum: 6
+        start_position:
+          type: integer
+        end_position:
+          type: integer
+
+    ComplianceRule:
+      type: object
+      required:
+        - rule_id
+        - name
+        - pattern
+        - severity
+        - category
+      properties:
+        rule_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 3
+          maxLength: 100
+        description:
+          type: string
+        pattern:
+          type: string
+          description: Regex pattern
+        severity:
+          $ref: '#/components/schemas/Severity'
+        category:
+          $ref: '#/components/schemas/RuleCategory'
+        recommendation_template:
+          type: string
+        is_active:
+          type: boolean
+          default: true
+        is_builtin:
+          type: boolean
+          default: false
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CreateRuleRequest:
+      type: object
+      required:
+        - name
+        - description
+        - pattern
+        - severity
+        - category
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 100
+        description:
+          type: string
+        pattern:
+          type: string
+        severity:
+          $ref: '#/components/schemas/Severity'
+        category:
+          $ref: '#/components/schemas/RuleCategory'
+        recommendation_template:
+          type: string
+
+    UpdateRuleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        pattern:
+          type: string
+        severity:
+          $ref: '#/components/schemas/Severity'
+        is_active:
+          type: boolean
+
+    ComplianceViolation:
+      type: object
+      properties:
+        violation_id:
+          type: string
+          format: uuid
+        rule:
+          $ref: '#/components/schemas/ComplianceRule'
+        location_start:
+          type: integer
+        location_end:
+          type: integer
+        matched_text:
+          type: string
+        context:
+          type: string
+          description: Surrounding text for context
+        section:
+          $ref: '#/components/schemas/DocumentSection'
+        recommendation:
+          type: string
+        detected_at:
+          type: string
+          format: date-time
+
+    ReportSummary:
+      type: object
+      properties:
+        total_rules_checked:
+          type: integer
+        total_violations:
+          type: integer
+        critical_count:
+          type: integer
+        high_count:
+          type: integer
+        medium_count:
+          type: integer
+        low_count:
+          type: integer
+        categories_affected:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleCategory'
+        pass_rate:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+
+    ComplianceReport:
+      type: object
+      properties:
+        report_id:
+          type: string
+          format: uuid
+        document:
+          $ref: '#/components/schemas/PolicyDocument'
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceViolation'
+        rules_applied:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceRule'
+        compliance_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+        summary:
+          $ref: '#/components/schemas/ReportSummary'
+        ai_insights:
+          type: array
+          items:
+            type: string
+        generated_at:
+          type: string
+          format: date-time
+        analysis_duration_ms:
+          type: integer
+
+    RuleTemplate:
+      type: object
+      properties:
+        template_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          $ref: '#/components/schemas/RuleCategory'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceRule'
+        rule_count:
+          type: integer
+        version:
+          type: string
+        is_builtin:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+
+    TextChange:
+      type: object
+      properties:
+        change_type:
+          type: string
+          enum: [addition, removal, modification]
+        section:
+          $ref: '#/components/schemas/DocumentSection'
+        old_text:
+          type: string
+        new_text:
+          type: string
+        position:
+          type: integer
+
+    ComparisonResult:
+      type: object
+      properties:
+        comparison_id:
+          type: string
+          format: uuid
+        document_a:
+          $ref: '#/components/schemas/PolicyDocument'
+        document_b:
+          $ref: '#/components/schemas/PolicyDocument'
+        additions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextChange'
+        removals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextChange'
+        modifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextChange'
+        compliance_impact:
+          type: array
+          items:
+            type: string
+        compared_at:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object

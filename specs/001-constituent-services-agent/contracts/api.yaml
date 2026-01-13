@@ -1,0 +1,420 @@
+openapi: 3.1.0
+info:
+  title: Constituent Services Agent API
+  description: |
+    AI-powered conversational agent for NY State constituent services.
+    Provides accurate, citation-backed answers about government services
+    with multi-language support.
+  version: 1.0.0
+  contact:
+    name: NY State AI Hackathon
+    url: https://github.com/msftsean/ai-hackathon-use-cases
+
+servers:
+  - url: http://localhost:5000/api/v1
+    description: Local development
+  - url: https://{environment}.azurewebsites.net/api/v1
+    description: Azure deployment
+    variables:
+      environment:
+        default: nys-constituent-agent-dev
+        enum:
+          - nys-constituent-agent-dev
+          - nys-constituent-agent-staging
+          - nys-constituent-agent-prod
+
+tags:
+  - name: Chat
+    description: Conversational interactions
+  - name: Conversations
+    description: Conversation management
+  - name: Feedback
+    description: User feedback collection
+  - name: Health
+    description: Service health checks
+
+paths:
+  /chat:
+    post:
+      tags:
+        - Chat
+      summary: Send a message to the agent
+      description: |
+        Submit a user query and receive an AI-generated response with citations.
+        Language is auto-detected and responses are translated accordingly.
+      operationId: sendMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+            examples:
+              english:
+                summary: English query
+                value:
+                  session_id: "abc123"
+                  message: "How do I apply for SNAP benefits?"
+              spanish:
+                summary: Spanish query
+                value:
+                  session_id: "abc123"
+                  message: "¿Cómo puedo solicitar beneficios de SNAP?"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /conversations/{session_id}:
+    get:
+      tags:
+        - Conversations
+      summary: Get conversation history
+      description: Retrieve all messages in a conversation session
+      operationId: getConversation
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Session identifier
+      responses:
+        '200':
+          description: Conversation history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags:
+        - Conversations
+      summary: End conversation
+      description: Mark conversation as completed and clear session
+      operationId: endConversation
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Conversation ended successfully
+        '404':
+          description: Conversation not found
+
+  /conversations/{session_id}/escalate:
+    post:
+      tags:
+        - Conversations
+      summary: Escalate to human agent
+      description: Request transfer to human support agent
+      operationId: escalateConversation
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Reason for escalation
+                  maxLength: 500
+      responses:
+        '200':
+          description: Escalation initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  escalation_id:
+                    type: string
+                  estimated_wait_time:
+                    type: integer
+                    description: Estimated wait time in minutes
+                  queue_position:
+                    type: integer
+        '404':
+          description: Conversation not found
+
+  /feedback:
+    post:
+      tags:
+        - Feedback
+      summary: Submit feedback
+      description: Submit user feedback on a specific response
+      operationId: submitFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackRequest'
+      responses:
+        '201':
+          description: Feedback submitted
+        '400':
+          description: Invalid request
+
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check
+      description: Check service health and dependencies
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /health/ready:
+    get:
+      tags:
+        - Health
+      summary: Readiness check
+      description: Check if service is ready to handle requests
+      operationId: readinessCheck
+      responses:
+        '200':
+          description: Service ready
+        '503':
+          description: Service not ready
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - message
+      properties:
+        session_id:
+          type: string
+          description: Session identifier (generated if not provided)
+          example: "abc123def456"
+        message:
+          type: string
+          description: User message text
+          maxLength: 10000
+          example: "How do I apply for SNAP benefits?"
+        language:
+          type: string
+          description: Override auto-detection with specific language
+          enum: [en, es, zh, ar, ru, ko, ht, bn]
+
+    ChatResponse:
+      type: object
+      properties:
+        session_id:
+          type: string
+        message_id:
+          type: string
+          format: uuid
+        response:
+          type: string
+          description: Agent response text
+        original_response:
+          type: string
+          description: Response before translation (if translated)
+        language:
+          type: string
+          description: Response language code
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Agent confidence score
+        citations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Citation'
+        suggested_actions:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum: [link, escalate, follow_up]
+              label:
+                type: string
+              value:
+                type: string
+        disclaimer:
+          type: string
+          description: Shown for low-confidence or eligibility responses
+
+    Citation:
+      type: object
+      properties:
+        source_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        agency:
+          type: string
+          enum: [DMV, DOL, OTDA, DOH, OGS]
+        url:
+          type: string
+          format: uri
+        quote:
+          type: string
+          description: Relevant excerpt from source
+        relevance:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+
+    Conversation:
+      type: object
+      properties:
+        session_id:
+          type: string
+        status:
+          type: string
+          enum: [active, completed, escalated, expired]
+        language:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        role:
+          type: string
+          enum: [user, assistant, system]
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        confidence:
+          type: number
+          format: float
+        citations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Citation'
+
+    FeedbackRequest:
+      type: object
+      required:
+        - message_id
+        - rating
+      properties:
+        message_id:
+          type: string
+          format: uuid
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        helpful:
+          type: boolean
+        comment:
+          type: string
+          maxLength: 1000
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        version:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        dependencies:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              status:
+                type: string
+                enum: [up, down, degraded]
+              latency_ms:
+                type: integer
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Entra ID JWT token for staff access
+
+security: []  # Public API for constituent access

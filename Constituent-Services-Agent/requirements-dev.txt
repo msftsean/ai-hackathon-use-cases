@@ -1,0 +1,20 @@
+# Development dependencies
+# Install with: pip install -r requirements-dev.txt
+
+-r requirements.txt
+
+# Testing
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+pytest-cov>=4.1.0
+
+# Linting and Formatting
+ruff>=0.4.0
+black>=24.0.0
+mypy>=1.8.0
+
+# Type stubs
+types-requests>=2.31.0
+
+# Evaluation
+promptfoo>=0.50.0
