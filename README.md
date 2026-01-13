@@ -495,6 +495,43 @@ python -m shared.evaluation.eval_config
 
 ---
 
+## 🤝 Collaboration & Access
+
+### Getting Access to This Repository
+
+**For Microsoft Enterprise Users**: If you have a Microsoft enterprise account and are having trouble accessing this repository, please see our detailed [Collaboration Guide](./COLLABORATION.md) for step-by-step instructions.
+
+**Quick Access Steps**:
+1. Ensure your GitHub account has 2FA enabled
+2. Link your Microsoft enterprise email to your GitHub account
+3. Request access from the repository owner (@msftsean)
+4. For detailed instructions, see [COLLABORATION.md](./COLLABORATION.md)
+
+### Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](./CONTRIBUTING.md) for:
+- Code standards and best practices
+- Pull request process
+- Testing requirements
+- Security considerations
+
+**Quick Start for Contributors**:
+```bash
+# Fork and clone the repository
+git clone https://github.com/msftsean/ai-hackathon-use-cases.git
+
+# Create a feature branch
+git checkout -b feature/your-feature-name
+
+# Make changes and run tests
+pytest tests/ -v  # Python projects
+dotnet test       # .NET project
+
+# Submit a pull request
+```
+
+---
+
 ## 👥 Team
 
 **NY State AI Hackathon - January 2026**
@@ -506,6 +543,8 @@ Built for NY State government agencies to demonstrate how AI can improve constit
 ## 📚 Additional Resources
 
 - 🚀 [Quick Start Guide](./docs/QUICKSTART.md)
+- 🤝 [Collaboration Guide](./COLLABORATION.md) - **For Microsoft enterprise users**
+- 📝 [Contributing Guidelines](./CONTRIBUTING.md)
 - 📋 [Feature Specifications](./specs/)
 - 🧪 [Evaluation Framework](./evaluation/)
 - 📖 [Evaluation Guide](./docs/EVAL_GUIDE.md)
