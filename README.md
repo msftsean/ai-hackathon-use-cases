@@ -1,7 +1,7 @@
 # 🏛️ NY State AI Hackathon - AI Accelerators for Government Services
 
-[![Accelerators](https://img.shields.io/badge/Accelerators-6-blue.svg)](#-the-6-ai-accelerators)
-[![Tests](https://img.shields.io/badge/Tests-265%20Passing-brightgreen.svg)](#-testing--evaluation)
+[![Accelerators](https://img.shields.io/badge/Accelerators-7-blue.svg)](#-the-7-ai-accelerators)
+[![Tests](https://img.shields.io/badge/Tests-267%20Passing-brightgreen.svg)](#-testing--evaluation)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://python.org)
 [![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4.svg)](https://dotnet.microsoft.com)
 [![Semantic Kernel](https://img.shields.io/badge/Semantic%20Kernel-1.37%2B-orange.svg)](https://docs.microsoft.com/semantic-kernel)
@@ -27,7 +27,7 @@ Think of accelerators as **fully-functional blueprints** - they work out of the 
 
 ### This Repository
 
-This repository contains **6 AI accelerators** designed to transform how NY State government agencies serve constituents. Each accelerator is a complete application built with Microsoft Azure AI services and the Semantic Kernel framework, demonstrating practical AI solutions for:
+This repository contains **7 AI accelerators** designed to transform how NY State government agencies serve constituents. Each accelerator is a complete application built with Microsoft Azure AI services and the Semantic Kernel framework, demonstrating practical AI solutions for:
 
 | Challenge | Accelerator Solution |
 |-----------|---------------------|
@@ -36,7 +36,8 @@ This repository contains **6 AI accelerators** designed to transform how NY Stat
 | 🚨 Emergency coordination gaps | Multi-agent planning system |
 | 📋 Policy compliance burden | Automated document review |
 | 🔍 Siloed agency knowledge | Cross-agency secure search |
-| 🏙️ NYC citizen services | RAG-powered .NET chatbot |
+| 🏙️ NYC citizen services (.NET) | RAG-powered .NET chatbot |
+| 🤖 NYC citizen services (Python) | RAG-powered Python chatbot |
 
 All accelerators comply with NY State's **LOADinG Act** and **RAISE Act** requirements for transparent, accountable AI in government.
 
@@ -46,7 +47,8 @@ All accelerators comply with NY State's **LOADinG Act** and **RAISE Act** requir
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| **2.1.0** | Jan 12, 2026 | Added .NET Virtual Citizen Assistant, 265 tests | ✅ Current |
+| **2.2.0** | Jan 13, 2026 | Added Python Virtual Citizen Assistant, 267 tests | ✅ Current |
+| 2.1.0 | Jan 12, 2026 | Added .NET Virtual Citizen Assistant, 265 tests | ✅ Stable |
 | 2.0.0 | Jan 12, 2026 | Production release with 5 accelerators | ✅ Stable |
 | 1.5.0 | Jan 10, 2026 | Added Inter-Agency Knowledge Hub accelerator | ✅ Stable |
 | 1.4.0 | Jan 9, 2026 | Added Policy Compliance Checker accelerator | ✅ Stable |
@@ -57,7 +59,7 @@ All accelerators comply with NY State's **LOADinG Act** and **RAISE Act** requir
 
 ---
 
-## 🚀 The 6 AI Accelerators
+## 🚀 The 7 AI Accelerators
 
 ### 1️⃣ Constituent Services Agent
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./Constituent-Services-Agent/)
@@ -258,6 +260,45 @@ dotnet run --project VirtualCitizenAgent
 
 ---
 
+### 7️⃣ Virtual Citizen Assistant (Python)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](./Virtual-Citizen-Assistant/)
+[![Tests](https://img.shields.io/badge/Tests-2%20Passing-brightgreen.svg)](./Virtual-Citizen-Assistant/)
+[![RAG](https://img.shields.io/badge/Pattern-RAG-purple.svg)](./Virtual-Citizen-Assistant/)
+
+**🎯 Purpose**: RAG-powered AI assistant for city government services built with Python
+
+**✨ Key Features**:
+- 💬 Natural language Q&A about city services (trash pickup, permits, emergency alerts)
+- 🔍 Vector search + keyword search + hybrid search modes
+- 🔌 Plugin architecture with Semantic Kernel 1.37
+- 📅 Appointment scheduling with mock service
+- 📚 Citation-backed responses with source documents
+- 🧪 Built-in test framework for validation
+
+**🛠️ Tech Stack**: Semantic Kernel 1.37 + Azure AI Search + Azure OpenAI + Flask
+
+**▶️ Demo Command**:
+```bash
+cd Virtual-Citizen-Assistant
+pip install -r requirements.txt
+python test_setup.py      # Validate setup
+python test_plugins.py    # Test plugins
+python src/main.py        # Run interactive assistant
+```
+
+**💡 Sample Queries**:
+- "When is my next trash pickup?"
+- "How do I apply for a business permit?"
+- "Are there any current emergency alerts in my area?"
+
+**🔌 Available Plugins**:
+| Plugin | Functions | Purpose |
+|--------|-----------|---------|
+| DocumentRetrieval | search_city_services, get_service_by_category | Search city service information |
+| Scheduling | check_availability, scheduling_info, list_schedulable_services | Appointment management |
+
+---
+
 ## 🏗️ Technical Architecture
 
 ```
@@ -363,6 +404,16 @@ newyork/
 │   ├── VirtualCitizenAgent.Tests/     # xUnit tests
 │   └── AzureSearchUploader/           # Data upload utility
 │
+├── 📂 Virtual-Citizen-Assistant/        # 🤖 NYC Python chatbot
+│   ├── src/
+│   │   ├── config/                    # Configuration settings
+│   │   ├── models/                    # Data models
+│   │   ├── plugins/                   # Semantic Kernel plugins
+│   │   └── main.py                    # Main application
+│   ├── test_setup.py                  # Setup validation
+│   ├── test_plugins.py                # Plugin tests
+│   └── requirements.txt
+│
 ├── 📂 docs/                             # 📖 Documentation
 │   ├── QUICKSTART.md                    # Quick start guide
 │   ├── EVAL_GUIDE.md                    # Evaluation guide
@@ -440,7 +491,8 @@ python -m src.main
 | Policy Compliance Checker | 14 | ✅ All Passing |
 | Inter-Agency Knowledge Hub | 38 | ✅ All Passing |
 | Virtual Citizen Assistant (.NET) | 22 | ✅ All Passing |
-| **Total** | **265** | ✅ **Production Ready** |
+| Virtual Citizen Assistant (Python) | 2 | ✅ All Passing |
+| **Total** | **267** | ✅ **Production Ready** |
 
 ### 🤖 AI Evaluation Framework
 - **Quality Evaluators**: Groundedness, Relevance, Coherence, Fluency
