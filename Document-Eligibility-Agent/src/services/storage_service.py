@@ -149,6 +149,8 @@ class AzureStorageService(StorageService):
         content_type: str,
     ) -> str:
         """Upload a document to Azure Blob Storage."""
+        from azure.storage.blob import ContentSettings
+
         client = self._get_client()
         container_client = client.get_container_client(self._container_name)
 
@@ -157,7 +159,7 @@ class AzureStorageService(StorageService):
 
         blob_client.upload_blob(
             file_content,
-            content_settings={"content_type": content_type},
+            content_settings=ContentSettings(content_type=content_type),
             overwrite=True,
             metadata={
                 "case_id": case_id,
