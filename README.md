@@ -1,14 +1,10 @@
-# 🏛️ NY State AI Hackathon - AI Accelerators for Government Services
+# 🏛️AI Hackathon Accelerators for Government Services
 
 [![Accelerators](https://img.shields.io/badge/Accelerators-7-blue.svg)](#-the-7-ai-accelerators)
 [![Tests](https://img.shields.io/badge/Tests-267%20Passing-brightgreen.svg)](#-testing--evaluation)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](https://python.org)
 [![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4.svg)](https://dotnet.microsoft.com)
 [![Semantic Kernel](https://img.shields.io/badge/Semantic%20Kernel-1.37%2B-orange.svg)](https://docs.microsoft.com/semantic-kernel)
-
-**Hackathon**: NY State AI Hackathon for Public Sector
-**Event Date**: January 13-14, 2026
-**Location**: SUNY ETEC Albany
 
 ---
 
@@ -582,13 +578,6 @@ dotnet test       # .NET project
 # Submit a pull request
 ```
 
----
-
-## 👥 Team
-
-**NY State AI Hackathon - January 2026**
-
-Built for NY State government agencies to demonstrate how AI can improve constituent services while maintaining transparency, accountability, and security.
 
 ---
 
